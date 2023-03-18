@@ -21,9 +21,9 @@
  *  THE SOFTWARE.
  */
 
-namespace BaksDev\Products\Product\Controller\Admin;
+declare(strict_types=1);
 
-
+namespace BaksDev\Reference\Cars;
 
 use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Form\Search\SearchDTO;

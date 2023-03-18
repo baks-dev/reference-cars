@@ -17,12 +17,12 @@ return static function(ContainerConfigurator $configurator){
 		->tag('controller.service_arguments')
 	;
 	
-	$services->load($namespace.'\Repository\\', '../../Repository');
+	//$services->load($namespace.'\Repository\\', '../../Repository');
 	
 	//    $services->load('App\Module\Users\Profile\TypeProfile\Handler\\', '../../Handler')
 	//      ->exclude('../../Handler/**/*DTO.php');
 	
-	$services->load($namespace.'\DataFixtures\\', '../../DataFixtures');
+	//$services->load($namespace.'\DataFixtures\\', '../../DataFixtures');
 	
 	$services->load($namespace.'\UseCase\\', '../../UseCase')
 		->exclude('../../UseCase/**/*DTO.php')
