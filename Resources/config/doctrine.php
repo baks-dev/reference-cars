@@ -2,7 +2,6 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
-
 use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventType;
 use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandType;
@@ -26,30 +25,30 @@ use BaksDev\Reference\Cars\Type\Modification\Tires\CarsModificationTiresType;
 use BaksDev\Reference\Cars\Type\Modification\Tires\CarsModificationTiresUid;
 use Symfony\Config\DoctrineConfig;
 
-return static function (ContainerConfigurator $container, DoctrineConfig $doctrine)
-{
+return static function(ContainerConfigurator $container, DoctrineConfig $doctrine) {
 	
-    $doctrine->dbal()->type(CarsBrandUid::TYPE)->class(CarsBrandType::class);
-    $doctrine->dbal()->type(CarsBrandEventUid::TYPE)->class(CarsBrandEventType::class);
+	$doctrine->dbal()->type(CarsBrandUid::TYPE)->class(CarsBrandType::class);
+	$doctrine->dbal()->type(CarsBrandEventUid::TYPE)->class(CarsBrandEventType::class);
 	
-    $doctrine->dbal()->type(CarsModelUid::TYPE)->class(CarsModelType::class);
-    $doctrine->dbal()->type(CarsModelEventUid::TYPE)->class(CarsModelEventType::class);
-    $doctrine->dbal()->type(CarsModelClassEnum::TYPE)->class(CarsModelClassType::class);
+	$doctrine->dbal()->type(CarsModelUid::TYPE)->class(CarsModelType::class);
+	$doctrine->dbal()->type(CarsModelEventUid::TYPE)->class(CarsModelEventType::class);
+	$doctrine->dbal()->type(CarsModelClassEnum::TYPE)->class(CarsModelClassType::class);
 	
-    $doctrine->dbal()->type(CarsModificationUid::TYPE)->class(CarsModificationType::class);
-    $doctrine->dbal()->type(CarsModificationEventUid::TYPE)->class(CarsModificationEventType::class);
-    $doctrine->dbal()->type(CarsModificationCharacteristicsUid::TYPE)->class(CarsModificationCharacteristicsType::class);
-    $doctrine->dbal()->type(CarsModificationDiscUid::TYPE)->class(CarsModificationDiscType::class);
-    $doctrine->dbal()->type(CarsModificationTiresUid::TYPE)->class(CarsModificationTiresType::class);
+	$doctrine->dbal()->type(CarsModificationUid::TYPE)->class(CarsModificationType::class);
+	$doctrine->dbal()->type(CarsModificationEventUid::TYPE)->class(CarsModificationEventType::class);
+	$doctrine->dbal()->type(CarsModificationCharacteristicsUid::TYPE)->class(CarsModificationCharacteristicsType::class
+	);
+	$doctrine->dbal()->type(CarsModificationDiscUid::TYPE)->class(CarsModificationDiscType::class);
+	$doctrine->dbal()->type(CarsModificationTiresUid::TYPE)->class(CarsModificationTiresType::class);
 	
+	$emDefault = $doctrine->orm()->entityManager('default');
 	
-    $emDefault = $doctrine->orm()->entityManager('default');
-    
-    $emDefault->autoMapping(true);
-    $emDefault->mapping('Cars')
-      ->type('attribute')
-      ->dir('%kernel.project_dir%/src/Module/Products/Cars/Entity')
-      ->isBundle(false)
-      ->prefix('BaksDev\Reference\Cars\Entity')
-      ->alias('Cars');
+	$emDefault->autoMapping(true);
+	$emDefault->mapping('Cars')
+		->type('attribute')
+		->dir(__DIR__.'/../../Entity')
+		->isBundle(false)
+		->prefix('BaksDev\Reference\Cars\Entity')
+		->alias('Cars')
+	;
 };
