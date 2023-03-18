@@ -23,7 +23,7 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Reference\Cars;
+namespace BaksDev\Reference\Cars\Controller\Admin;
 
 use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Form\Search\SearchDTO;

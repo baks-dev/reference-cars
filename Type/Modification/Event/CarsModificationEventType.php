@@ -18,7 +18,7 @@
 namespace BaksDev\Reference\Cars\Type\Modification\Event;
 
 
-use App\System\Type\UidType\UidType;
+use BaksDev\Core\Type\UidType\UidType;
 
 final class CarsModificationEventType extends UidType
 {

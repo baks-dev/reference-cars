@@ -18,68 +18,11 @@
 
 namespace BaksDev\Reference\Cars\Type\Brand\Id;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
-use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-use Symfony\Component\Uid\AbstractUid;
-use Symfony\Component\Uid\Uuid;
-use Symfony\Component\Uid\UuidV7;
+use BaksDev\Core\Type\UidType\Uid;
 
-final class CarsBrandUid //implements ValueResolverInterface
+final class CarsBrandUid extends Uid
 {
     public const TYPE = 'cars_brand_id';
 	
-	private Uuid $value;
 	
-	private ?string $option;
-	
-	public function __construct(AbstractUid|string|null $value = null, string $option = null)
-	{
-		if($value === null)
-		{
-			$value = Uuid::v7();
-		}
-		
-		else if(is_string($value))
-		{
-			$value = new UuidV7($value);
-		}
-		
-		$this->value = $value;
-		$this->option = $option;
-	}
-	
-	public function __toString() : string
-	{
-		return $this->value;
-	}
-	
-	public function getValue() : AbstractUid
-	{
-		return $this->value;
-	}
-	
-	public function getOption() : ?string
-	{
-		return $this->option;
-	}
-	
-	public function equals(AbstractUid $uid) : bool
-	{
-		return (string) $this->value === (string) $uid;
-	}
-	
-	public function resolve(Request $request, ArgumentMetadata $argument) : iterable
-	{
-		$argumentType = $argument->getType();
-		
-		if($argumentType !== self::class)
-		{
-			return [];
-		}
-		
-		$value = $request->attributes->get($argument->getName()) ?: $request->attributes->get('id') ?: $request->get('id');
-		
-		return [new self($value)];
-	}
 }

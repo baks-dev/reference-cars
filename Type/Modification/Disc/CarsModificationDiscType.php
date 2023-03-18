@@ -18,7 +18,7 @@
 namespace BaksDev\Reference\Cars\Type\Modification\Disc;
 
 
-use App\System\Type\UidType\UidType;
+use BaksDev\Core\Type\UidType\UidType;
 
 final class CarsModificationDiscType extends UidType
 {

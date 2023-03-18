@@ -18,7 +18,7 @@
 namespace BaksDev\Reference\Cars\Type\Model\Id;
 
 
-use App\System\Type\UidType\UidType;
+use BaksDev\Core\Type\UidType\UidType;
 
 final class CarsModelType extends UidType
 {
