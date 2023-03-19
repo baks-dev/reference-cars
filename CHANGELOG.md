@@ -2,6 +2,6 @@
 
 Все заметные изменения в модуле будут задокументированы в этом файле.
 
-## 18.03.2023 ![Version](https://img.shields.io/badge/version-v6.2.0-blue)
+## 19.03.2023 ![Version](https://img.shields.io/badge/version-v6.2.0-blue)
 
 Новая версия
