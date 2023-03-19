@@ -1,4 +1,5 @@
 /.idea
 /vendor
+/Command
 composer.lock
 composer.phar

@@ -84,14 +84,16 @@ class CarsBrandLogo extends EntityEvent implements UploadEntityInterface
 
     public function setEntity($dto) : mixed
     {
-        /* Если размер файла нулевой - не заполняем сущность */
-        if(
-          (empty($dto->file) && empty($dto->getName())) ||
-          (!empty($dto->file) && empty($dto->getName()))
-        )
-        {
-            return false;
-        }
+		/* Если размер файла нулевой - не заполняем сущность */
+		if(empty($dto->file) && empty($dto->getName()))
+		{
+			return false;
+		}
+	
+		if(!empty($dto->file))
+		{
+			$dto->setEntityUpload($this);
+		}
 
         if($dto instanceof CarsBrandLogoInterface)
         {

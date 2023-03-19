@@ -64,7 +64,6 @@ final class CarsBrandHandler
 	
 	public function handle(
 		Brand\Event\CarsBrandEventInterface $command,
-		//?UploadedFile $cover = null
 	) : string|Brand\CarsBrand
 	{
 		/* Валидация */
@@ -136,6 +135,7 @@ final class CarsBrandHandler
 		{
 			
 			$CarsBrand = new Brand\CarsBrand();
+			$CarsBrand->setEvent($Event);
 			$this->entityManager->persist($CarsBrand);
 			$Event->setBrand($CarsBrand);
 		}
@@ -145,22 +145,20 @@ final class CarsBrandHandler
 		
 		$this->entityManager->persist($Event);
 		
-		/* Загружаем файл аватарки профиля */
+		
+		/** Загружаем файл обложки */
 		/** @var Logo\CarsBrandLogoDTO $Logo */
 		$Logo = $command->getLogo();
+		
 		if($Logo->file !== null)
 		{
-			$CarsBrandLogo = $Event->getUploadLogo();
-			$this->imageUpload->upload('cars_brand_dir', $Logo->file, $CarsBrandLogo);
+			$CarsBrandLogo = $Logo->getEntityUpload();
+			$this->imageUpload->upload($Logo->file, $CarsBrandLogo);
 		}
-		
-		
 		
 		/* присваиваем событие корню */
 		$CarsBrand->setEvent($Event);
 		$this->entityManager->flush();
-		
-		
 		
 		return $CarsBrand;
 	}

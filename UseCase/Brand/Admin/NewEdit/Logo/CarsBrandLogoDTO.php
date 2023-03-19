@@ -20,61 +20,79 @@ namespace BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Logo;
 
 use BaksDev\Reference\Cars\Entity\Brand\Logo\CarsBrandLogoInterface;
 use App\Module\Users\Profile\UserProfile\Type\Event\UserProfileEventUid;
+use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final class CarsBrandLogoDTO implements CarsBrandLogoInterface
 {
-    /** Логотип */
-    #[Assert\File(
-      maxSize         : '1024k',
-      mimeTypes       : [
-        'image/png',
-        'image/gif',
-        'image/jpeg',
-        'image/pjpeg',
-        'image/webp',
-      ],
-      mimeTypesMessage: 'Please upload a valid file'
-    )]
-    public ?File $file = null;
-    
-    
-    private ?string $name = null;
-    
-    private ?string $ext = null;
-    
-    private bool $cdn = false;
+	/** Логотип */
+	#[Assert\File(
+		maxSize: '1024k',
+		mimeTypes: [
+			'image/png',
+			'image/gif',
+			'image/jpeg',
+			'image/pjpeg',
+			'image/webp',
+		],
+		mimeTypesMessage: 'Please upload a valid file'
+	)]
+	public ?File $file = null;
+	
+	private ?string $name = null;
+	
+	private ?string $ext = null;
+	
+	private bool $cdn = false;
 	
 	#[Assert\Uuid]
-    private ?UserProfileEventUid $dir = null;
-
-    
-    /* NAME */
-
-    public function getName() : ?string
-    {
-        return $this->name;
-    }
+	private ?CarsBrandEventUid $dir = null;
 	
-    /* EXT */
-    public function getExt() : ?string
-    {
-        return $this->ext;
-    }
+	/** Сущность для загрузки и обновления файла  */
+	private mixed $entityUpload;
 	
-    /* CDN */
+	
+	public function getName() : ?string
+	{
+		return $this->name;
+	}
+	
+	
+	/* EXT */
+	public function getExt() : ?string
+	{
+		return $this->ext;
+	}
+	
+	
+	/* CDN */
+	
+	public function isCdn() : bool
+	{
+		return $this->cdn;
+	}
+	
+	
+	/* DIR */
+	
+	public function getDir() : ?CarsBrandEventUid
+	{
+		return $this->dir;
+	}
+	
+	
+	/** Сущность для загрузки и обновления файла  */
+	
+	public function getEntityUpload() : mixed
+	{
+		return $this->entityUpload;
+	}
+	
+	
+	public function setEntityUpload(mixed $entityUpload) : void
+	{
+		$this->entityUpload = $entityUpload;
+	}
 
-    public function isCdn() : bool
-    {
-        return $this->cdn;
-    }
-	
-    /* DIR */
-
-    public function getDir() : ?UserProfileEventUid
-    {
-        return $this->dir;
-    }
-	
 }

@@ -14,9 +14,9 @@ return static function (ContainerConfigurator $configurator) {
       ->autoconfigure() // Automatically registers your services as commands, event subscribers, etc.
     ;
     
-    $services->set('app:products:cars:brand', CarsBrandCommand::class);
-    $services->set('app:products:cars:model', CarsModelCommand::class);
-    $services->set('app:products:cars:modification', CarsModificationCommand::class);
-    $services->set('app:products:cars:characteristics', CarsCharacteristicCommand::class);
+    $services->set('baks:cars:brand', CarsBrandCommand::class);
+    $services->set('baks:cars:model', CarsModelCommand::class);
+    $services->set('baks:cars:modification', CarsModificationCommand::class);
+    $services->set('baks:cars:characteristics', CarsCharacteristicCommand::class);
 	
 };

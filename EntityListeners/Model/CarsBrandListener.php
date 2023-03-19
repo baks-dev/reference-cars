@@ -40,15 +40,15 @@ final class CarsBrandListener
     public function prePersist(CarsBrand $data, LifecycleEventArgs $event) : void
     {
 		
-		dump($event);
-        dd($data->getEvent());
+		//dump($event);
+        //dd($data->getEvent());
     }
 	
 	
 	public function preUpdate(CarsBrand $data, LifecycleEventArgs $event) : void
 	{
-		dump($event);
-		dd($data->getEvent());
+		//dump($event);
+		//dd($data->getEvent());
 	}
 	
 	

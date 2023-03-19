@@ -18,7 +18,25 @@
 
 namespace BaksDev\Reference\Cars\Entity\Brand\Logo;
 
+use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
+
 interface CarsBrandLogoInterface
 {
-    
+	public function getName() : ?string;
+	
+	
+	public function getExt() : ?string;
+	
+	
+	public function isCdn() : bool;
+	
+	
+	public function getDir() : ?CarsBrandEventUid;
+	
+	
+	public function getEntityUpload() : mixed;
+	
+	
+	public function setEntityUpload(mixed $entityUpload) : void;
+	
 }

@@ -44,7 +44,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
-	name: 'app:products:cars:characteristics',
+	name: 'baks:cars:characteristics',
 	description: 'Получаем модификации моделей автомобилей',
 )]
 class CarsCharacteristicCommand extends Command

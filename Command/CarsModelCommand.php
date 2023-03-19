@@ -30,7 +30,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
-	name: 'app:products:cars:model',
+	name: 'baks:cars:model',
 	description: 'Получаем модели автомобилей по списку брендов',
 )]
 class CarsModelCommand extends Command
@@ -39,7 +39,6 @@ class CarsModelCommand extends Command
 	private EntityManagerInterface $entityManager;
 	private HttpClientInterface $client;
 	private CarsModelHandler $handler;
-	
 	
 	public function __construct(
 		EntityManagerInterface $entityManager,

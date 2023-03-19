@@ -33,7 +33,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
-	name: 'app:products:cars:modification',
+	name: 'baks:cars:modification',
 	description: 'Получаем модификации моделей автомобилей',
 )]
 class CarsModificationCommand extends Command

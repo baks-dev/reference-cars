@@ -23,9 +23,19 @@ interface CarsModelImageInterface
 {
 	public function getName() : ?string;
 	
+	
 	public function getExt() : ?string;
+	
 	
 	public function isCdn() : bool;
 	
+	
 	public function getDir() : ?CarsModelEventUid;
+	
+	
+	public function getEntityUpload() : mixed;
+	
+	
+	public function setEntityUpload(mixed $entityUpload) : void;
+	
 }

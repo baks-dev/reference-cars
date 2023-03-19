@@ -29,7 +29,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
-	name: 'app:products:cars:brand',
+	name: 'baks:cars:brand',
 	description: 'Получаем и обновляем базу брендов автомобилей',
 )]
 class CarsBrandCommand extends Command
@@ -81,7 +81,6 @@ class CarsBrandCommand extends Command
 				/** @var \DOMText $childNode */
 				foreach($nodeValue->childNodes as $childNode)
 				{
-					
 					/** @var \DOMAttr $attribute */
 					foreach($childNode->attributes as $attribute)
 					{

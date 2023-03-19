@@ -48,6 +48,9 @@ final class CarsModelImageDTO implements CarsModelImageInterface
 	#[Assert\Uuid]
 	private ?CarsModelEventUid $dir = null;
 	
+	/** Сущность для загрузки и обновления файла  */
+	private mixed $entityUpload;
+	
 	
 	/* NAME */
 	
@@ -56,11 +59,14 @@ final class CarsModelImageDTO implements CarsModelImageInterface
 		return $this->name;
 	}
 	
+	
 	/* EXT */
+	
 	public function getExt() : ?string
 	{
 		return $this->ext;
 	}
+	
 	
 	/* CDN */
 	
@@ -69,10 +75,26 @@ final class CarsModelImageDTO implements CarsModelImageInterface
 		return $this->cdn;
 	}
 	
+	
 	/* DIR */
 	
 	public function getDir() : ?CarsModelEventUid
 	{
 		return $this->dir;
 	}
+	
+	
+	/** Сущность для загрузки и обновления файла  */
+	
+	public function getEntityUpload() : mixed
+	{
+		return $this->entityUpload;
+	}
+	
+	
+	public function setEntityUpload(mixed $entityUpload) : void
+	{
+		$this->entityUpload = $entityUpload;
+	}
+	
 }
