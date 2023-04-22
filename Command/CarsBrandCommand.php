@@ -61,7 +61,7 @@ class CarsBrandCommand extends Command
 		$cache = new FilesystemAdapter();
 		//$cache->delete('auto-cars');
 		
-		/* Кешируем результат запроса */
+		/* Кешируем результат GET */
 		$cars = $cache->get('auto-cars', function(ItemInterface $item){
 			
 			$item->expiresAfter(86400);

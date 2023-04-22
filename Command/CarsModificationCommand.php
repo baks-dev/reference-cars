@@ -109,7 +109,7 @@ class CarsModificationCommand extends Command
 				
 				if(!$cache->hasItem($modificator['href']))
 				{
-					$delay = random_int(1, 2);
+					$delay = random_int(2, 3);
 					sleep($delay);
 				}
 				
@@ -350,13 +350,14 @@ class CarsModificationCommand extends Command
 					if($modifHref)
 					{
 						
-						
 						/* Получаем данные с шинами и дисками */
 						
 						//$modifHref = '/Catalog/Global/Cars/BMW/299/BD300006/?r=1';
 						
 						$content = $cache->get($modifHref , function(ItemInterface $item) use ($modifHref) {
 							$item->expiresAfter(86400 * random_int(15, 30) + random_int(3600, 86400));
+							
+							$modifHref = str_replace('82.202.190.53', 'exist.ru', $modifHref);
 							
 							$response = $this->client->request(
 								'GET',
@@ -390,6 +391,8 @@ class CarsModificationCommand extends Command
 									$item->expiresAfter(86400 * random_int(15, 30) + random_int(3600, 86400));
 									
 									dump(sprintf('%s: Получаем Шины ... %s', time(), $tire));
+									
+									$tire = str_replace('82.202.190.53', 'exist.ru', $tire);
 									
 									$response = $this->client->request(
 										'GET',
@@ -448,7 +451,7 @@ class CarsModificationCommand extends Command
 		
 		//$cache->delete('car-modification');
 		
-		/* Кешируем результат */
+		/* Кешируем результат GET */
 		$cacheModifications = $cache->get('car-modification', function(ItemInterface $item) use ($modification){
 			$item->expiresAfter(86400 * random_int(15, 30));
 			return $modification;

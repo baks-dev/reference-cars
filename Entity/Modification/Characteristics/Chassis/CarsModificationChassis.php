@@ -17,7 +17,6 @@
 
 namespace BaksDev\Reference\Cars\Entity\Modification\Characteristics\Chassis;
 
-
 use BaksDev\Reference\Cars\Entity\Modification\Characteristics\CarsModificationCharacteristics;
 use BaksDev\Core\Entity\EntityEvent;
 use Doctrine\DBAL\Types\Types;
@@ -25,6 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
 /* CarsModificationChassis */
+
 
 #[ORM\Entity]
 #[ORM\Table(name: 'cars_modification_chassis')]
@@ -37,7 +37,6 @@ class CarsModificationChassis extends EntityEvent
 	#[ORM\OneToOne(inversedBy: 'chassi', targetEntity: CarsModificationCharacteristics::class)]
 	#[ORM\JoinColumn(name: 'characteristic', referencedColumnName: 'id')]
 	private readonly CarsModificationCharacteristics $characteristic;
-	
 	
 	/** Ступичное отверстие (DIA):*/
 	#[ORM\Column(type: Types::STRING, length: 5, nullable: true)]
@@ -55,9 +54,12 @@ class CarsModificationChassis extends EntityEvent
 	#[ORM\Column(type: Types::STRING, length: 32, nullable: true)]
 	private ?string $fastener = null;
 	
-	public function __construct(CarsModificationCharacteristics $characteristic){
+	
+	public function __construct(CarsModificationCharacteristics $characteristic)
+	{
 		$this->characteristic = $characteristic;
 	}
+	
 	
 	public function getDto($dto) : mixed
 	{
@@ -69,10 +71,21 @@ class CarsModificationChassis extends EntityEvent
 		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
 	}
 	
+	
 	public function setEntity($dto) : mixed
 	{
 		if($dto instanceof CarsModificationChassisInterface)
 		{
+			if(
+				empty($dto->getPcd()) &&
+				empty($dto->getDia()) &&
+				empty($dto->getFastener()) &&
+				empty($dto->getNumber())
+			)
+			{
+				return false;
+			}
+			
 			return parent::setEntity($dto);
 		}
 		

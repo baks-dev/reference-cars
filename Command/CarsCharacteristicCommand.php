@@ -88,7 +88,7 @@ class CarsCharacteristicCommand extends Command
 		}
 		
 		
-		/* Кешируем результат */
+		/* Кешируем результат GET */
 		$cacheModifications = $cache->getItem('car-modification')->get();
 		
 		

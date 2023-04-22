@@ -72,13 +72,9 @@ class CarsModelCommand extends Command
 		$io = new SymfonyStyle($input, $output);
 		
 		$cache = new FilesystemAdapter();
-		
 		$carsBrands = $cache->getItem('auto-cars')->get();
-		
 		$models = null;
 		
-
-
 		if(!$cache->hasItem('car-models'))
 		{
 			foreach($carsBrands as $type => $brands)
