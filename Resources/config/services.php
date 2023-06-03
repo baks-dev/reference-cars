@@ -15,6 +15,7 @@ return static function(ContainerConfigurator $configurator){
 
 	$services->load($namespace.'\Controller\\', '../../Controller')
 		->tag('controller.service_arguments')
+        ->exclude(__DIR__.'/../../Controller/**/*Test.php')
 	;
 	
 	//$services->load($namespace.'\Repository\\', '../../Repository');
@@ -25,7 +26,7 @@ return static function(ContainerConfigurator $configurator){
 	//$services->load($namespace.'\DataFixtures\\', '../../DataFixtures');
 	
 	$services->load($namespace.'\UseCase\\', '../../UseCase')
-		->exclude('../../UseCase/**/*DTO.php')
+        ->exclude(__DIR__.'/../../UseCase/**/{*DTO.php,*Test.php}')
 	;
 };
 
