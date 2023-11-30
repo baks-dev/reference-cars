@@ -1,0 +1,96 @@
+{# {{ dd(model) }} #}
+
+	{# {% set discount = user_profile_discount(card.product_price) %}
+
+	{% set arr_property = card.category_section_field|json_decode %} #}
+
+<div {# id='{{ card.id }}' #} class="card rounded-4 border-0 mb-3">
+
+
+    <div class="card-image-wrap overflow-hidden rounded-4 border border-light" style="height: 100px;">
+
+        {# <div class="d-flex justify-content-between">
+				<div>
+					<button class="btn btn-link opacity-0 card-favorites"
+							aria-label="Добавить в избранное"
+							data-id=" #}{# {{ card.id }} #}{# "
+					>
+						<img data-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiNCMUI2QkIiIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNOCAxLjMxNEMxMi40MzgtMy4yNDggMjMuNTM0IDQuNzM1IDggMTUtNy41MzQgNC43MzYgMy41NjItMy4yNDggOCAxLjMxNHoiPjwvcGF0aD48L3N2Zz4K"
+								width="16" height="16"
+								src="/assets/img/empty.png"
+								class="lazy"
+								alt="Добавить в избранное"
+						/>
+					</button>
+				</div>
+
+
+
+				<div class="mt-2 me-2">
+        #}{# {% if discount %}
+						<span class="badge bg-danger rounded-2 me-1">-{{ baks_profile.profile_discount }}%</span>
+					{% endif %} #}{#
+        #}{# <span class="badge bg-success rounded-2 me-1">Новинка</span> #}{#
+        #}{# <span class="badge bg-danger rounded-2 me-1">Акция</span> #}{#
+        </div>
+
+    </div> #}
+
+
+
+        {# Превью  #}
+
+        {#    {% set img_path = card.product_image_cdn == true ? cdn_host : '' %}
+			{% set product_image_ext = card.product_image_cdn == true ? 'small.'~card.product_image_ext : card.product_image_ext %}
+        #}
+
+        {# Обложка  #}
+        {% set image_path = '/assets/img/blank.svg' %}
+
+        {% if model.image_ext is defined and model.image_ext is not null %}
+            {% set img_host = model.image_cdn == true  ? CDN_HOST : '' %}
+            {% set img_dir = model.image_name %}
+            {% set img_file = (img_host is empty ? '/image.' : '/small.') ~ model.image_ext %}
+            {% set image_path = img_host ~ img_dir ~ img_file %}
+        {% endif %}
+
+        // '/assets/img/blank.svg'
+
+
+        <a href="{{ path('reference-cars:user.model', { brand: brand.url, model : model.url }) }}">
+
+            <div class="lazy h-100 bg-contain position-relative"
+                 data-bg="{{ image_path }}"
+                 title="{{ model.name }}">
+                {# <div class="position-absolute bottom-0 mb-5 ms-3">
+                #}{# {% for name_property in arr_property | filter(preview => preview.field_photo == true) %}
+							{{ name_property.field_value|call_twig_func(name_property.field_type~'_render') }}
+						{% endfor %} #}{#
+                </div> #}
+            </div>
+        </a>
+
+        {# style="margin-bottom: -50px;" #}
+
+    </div>
+
+    <div class="card-body px-3 py-2">
+        <h2 class="card-title mb-2 h6 w-100 ">
+            <a href="{{ path('reference-cars:user.model', { brand: brand.url, model : model.url }) }}"
+               class="d-inline-block text-decoration-none text-dark text-truncate"
+               style="max-width: 180px;"
+            >
+                {{ model.name }}
+            </a>
+        </h2>
+        <div class="card-labels d-flex align-items-center  gap-2 small justify-content-between">
+            <strong class="small">{{ model.code }}</strong>
+
+            <small class="text-muted">{{ model.year_from }}-{{ model.year_to ? : date('Y') }}</small>
+        </div>
+    </div>
+</div>
+{# "year_from" => 1991
+"year_to" => 1996
+{{ dd(model) }} #}
+

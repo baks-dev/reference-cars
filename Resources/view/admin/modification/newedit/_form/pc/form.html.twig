@@ -1,0 +1,152 @@
+{% trans_default_domain 'admin.reference.cars.model' %}
+
+
+<div class="d-flex justify-content-between align-items-center gap-2">
+
+    <div class="w-50">
+        {{ form_row(form.modification, { label : 'Модификация' }) }}
+    </div>
+
+    <div class="w-50">
+        {{ form_row(form.info.url, { label : 'Семантическая ссылка' }) }}
+
+    </div>
+</div>
+
+
+{% for characteristic in form.characteristic %}
+
+    {% set var = characteristic.model.vars.data|md5 %}
+
+    <ul class="nav nav-pills d-flex gap-2 mb-2">
+        <li class="nav-item">
+            <button class="btn nav-link fw-bolder active"
+                    type="button"
+                    data-bs-toggle="pill"
+                    data-bs-target="#characteristic-model-{{ var }}"
+            >
+                <span class="text-uppercase px-3">Модель</span>
+            </button>
+        </li>
+
+        <li class="nav-item">
+            <button class="btn nav-link fw-bolder"
+                    type="button"
+                    data-bs-toggle="pill"
+                    data-bs-target="#characteristic-motor-{{ var }}"
+            >
+                <span class="text-uppercase px-3">Двигатель</span>
+            </button>
+        </li>
+
+        <li class="nav-item">
+            <button class="btn nav-link fw-bolder"
+                    type="button"
+                    data-bs-toggle="pill"
+                    data-bs-target="#characteristic-chassis-{{ var }}"
+            >
+                <span class="text-uppercase px-3">Шасси</span>
+            </button>
+        </li>
+    </ul>
+
+
+    <div class="tab-content w-100">
+
+        <div class="tab-pane fade show active" id="characteristic-model-{{ var }}">
+            <div class="d-flex gap-3">
+                {{ form_row(characteristic.model, { label : 'Модель двигателя' }) }}
+
+                <div class="mb-3">
+                    <label class="form-label">Даты выпуска</label>
+                    <div class="d-flex gap-3 align-items-center">
+
+                        {{ form_widget(characteristic.from) }} -
+                        {{ form_widget(characteristic.to) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="characteristic-motor-{{ var }}">
+            <div class="d-flex gap-3">
+                {{ form_row(characteristic.motor.fuel, { label : 'Тип двигателя', attr : { placeholder : 'Бензиновый' } }) }}
+                {{ form_row(characteristic.motor.engine, { label : 'Объем двиг. л', attr : { placeholder : '1.6' } }) }}
+                {{ form_row(characteristic.motor.power, { label : 'Мощность, л.с.', attr : { placeholder : '97' } }) }}
+                {{ form_row(characteristic.motor.drive, { label : 'Привод', attr : { placeholder : 'Передний' } }) }}
+            </div>
+        </div>
+
+        <div class="tab-pane fade"
+             id="characteristic-chassis-{{ var }}">
+            <div class="d-flex gap-3">
+                {{ form_row(characteristic.chassis.fastener, { label : 'Крепёж', attr : { placeholder : 'Гайки: 12*1.5' } }) }}
+                {{ form_row(characteristic.chassis.number, { label : 'Крепежных отверстий', attr : { placeholder : '4' } }) }}
+                {{ form_row(characteristic.chassis.pcd, { label : 'Окружность (PCD)', attr : { placeholder : '114.3' } }) }}
+                {{ form_row(characteristic.chassis.dia, { label : 'Ступичное отверстие (DIA)', attr : { placeholder : '56.1' } }) }}
+            </div>
+        </div>
+
+    </div>
+
+
+    <ul class="nav nav-pills d-flex gap-2 mb-2">
+
+        <div class="w-100 d-flex gap-3">
+            <li class="nav-item">
+                <button class="btn nav-link fw-bolder active"
+                        type="button"
+                        data-bs-toggle="pill"
+                        data-bs-target="#characteristic-tire-{{ var }}"
+                >
+                    <span class="text-uppercase px-3">Шины</span>
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="btn nav-link fw-bolder"
+                        type="button"
+                        data-bs-toggle="pill"
+                        data-bs-target="#characteristic-disc-{{ var }}"
+                >
+                    <span class="text-uppercase px-3">Диски</span>
+                </button>
+            </li>
+        </div>
+
+        <div class="tab-content w-100">
+
+            <div class="tab-pane fade show active" id="characteristic-tire-{{ var }}">
+
+                {% for tires in characteristic.tire %}
+                    <div class="d-flex gap-3">
+                        {{ form_row(tires.size, { label : 'size', attr : { placeholder : '56.1' } }) }}
+                        {{ form_row(tires.profile, { label : 'profile', attr : { placeholder : '56.1' } }) }}
+                        {{ form_row(tires.radius, { label : 'radius', attr : { placeholder : '56.1' } }) }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+            <div class="tab-pane fade" id="characteristic-disc-{{ var }}">
+
+
+                {% for disc in characteristic.disc %}
+
+                    <div class="d-flex gap-3">
+
+                        {{ form_row(disc.et, { label : 'et', attr : { placeholder : '56.1' } }) }}
+                        {{ form_row(disc.diameter, { label : 'diameter', attr : { placeholder : '56.1' } }) }}
+                        {{ form_row(disc.width, { label : 'width', attr : { placeholder : '56.1' } }) }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </ul>
+
+
+{% endfor %}

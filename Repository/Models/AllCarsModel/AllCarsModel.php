@@ -1,0 +1,157 @@
+<?php
+/*
+ *  Copyright 2023.  Baks.dev <admin@baks.dev>
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is furnished
+ *  to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in all
+ *  copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
+ */
+
+declare(strict_types=1);
+
+namespace BaksDev\Reference\Cars\Repository\Models\AllCarsModel;
+
+
+use BaksDev\Core\Form\Search\SearchDTO;
+use BaksDev\Core\Services\Paginator\PaginatorInterface;
+use BaksDev\Core\Doctrine\DBALQueryBuilder;
+use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
+use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
+use BaksDev\Reference\Cars\Entity\Model\CarsModel;
+use BaksDev\Reference\Cars\Entity\Model\Event\CarsModelEvent;
+use BaksDev\Reference\Cars\Entity\Model\Image\CarsModelImage;
+use BaksDev\Reference\Cars\Entity\Model\Trans\CarsModelTrans;
+use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
+
+final class AllCarsModel implements AllCarsModelInterface
+{
+    private PaginatorInterface $paginator;
+
+    private DBALQueryBuilder $DBALQueryBuilder;
+
+    private ?SearchDTO $search = null;
+
+    private ?CarsBrandUid $brand = null;
+
+    public function __construct(
+        DBALQueryBuilder $DBALQueryBuilder,
+        PaginatorInterface $paginator,
+    )
+    {
+        $this->paginator = $paginator;
+        $this->DBALQueryBuilder = $DBALQueryBuilder;
+    }
+
+    public function search(SearchDTO $search): self
+    {
+        $this->search = $search;
+        return $this;
+    }
+
+    public function brand(CarsBrandUid $brand): self
+    {
+        $this->brand = $brand;
+        return $this;
+    }
+
+
+    /** Метод возвращает пагинатор CarsModel */
+    public function fetchAllCarsModelAssociative(): PaginatorInterface
+    {
+        $qb = $this->DBALQueryBuilder
+            ->createQueryBuilder(self::class)
+            ->bindLocal()
+        ;
+
+
+        $qb
+            ->addSelect('main.id')
+            ->addSelect('main.event')
+            ->from(CarsModel::TABLE, 'main');
+
+        $qb
+            ->addSelect('event.class')
+            ->addSelect('event.code')
+            ->addSelect('event.year_from')
+            ->addSelect('event.year_to')
+            ->leftJoin(
+            'main',
+            CarsModelEvent::TABLE,
+            'event',
+            'event.id = main.event'
+        );
+
+        $qb
+            ->addSelect('trans.name AS model_name')
+            ->addSelect('trans.description AS model_desc')
+            ->leftJoin(
+            'main',
+            CarsModelTrans::TABLE,
+            'trans',
+            'trans.event = main.event AND trans.local = :local'
+        );
+
+        $qb
+        ->addSelect("CONCAT('/upload/".CarsModelImage::TABLE."' , '/', image.name) AS image_name")
+        ->addSelect('image.ext AS image_ext')
+        ->addSelect('image.cdn AS image_cdn')
+        ->leftJoin(
+            'main',
+            CarsModelImage::TABLE,
+            'image',
+            'image.event = main.event'
+        );
+
+
+        $qb
+            ->addSelect('brand.id AS brand_id')
+            ->leftJoin(
+                'main',
+                CarsBrand::TABLE,
+                'brand',
+                'brand.id = main.brand'
+            );
+
+        $qb
+            ->addSelect('brand_trans.name AS brand_name')
+            ->leftJoin(
+                'brand',
+                CarsBrandTrans::TABLE,
+                'brand_trans',
+                'brand_trans.event = brand.event AND brand_trans.local = :local'
+            );
+
+
+        if($this->brand)
+        {
+            $qb->andWhere('main.brand = :brand')
+                ->setParameter('brand', $this->brand, CarsBrandUid::TYPE);
+        }
+
+        /* Поиск */
+        if($this->search?->getQuery())
+        {
+            $qb
+                ->createSearchQueryBuilder($this->search)
+                ->addSearchLike('trans.name')
+                ->addSearchLike('event.code')
+            ;
+        }
+
+        return $this->paginator->fetchAllAssociative($qb);
+    }
+}

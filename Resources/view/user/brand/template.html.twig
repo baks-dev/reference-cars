@@ -1,0 +1,29 @@
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('/user/base.html.twig') %}
+
+{% block title %}
+    Шины для автомобиля {{ brand.name }}
+{% endblock %}
+
+{# ---- CSS ------------------------------------------------------------ #}
+{% block stylesheets %}
+    <link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet">
+{% endblock %}
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+
+
+{#    {% set arr_property = card.category_section_field|json_decode %}#}
+{#    {% set product_offers = card.product_offers|json_decode %}#}
+
+
+    {{ include(_self|replace({ "template.html.twig":baks_settings.device~"/content.html.twig" })) }}
+{% endblock %}
+
+{% block javascript %}
+
+<script async data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}' class='lazy'></script>
+<script async data-src='/assets/reference-cars/cars_filter.min.js?v={{ version }}' class='lazy'></script>
+
+{% endblock %}

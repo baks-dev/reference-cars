@@ -1,0 +1,24 @@
+admin:
+  page:
+    index: 'Car brands'
+    new: 'Add car make'
+    edit: 'Edit car make'
+    delete: 'Delete car make'
+
+  breadcrumb:
+    index: 'Car brands'
+    new: 'Add car make'
+    edit: 'Edit car make'
+    delete: 'Delete car make'
+
+  success:
+    new: 'Car brand has been added successfully'
+    edit: 'Car brand has been successfully updated'
+    delete: 'Car brand has been successfully deleted'
+    restore: 'The vehicle brand has been successfully restored'
+
+  danger:
+    new: '%s: Error adding car brand'
+    edit: '%s: Error updating car brand'
+    delete: '%s: Error deleting car brand'
+    restore: '%s: Error while restoring car make'

@@ -1,0 +1,8 @@
+/.idea
+/vendor
+/Command
+/Messenger
+/Migrations
+/Parser
+composer.lock
+composer.phar

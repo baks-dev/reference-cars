@@ -1,0 +1,24 @@
+admin:
+  page:
+    index: 'Modifications of brand models'
+    new: 'Add car model modification'
+    edit: 'Edit car model modification'
+    delete: 'Delete car model modification'
+
+  breadcrumb:
+    index: 'Modifications of brand models'
+    new: 'Add car modification'
+    edit: 'Edit car modification'
+    delete: 'Delete vehicle modification'
+
+  success:
+    new: 'Car model modification added successfully'
+    edit: 'Car model modification successfully updated'
+    delete: 'Car model modification successfully deleted'
+    restore: 'The modification of the car model was successfully restored'
+
+  danger:
+    new: '%s: Error adding car model modification'
+    edit: '%s: Error when updating the vehicle brand and model'
+    delete: '%s: Error deleting car model modification'
+    restore: '%s: Error while restoring the modification of the car model'

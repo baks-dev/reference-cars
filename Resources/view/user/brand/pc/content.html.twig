@@ -1,0 +1,485 @@
+<main class="main d-print-none container px-4">
+
+    <div class="mt-3">
+        {{ include(_self|replace({ "content.html.twig": "breadcrumb.html.twig" })) }}
+    </div>
+
+
+    {#    <div class="d-flex justify-content-between">
+        <h1 class="text-uppercase h5 fw-bolder mb-4">
+            Шины для автомобиля {{ brand.name }}
+        </h1>
+
+        <h2 class="text-uppercase fw-bolder h6">
+            Подбор шин и дисков по автомобилю {{ brand.name }}
+        </h2>
+    </div> #}
+
+
+    <h1 class="text-uppercase h5 fw-bolder">Шины для автомобиля {{ brand.name }}</h1>
+
+
+    <section class="selection-box">
+
+
+            <div class="accordion accordion-flush mt-3" id="accordionExample">
+                <div class="accordion-item rounded-4 bg-info shadow">
+
+                    <h2 id="headingOne">
+                        <button class="accordion-button rounded-4 ps-4 pe-2 py-2 border-0 bg-primary shadow-none {# collapsed #}"
+                                type="button"
+                                aria-label="Подбор шин"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne"
+                                aria-expanded="true"
+                                aria-controls="collapseOne">
+						<span class="h5 text-uppercase fw-bold text-white mb-0">
+							Подбор шин
+						</span>
+                        </button>
+                    </h2>
+
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-label="headingOne"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+                            <ul class="nav position-absolute z-index-5 gap-3" id="pills-tab" role="tablist"
+                                style="margin-top: -67px; margin-left: 185px;">
+
+                                <li class="nav-item" role="presentation">
+
+                                    <button class="btn btn-link nav-link active rounded-4 px-3 text-white"
+                                            id="pills-home-tab"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#pills-home"
+                                            type="button"
+                                            role="tab"
+                                            aria-label="По авто"
+                                            aria-controls="pills-home"
+                                            aria-selected="true"
+                                    >
+
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-car-front-fill" viewBox="0 0 16 16">
+											<path
+                                                    d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+										</svg>
+									</span>
+
+                                        <span class="ms-3 text-uppercase fw-bolder">По авто</span>
+                                    </button>
+
+
+                                </li>
+
+                                {# <li class="nav-item" role="presentation">
+                                <button class="btn btn-link nav-link rounded-4 px-3 text-white" id="pills-profile-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-profile" type="button"
+                                        role="tab"
+                                        aria-label="По параметрам"
+                                        aria-controls="pills-profile"
+                                        aria-selected="false">
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-gear-fill" viewBox="0 0 16 16">
+											<path
+                                                    d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+										</svg>
+									</span>
+                                    <span class="ms-3 text-uppercase fw-bolder">По параметрам</span>
+                                </button>
+                            </li> #}
+
+                            </ul>
+
+
+                            <div class="tab-content text-white" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                     aria-label="pills-home-tab" tabindex="0">
+
+                                    {# {{ include(_self|replace({ "content.html.twig": "filter.html.twig" })) }} #}
+
+                                    {% include '@reference-cars/user/filter/pc/filter.html.twig' %}
+
+
+                                </div>
+
+
+                                <div class="tab-pane fade"
+                                     id="pills-profile"
+                                     role="tabpanel"
+                                     aria-label="pills-profile-tab"
+                                     tabindex="0">
+
+
+                                    <div class="d-flex justify-content-between gap-4 text-white">
+
+                                        <div class="w-100">
+                                            <label for="oldWidth" class="form-label ps-3">Ширина</label>
+                                            <select id="oldWidth"
+                                                    class="form-select rounded-4 py-2"
+                                                    aria-label="Ширина">
+                                                <option value="">Неважно</option>
+                                                <option value="145">145</option>
+                                                <option value="155">155</option>
+                                                <option value="165">165</option>
+                                                <option value="175" selected="">175</option>
+                                                <option value="185">185</option>
+                                                <option value="195">195</option>
+                                                <option value="205">205</option>
+                                                <option value="215">215</option>
+                                                <option value="225">225</option>
+                                                <option value="235">235</option>
+                                                <option value="245">245</option>
+                                                <option value="255">255</option>
+                                                <option value="265">265</option>
+                                                <option value="275">275</option>
+                                                <option value="285">285</option>
+                                                <option value="295">295</option>
+                                                <option value="305">305</option>
+                                                <option value="315">315</option>
+                                                <option value="325">325</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="w-100">
+                                            <label for="oldWidth" class="form-label ps-3">Профиль</label>
+                                            <select id="oldProfile" class="form-select rounded-4 py-2"
+                                                    aria-label="Профиль">
+                                                <option value="">Неважно</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                                <option value="45">45</option>
+                                                <option value="50">50</option>
+                                                <option value="55">55</option>
+                                                <option value="60">60</option>
+                                                <option value="65">65</option>
+                                                <option value="70" selected="">70</option>
+                                                <option value="75">75</option>
+                                                <option value="80">80</option>
+                                                <option value="85">85</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="w-100">
+                                            <label for="oldWidth" class="form-label ps-3">Диаметр</label>
+                                            <select id="oldRadius" class="form-select rounded-4 py-2"
+                                                    aria-label="Диаметр">
+
+                                                <option value="">Неважно</option>
+                                                <option value="12">12</option>
+                                                <option value="13" selected="">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                            </select>
+
+
+                                        </div>
+
+
+                                        {# БРЕНД> #}
+                                        <div class="w-100">
+                                            <label for="brand" class="form-label ps-3">Бренд</label>
+                                            <select id="brand" name="brand"
+                                                    class="form-select rounded-4 py-2">
+
+                                                <option value="">Неважно</option>
+                                                <option value="">Неважно</option>
+                                                <option value="373">Altenzo</option>
+                                                <option value="270">Amtel</option>
+                                                <option value="526">Aosen</option>
+                                                <option value="630">Aplus</option>
+                                                <option value="736">Arivo</option>
+                                                <option value="569">Auplus</option>
+                                                <option value="388">Austone</option>
+                                                <option value="771">Bars</option>
+                                                <option value="272">Barum</option>
+                                                <option value="271">BFGoodrich</option>
+                                                <option value="617">Blacklion</option>
+                                                <option value="445">Boto</option>
+                                                <option value="273">Bridgestone</option>
+                                                <option value="699">Cachland</option>
+                                                <option value="743">Centara</option>
+                                                <option value="763">Charmhoo</option>
+                                                <option value="600">Compasal</option>
+                                                <option value="274">Continental</option>
+                                                <option value="360">Contyre</option>
+                                                <option value="276">Cordiant</option>
+                                                <option value="725">CrossLeader</option>
+                                                <option value="597">CST</option>
+                                                <option value="731">Davanti</option>
+                                                <option value="544">Delinte</option>
+                                                <option value="726">Delmax</option>
+                                                <option value="531">Dmack</option>
+                                                <option value="524">Doublecoin</option>
+                                                <option value="420">Doublestar</option>
+                                                <option value="277">Dunlop</option>
+                                                <option value="693">Duraturn</option>
+                                                <option value="414">Durun</option>
+                                                <option value="748">Dynamo</option>
+                                                <option value="534">Evergreen</option>
+                                                <option value="375">Falken</option>
+                                                <option value="696">Farroad</option>
+                                                <option value="682">Firemax</option>
+                                                <option value="300">Firestone</option>
+                                                <option value="782">Foman</option>
+                                                <option value="497">Formula</option>
+                                                <option value="437">Fortuna</option>
+                                                <option value="712">Fortune</option>
+                                                <option value="347">General Tire</option>
+                                                <option value="279">Gislaved</option>
+                                                <option value="574">GoForm</option>
+                                                <option value="834">Goldstone</option>
+                                                <option value="348">Goodride</option>
+                                                <option value="280">Goodyear</option>
+                                                <option value="747">Greentrac</option>
+                                                <option value="737">Grenlander</option>
+                                                <option value="576">Gripmax</option>
+                                                <option value="319">GT Radial</option>
+                                                <option value="675">Habilead</option>
+                                                <option value="577">Haida</option>
+                                                <option value="320">Hankook</option>
+                                                <option value="501">Headway</option>
+                                                <option value="680">Hemisphere</option>
+                                                <option value="724">Herovic</option>
+                                                <option value="455">Hifly</option>
+                                                <option value="578">Horizon</option>
+                                                <option value="715">iLINK</option>
+                                                <option value="535">Imperial</option>
+                                                <option value="464">Jinyu</option>
+                                                <option value="605">Joyroad</option>
+                                                <option value="552">Kapsen</option>
+                                                <option value="401">Kenda</option>
+                                                <option value="321">Kinforest</option>
+                                                <option value="341">Kingstar</option>
+                                                <option value="281">Kleber</option>
+                                                <option value="350">Kormoran</option>
+                                                <option value="282">Kumho</option>
+                                                <option value="463">Landsail</option>
+                                                <option value="631">Lanvigator</option>
+                                                <option value="415">Lassa</option>
+                                                <option value="638">Laufenn</option>
+                                                <option value="427">Leao</option>
+                                                <option value="402">LingLong</option>
+                                                <option value="302">Marshal</option>
+                                                <option value="296">Matador</option>
+                                                <option value="339">Maxxis</option>
+                                                <option value="700">Mazzini</option>
+                                                <option value="283">Michelin</option>
+                                                <option value="351">Mickey Thompson</option>
+                                                <option value="832">Mileking</option>
+                                                <option value="430">Minerva</option>
+                                                <option value="551">Mirage</option>
+                                                <option value="303">Nankang</option>
+                                                <option value="362">Nexen</option>
+                                                <option value="409">Nitto</option>
+                                                <option value="284">Nokian</option>
+                                                <option value="285">Nordman</option>
+                                                <option value="556">Nortec</option>
+                                                <option value="761">Onyx</option>
+                                                <option value="681">Orium</option>
+                                                <option value="459">Ovation</option>
+                                                <option value="581">Pace</option>
+                                                <option value="582">Petlas</option>
+                                                <option value="286">Pirelli</option>
+                                                <option value="632">Powertrac</option>
+                                                <option value="436">Premiorri</option>
+                                                <option value="583">Presa</option>
+                                                <option value="509">Rapid</option>
+                                                <option value="833">Razi</option>
+                                                <option value="685">Roadcruza</option>
+                                                <option value="760">RoadMarch</option>
+                                                <option value="287">Roadstone</option>
+                                                <option value="756">RoadX</option>
+                                                <option value="499">Rotalla</option>
+                                                <option value="658">Royal Black</option>
+                                                <option value="764">Saferich</option>
+                                                <option value="469">Sailun</option>
+                                                <option value="522">Satoya</option>
+                                                <option value="324">Sava</option>
+                                                <option value="619">Solideal</option>
+                                                <option value="587">Starmaxx</option>
+                                                <option value="494">Sunfull</option>
+                                                <option value="379">Sunny</option>
+                                                <option value="708">Sunwide</option>
+                                                <option value="633">Taurus</option>
+                                                <option value="288">Tigar</option>
+                                                <option value="717">Toledo</option>
+                                                <option value="523">Torque</option>
+                                                <option value="735">Tourador</option>
+                                                <option value="304">Toyo</option>
+                                                <option value="503">Tracmax</option>
+                                                <option value="418">Tri-Ace</option>
+                                                <option value="377">Triangle</option>
+                                                <option value="407">Tunga</option>
+                                                <option value="305">Uniroyal</option>
+                                                <option value="405">Viatti</option>
+                                                <option value="772">Vittos</option>
+                                                <option value="325">Vredestein</option>
+                                                <option value="830">Waterfall</option>
+                                                <option value="367">WestLake</option>
+                                                <option value="641">Windforce</option>
+                                                <option value="593">Winrun</option>
+                                                <option value="289">Yokohama</option>
+                                                <option value="363">Zeetex</option>
+                                                <option value="561">Zeta</option>
+                                                <option value="291">Барнаул</option>
+                                                <option value="292">Белшина</option>
+                                                <option value="293">Волтаир</option>
+                                                <option value="294">Кама</option>
+                                                <option value="295">Киров</option>
+                                                <option value="297">Росава</option>
+                                            </select>
+                                        </div>
+
+
+                                        {# ПОДОБРАТЬ ШИНЫ #}
+                                        <div class="w-100">
+                                            <button class="btn btn-danger w-100 h-100 rounded-4 text-uppercase fw-bolder"
+                                                    value="подобрать шины"
+                                                    aria-label="Подобрать шины"
+                                            >подобрать шины
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+
+    <hr class="mt-5 rounded-circle border-0" style="height: 20px; box-shadow: 0 -20px 20px -6px #000;">
+
+
+    <ul class="nav nav-pills d-flex gap-3 mb-2" id="pills-tab" role="tablist">
+
+
+        <li class="nav-item" role="presentation">
+            <button class="btn nav-link fw-bolder active"
+                    id="pills-popular-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-popular"
+                    type="button" role="tab"
+                    aria-controls="pills-popular"
+            >
+                <span class="text-uppercase px-3">Популярные модели</span>
+            </button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+            <button class="btn nav-link fw-bolder"
+                    id="pills-all-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-all"
+                    type="button" role="tab"
+                    aria-controls="pills-all"
+            >
+                <span class="text-uppercase px-3">Все <small>({{ models|length }})</small></span>
+            </button>
+        </li>
+
+        <li class="nav-item ms-auto" role="presentation">
+            <a
+                    href="{{ path('reference-cars:user.filter') }}"
+                    class="btn btn-link fw-bolder text-decoration-none text-uppercase small text-dark">
+                Подбор по автомобилю
+            </a>
+        </li>
+    </ul>
+
+
+    <div class="tab-content w-100" id="alphabet-tabContent">
+
+        <div class="tab-pane fade show active"
+             id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab"
+             tabindex="0">
+
+            <section class="cards-box ">
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="row cards-box-body mt-3">
+
+                                {% for model in models|sort((a, b) => a.review <=> b.review)|reverse|slice(0, 6) %}
+                                    <div class="col-2">
+                                        {{ include(_self|replace({ "content.html.twig":"card.html.twig" })) }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
+        <div class="tab-pane fade"
+             id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab"
+             tabindex="0">
+
+
+            <section class="cards-box ">
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12">
+
+
+                            <div class="row cards-box-body mt-3">
+
+                                {# {% for brand in brands|sort((a, b) => a.brand_review <=> b.brand_review)|reverse|slice(0, 6) %}
+                                <div class="col-2">
+                                    {{ include(_self|replace({ "content.html.twig":"brand.html.twig" })) }}
+                                </div>
+                            {% endfor %} #}
+
+                                {% for model in models %}
+                                    <div class="col-2">
+                                        {{ include(_self|replace({ "content.html.twig":"card.html.twig" })) }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+
+</main>
+
+

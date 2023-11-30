@@ -1,0 +1,24 @@
+admin:
+  page:
+    index: 'Car models'
+    new: 'Add car model'
+    edit: 'Edit car model'
+    delete: 'Delete car model'
+
+  breadcrumb:
+    index: 'Car models'
+    new: 'Add car model'
+    edit: 'Edit car model'
+    delete: 'Delete car model'
+
+  success:
+    new: 'Car model added successfully'
+    edit: 'Car model updated successfully'
+    delete: 'The car model was successfully deleted'
+    restore: 'The vehicle model was successfully restored'
+
+  danger:
+    new: '%s: Error adding car model'
+    edit: '%s: Error while updating vehicle make model'
+    delete: '%s: Error deleting car model'
+    restore: '%s: Error while restoring the car model'
