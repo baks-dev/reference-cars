@@ -45,4 +45,3 @@ return static function (ContainerConfigurator $configurator) {
 
 The MIT License (MIT). Обратитесь к [Файлу лицензии](LICENSE.md) за дополнительной информацией.
 
-
