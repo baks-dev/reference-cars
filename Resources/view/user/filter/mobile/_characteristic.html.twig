@@ -1,0 +1,138 @@
+
+{% set iterate = 1 %}
+{% set odd = 'bg-light' %}
+{% set even = '' %}
+
+<div class="d-flex flex-column gap-1 small">
+
+
+	{# Торговое предложение #}
+	{#{% if card.product_offer_value %}#}
+
+	{% set iterate = iterate + 1 %}
+
+	<div class="d-flex justify-content-between p-2 rounded-4 {{ cycle([odd, even], iterate) }}">
+		<div class="w-50">
+			Марка
+		</div>
+		<div class="w-50 d-flex gap-3 align-items-center">
+			{# Модель #}
+			<a href="{{ path('reference-cars:user.brand', { brand: card.brand_url }) }}" class="text-muted"
+			   aria-label="{{ card.brand_name }}"
+			   title="{{ card.brand_name }}">
+				{{ card.brand_name }}
+			</a>
+		</div>
+	</div>
+
+	{% set iterate = iterate + 1 %}
+
+	<div class="d-flex justify-content-between p-2 rounded-4 {{ cycle([odd, even], iterate) }}">
+		<div class="w-50">
+			{# Название торгового предложения #}
+			Модель
+		</div>
+		<div class="w-50 d-flex gap-3 align-items-center">
+			{# Значение торгового предложения #}
+			<a href="{{ path('reference-cars:user.model', { brand: card.brand_url, model: card.model_url }) }}" class="text-muted"
+			   aria-label="{{ card.model_name }}"
+			   title="{{ card.model_name }}">
+				{{ card.model_name }}
+			</a>
+		</div>
+	</div>
+
+	{% set iterate = iterate + 1 %}
+
+	<div class="d-flex flex-column gap-3">
+
+		<div class="d-flex justify-content-between p-2 rounded-4 {{ cycle([odd, even], iterate) }}">
+			<div class="w-50">
+				{# Название модификации #}
+				Модификация
+			</div>
+			<div class="w-50 d-flex gap-3 align-items-center">
+				{# Значение модификации множественного варианта ТП #}
+
+				{{ card.modification_name }}
+
+			</div>
+		</div>
+	</div>
+
+	{% set iterate = iterate + 1 %}
+
+	<div class="d-flex flex-column gap-3">
+
+		<div class="d-flex justify-content-between p-2 rounded-4 {{ cycle([odd, even], iterate) }}">
+			<div class="w-50">
+				{# Название модификации #}
+				Выпуск
+			</div>
+			<div class="w-50 d-flex gap-3 align-items-center">
+				{# Значение модификации множественного варианта ТП #}
+				{{ card.modification_from }} -
+				{{ card.modification_to ?: 'по сегодня' }}
+			</div>
+		</div>
+	</div>
+
+	{% if card.modification_drive %}
+
+		{% set iterate = iterate + 1 %}
+
+		<div class="d-flex flex-column gap-3">
+
+			<div class="d-flex justify-content-between p-2 rounded-4 {{ cycle([odd, even], iterate) }}">
+				<div class="w-50">
+					{# Название модификации #}
+					Привод
+				</div>
+				<div class="w-50 d-flex gap-3 align-items-center">
+					{# Значение модификации множественного варианта ТП #}
+					{{ card.modification_drive }}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+
+	{% set iterate = iterate + 1 %}
+
+	<div class="d-flex flex-column gap-3">
+
+		<div class="d-flex justify-content-between p-2 rounded-4 {{ cycle([odd, even], iterate) }}">
+			<div class="w-50">
+				{# Название модификации #}
+				Двигатель
+			</div>
+			<div class="w-50 d-flex gap-3 align-items-center">
+				{# Значение модификации множественного варианта ТП #}
+				{{ card.modification_model }} ({{ card.modification_fuel }})
+			</div>
+		</div>
+	</div>
+
+	{% if card.modification_engine %}
+
+		{% set iterate = iterate + 1 %}
+
+		<div class="d-flex flex-column gap-3">
+
+			<div class="d-flex justify-content-between p-2 rounded-4 {{ cycle([odd, even], iterate) }}">
+				<div class="w-50">
+					{# Название модификации #}
+					Объем двигателя
+				</div>
+				<div class="w-50 d-flex gap-3 align-items-center">
+					{# Значение модификации множественного варианта ТП #}
+					{{ card.modification_engine }} л. ({{ card.modification_power }} л.с.)
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+
+
+
+</div>

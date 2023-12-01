@@ -105,7 +105,7 @@ final class AutoController extends AbstractController
         //return new Response('OK');
     }
 
-    #[Route('/auto', name: 'user.filter', methods: ['POST'])]
+    #[Route('/auto', name: 'user.filter', methods: ['GET', 'POST'])]
     public function auto(
         Request $request,
         CarBrandsChoice $carBrandsChoice,
