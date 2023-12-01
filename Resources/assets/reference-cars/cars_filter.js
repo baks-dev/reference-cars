@@ -80,13 +80,14 @@ function changeObjectBrand() {
             /* Удаляем предыдущий Select2 */
             let select2 = document.getElementById(replaceId + '_select2');
 
+
             if (select2) {
                 select2.remove();
             }
 
             let replacer = document.getElementById(replaceId);
 
-            if (replacer.tagName === 'SELECT') {
+            if (select2 && replacer.tagName === 'SELECT') {
                 new NiceSelect(replacer, {searchable: true, id: 'select2-' + replaceId});
 
                 /** Событие на изменение торгового предложения */
@@ -95,6 +96,10 @@ function changeObjectBrand() {
                 if (offerChange) {
                     offerChange.addEventListener('change', changeObjectModel, false);
                 }
+            }
+            else
+            {
+                replacer.addEventListener('change', changeObjectModel, false);
             }
 
 
@@ -154,7 +159,7 @@ function changeObjectModel() {
 
             let replacer = document.getElementById(replaceId);
 
-            if (replacer.tagName === 'SELECT') {
+            if (select2 && replacer.tagName === 'SELECT') {
                 new NiceSelect(replacer, {searchable: true, id: 'select2-' + replaceId});
 
                 /** Событие на изменение торгового предложения */
@@ -164,6 +169,10 @@ function changeObjectModel() {
                 //     offerChange.addEventListener('change', changeObjectModel, false);
                 // }
             }
+            // else
+            // {
+            //     replacer.addEventListener('change', changeObjectModel, false);
+            // }
 
         }
 

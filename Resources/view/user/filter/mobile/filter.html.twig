@@ -1,7 +1,6 @@
 {{ form_start(filter_cars) }}
 
 <div class="flex flex-column">
-
     {{ form_row(filter_cars.brand, {
         label: 'Марка:',
         placeholder: 'Выберите марку ...',
@@ -18,7 +17,6 @@
         label: 'Модификация:',
         placeholder: 'Выберите модификацию ...',
         attr: { 'data-select' : 'false', class: 'w-100' } }) }}
-
 </div>
 
 {% for field in filter_cars|filter(v => v.rendered == false) %}
