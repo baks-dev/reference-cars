@@ -26,6 +26,8 @@ declare(strict_types=1);
 namespace BaksDev\Reference\Cars\Forms\Filter;
 
 
+use BaksDev\Field\Tire\Season\Form\TireSeasonFieldForm;
+use BaksDev\Field\Tire\Studs\Form\TireStudsFieldForm;
 use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoiceInterface;
 use BaksDev\Reference\Cars\Repository\Models\CarsModelsChoice\CarsModelsChoiceInterface;
 use BaksDev\Reference\Cars\Repository\Modification\CarsModificationChoice\CarsModificationChoiceInterface;
@@ -77,16 +79,16 @@ final class CarsFilterForm extends AbstractType
             'label' => false
         ]);
 
-//        $builder->get('brand')->addModelTransformer(
-//            new CallbackTransformer(
-//                function($brand) {
-//                    return $brand instanceof CarsBrandUid ? $brand : $brand;
-//                },
-//                function($brand) {
-//                    return $brand ? new CarsBrandUid((string) $brand) : null;
-//                }
-//            )
-//        );
+        //        $builder->get('brand')->addModelTransformer(
+        //            new CallbackTransformer(
+        //                function($brand) {
+        //                    return $brand instanceof CarsBrandUid ? $brand : $brand;
+        //                },
+        //                function($brand) {
+        //                    return $brand ? new CarsBrandUid((string) $brand) : null;
+        //                }
+        //            )
+        //        );
 
 
         //dd($this->carBrandsChoice->getCollection());
@@ -204,19 +206,19 @@ final class CarsFilterForm extends AbstractType
 
                         $name = $mod->getAttr();
 
-//                        if($mod->getOption())
-//                        {
-//                            $name .= ' - '.$mod->getOption();
-//                        }
+                        //                        if($mod->getOption())
+                        //                        {
+                        //                            $name .= ' - '.$mod->getOption();
+                        //                        }
 
-//                        if($mod->getCharacteristic())
-//                        {
-//                            $name .= ' ('.$mod->getProperty().'-'.$mod->getCharacteristic().' г.в.)';
-//                        }
-//                        else if($mod->getProperty())
-//                        {
-//                            $name .= ' ('.$mod->getProperty().' г.в. и выше)';
-//                        }
+                        //                        if($mod->getCharacteristic())
+                        //                        {
+                        //                            $name .= ' ('.$mod->getProperty().'-'.$mod->getCharacteristic().' г.в.)';
+                        //                        }
+                        //                        else if($mod->getProperty())
+                        //                        {
+                        //                            $name .= ' ('.$mod->getProperty().' г.в. и выше)';
+                        //                        }
 
                         return $name;
                     },
@@ -267,19 +269,13 @@ final class CarsFilterForm extends AbstractType
         );
 
 
-        $builder->add('season', ChoiceType::class, [
-            'choices' => [
-                'doesnt' => 'doesnt',
-                'summer' => 'summer',
-                'winter' => 'winter',
-                'all' => 'all',
-                'studs' => 'studs'
-            ],
-            'label' => false,
-            'expanded' => true,
-            'multiple' => false,
-            'translation_domain' => 'field.tire.season'
+        $builder->add('season', TireSeasonFieldForm::class, [
+            'required' => false,
+        ]);
 
+
+        $builder->add('studs', TireStudsFieldForm::class, [
+            'required' => false,
         ]);
 
 

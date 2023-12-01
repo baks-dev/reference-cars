@@ -30,7 +30,10 @@ final class CarsFilterDTO
     private mixed $brand = null;
     private mixed $model = null;
     private mixed $modification = null;
-    private mixed $season = 'doesnt';
+    private mixed $season = null;
+
+
+    private mixed $studs = false;
 
 
     /**
@@ -88,6 +91,22 @@ final class CarsFilterDTO
         $this->season = $season;
         return $this;
     }
+
+    /**
+     * Studs
+     */
+    public function getStuds(): mixed
+    {
+        return $this->studs;
+    }
+
+    public function setStuds(mixed $studs): self
+    {
+        $this->studs = $studs;
+        return $this;
+    }
+
+
 
 
 }

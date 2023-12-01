@@ -34,7 +34,7 @@ final class CarsModelUid extends Uid
     private mixed $option;
 
     public function __construct(
-        mixed $value = null,
+        AbstractUid|string|null $value = null,
         mixed $attr = null,
         mixed $option = null,
     )

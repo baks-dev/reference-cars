@@ -59,12 +59,12 @@
                             name="{{ field_name(season) }}"
                             value="{{ field_value(season) }}"
                             type="radio"
-                            checked="checked"
+                            {{ field_value(season) is empty ? 'checked="checked"' }}
                             class="form-check-input visually-hidden"
                             aria-label="{{ field_value(season) }}"
                     >
 
-                    {% if field_value(season) == 'doesnt' %}
+                    {% if field_value(season) is empty %}
                         <span class="icon icon-sm rounded-3 small px-5 text-primary">
                             Все
                         </span>
@@ -104,8 +104,32 @@
 						</span>
                     {% endif %}
 
-                    {% if field_value(season) == 'studs' %}
-                        <span class="icon icon-sm rounded-3">
+
+
+                </label>
+            </div>
+
+
+
+
+        {% endfor %}
+
+
+
+        <div class="pe-2">
+            <label for="{{ filter_cars.studs.vars.id }}">
+
+                <input
+                        id="{{ filter_cars.studs.vars.id }}"
+                        name="{{ field_name(filter_cars.studs) }}"
+                        value="{{ field_value(filter_cars.studs) }}"
+                        type="checkbox"
+
+                        class="form-check-input visually-hidden"
+                        aria-label="{{ field_value(filter_cars.studs) }}"
+                >
+
+                <span class="icon icon-sm rounded-3">
                             <img data-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPiA8cGF0aCBmaWxsPSIjRTcwRTM4IiBkPSJNIDExNy41LDE3LjUgQyAxMjYuNDQxLDE1LjY0NzkgMTMzLjk0MSwxNy45ODEyIDE0MCwyNC41QyAxNzUuMDMyLDg0Ljg1MzQgMjEwLjAzMiwxNDUuMTg3IDI0NSwyMDUuNUMgMjQ5LjU3LDIxNi4zOTQgMjQ3LjA3LDIyNS4yMjcgMjM3LjUsMjMyQyAyMzMuNjE5LDIzMy4xOSAyMjkuNjE5LDIzMy44NTcgMjI1LjUsMjM0QyAxNTguNSwyMzQuNjY3IDkxLjUsMjM0LjY2NyAyNC41LDIzNEMgMTAuOTkyLDIzNC45MyAzLjMyNTMsMjI4Ljc2MyAxLjUsMjE1LjVDIDIuMDQ2MzYsMjExLjMxNCAzLjIxMzAyLDIwNy4zMTQgNSwyMDMuNUMgMzkuOTQ2NSwxNDMuOTMzIDc0LjYxMzEsODQuMjY2MSAxMDksMjQuNUMgMTExLjQ0MSwyMS41NDY0IDExNC4yNzUsMTkuMjEzMSAxMTcuNSwxNy41IFogTSAxMjMuNSw0My41IEMgMTI0LjQ5Niw0My40MTQyIDEyNS4zMjksNDMuNzQ3NiAxMjYsNDQuNUMgMTU3LjUxNCw5OC44NjU1IDE4OS4wMTQsMTUzLjE5OSAyMjAuNSwyMDcuNUMgMTU2LjUsMjEwLjE0OCA5Mi40OTk3LDIxMC4xNDggMjguNSwyMDcuNUMgNjAuNjgzNSwxNTMuMTMzIDkyLjM1MDEsOTguNDY2NSAxMjMuNSw0My41IFoiLz4gPHBhdGggZmlsbD0iIzAwMDAwMCIgZD0iTSA4MC41LDEzMS41IEMgODYuNDI1NCwxMzEuMTkyIDkyLjI1ODgsMTMxLjUyNSA5OCwxMzIuNUMgOTguNDk5OSwxNDkuODMgOTguNjY2NiwxNjcuMTYzIDk4LjUsMTg0LjVDIDEwMy44MzMsMTg0LjUgMTA5LjE2NywxODQuNSAxMTQuNSwxODQuNUMgMTE0LjMzMywxNjcuNDk3IDExNC41LDE1MC40OTcgMTE1LDEzMy41QyAxMTcuODk0LDEzMi4yMiAxMjEuMDYxLDEzMS41NTQgMTI0LjUsMTMxLjVDIDEyNy43NTIsMTMxLjUyMSAxMzAuOTE5LDEzMS44NTQgMTM0LDEzMi41QyAxMzQuNSwxNDkuODMgMTM0LjY2NywxNjcuMTYzIDEzNC41LDE4NC41QyAxMzkuODMzLDE4NC41IDE0NS4xNjcsMTg0LjUgMTUwLjUsMTg0LjVDIDE1MC4zMzMsMTY3LjE2MyAxNTAuNSwxNDkuODMgMTUxLDEzMi41QyAxNTcuMDc2LDEzMS41MjQgMTYzLjI0MiwxMzEuMTkgMTY5LjUsMTMxLjVDIDE2OS41LDE1NC44MzMgMTY5LjUsMTc4LjE2NyAxNjkuNSwyMDEuNUMgMTM5LjUsMjAxLjUgMTA5LjUsMjAxLjUgNzkuNSwyMDEuNUMgNzkuMTc3NCwxNzguMDkyIDc5LjUxMDgsMTU0Ljc1OCA4MC41LDEzMS41IFoiLz48L3N2Zz4="
                                  width="20" height="20"
                                  src="/assets/img/empty.png"
@@ -113,12 +137,11 @@
                                  alt="Шипы"
                             >
 						</span>
-                    {% endif %}
 
-                </label>
-            </div>
+            </label>
+        </div>
 
-        {% endfor %}
+
 
     </div>
 

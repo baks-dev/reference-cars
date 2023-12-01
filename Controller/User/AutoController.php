@@ -105,7 +105,7 @@ final class AutoController extends AbstractController
         //return new Response('OK');
     }
 
-    #[Route('/auto', name: 'user.filter', methods: ['GET', 'POST'])]
+    #[Route('/auto', name: 'user.filter', methods: ['POST'])]
     public function auto(
         Request $request,
         CarBrandsChoice $carBrandsChoice,
@@ -132,13 +132,25 @@ final class AutoController extends AbstractController
 
             $tiresField = json_decode($card['tire_field']);
 
-            $returnSeason[] = (object) match ($filter->getSeason())
-            {
-                'summer', 'winter', 'all' => ['field_uid' => '01876af0-ddfe-7a4b-a184-771635481a8b', 'field_value' => $filter->getSeason()],
-                'studs' => ['field_uid' => '01876af0-ddfe-7a4b-a184-771635c4190d', 'field_value' => 'true'],
-                default => ['field_uid' => null, 'field_value' => null],
-            };
+            $returnSeason = null;
 
+
+            if($filter->getStuds() === 'true')
+            {
+                $returnSeason[] = (object) ['field_uid' => '01876af0-ddfe-7a4b-a184-771635c4190d', 'field_value' => 'true'];
+            }
+            else
+            {
+                if($filter->getSeason())
+                {
+                    $returnSeason[] = (object) match ($filter->getSeason())
+                    {
+                        'summer', 'winter', 'all' => ['field_uid' => '01876af0-ddfe-7a4b-a184-771635481a8b', 'field_value' => $filter->getSeason()],
+                        /*'studs' => ['field_uid' => '01876af0-ddfe-7a4b-a184-771635c4190d', 'field_value' => 'true'],*/
+                        default => ['field_uid' => null, 'field_value' => null],
+                    };
+                }
+            }
 
             foreach($tiresField as $tire)
             {
