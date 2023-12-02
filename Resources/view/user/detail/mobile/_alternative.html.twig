@@ -6,7 +6,6 @@
     {% set name_variation = current_offer.product_variation_name %}
     {% set name_modification = current_offer.product_modification_name %}
 
-
 {#{% set product_offer = product_offers|filter(v => v.quantity > 0) %}#}
 
                 {% for offers in product_offers %}
@@ -28,7 +27,7 @@
                                     modification : offers.product_modification_value
                                 }) }}">
 
-                                    {{ offers.product_name }}
+                                    {{ offers.product_name }}<br>
 
                                     {{ offers.product_variation_value|call_twig_func(offers.product_variation_reference)
                                     ~ offers.product_modification_value|call_twig_func(offers.product_modification_reference) }}
@@ -40,26 +39,26 @@
 
                         </td>
 
-                        <td>
+                       {# <td>
                             {{ offers.product_variation_value|call_twig_func(offers.product_variation_reference)
                             ~ offers.product_modification_value|call_twig_func(offers.product_modification_reference) }}
 
                             {{ offers.product_offer_value|call_twig_func(offers.product_offer_reference) }}
-                        </td>
+                        </td>#}
 
-                        <td>
+                        {#<td>
                             <div class="d-flex gap-2 align-items-center">
 
-                                {#{{ dump(arr_property) }}#}
+                                #}{#{{ dump(arr_property) }}#}{#
 
                                 {% for name_property in arr_property %}
                                     {{ name_property.field_value|call_twig_func(name_property.field_type~'_render') }}
                                 {% endfor %}
 
-                                {# <span class="badge bg-success rounded-2">Новинка</span> #}
-                                {# <span class="badge bg-hit rounded-2 ">Хит</span> #}
+                                #}{# <span class="badge bg-success rounded-2">Новинка</span> #}{#
+                                #}{# <span class="badge bg-hit rounded-2 ">Хит</span> #}{#
                             </div>
-                        </td>
+                        </td>#}
 
                         {#{% if name_variation %}
                             <td>{{ offers.product_variation_value|call_twig_func(offers.product_variation_reference~'_render') }}</td>

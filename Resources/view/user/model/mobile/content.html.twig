@@ -1,9 +1,128 @@
 {# {{ include(_self|replace({ "content.html.twig": "header.html.twig" })) }} #}
 
+{# {{ include(_self|replace({ "content.html.twig": "header.html.twig" })) }} #}
+
+{# {{ include(_self|replace({ "content.html.twig": "header.html.twig" })) }} #}
+
 <main class="main d-print-none">
 
+    <section class="selection-box container my-4 ">
+
+        <div class="accordion accordion-flush mt-3" id="accordionExample">
+            <div class="accordion-item rounded-3 {# bg-info #} shadow">
+
+                <h2 id="headingOne">
+                    <button class="accordion-button rounded-3 ps-4 pe-2 py-2 border-0 bg-primary shadow-none collapsed"
+                            type="button"
+                            aria-label="Подбор шин"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne"
+                            aria-expanded="true"
+                            aria-controls="collapseOne">
+						<span class="h5 text-uppercase fw-bold text-white mb-0">
+							Подбор по авто
+						</span>
+                    </button>
+                </h2>
+
+                <div id="collapseOne" class="accordion-collapse collapse" aria-label="headingOne"
+                     data-bs-parent="#accordionExample">
+
+                    <div class="accordion-body">
+                        {% include '@reference-cars/user/filter/mobile/filter.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <section class="selection-box container my-4 shadow pb-3">
+
+        <h1 class="h6 text-uppercase fw-bolder mt-3 mb-4">
+            Шины для автомобиля {{ card.getBrandName() }} {{ card.getModelName() }}
+            {% if card.getModelCode() %}
+                ({{ card.getModelCode() }})
+            {% endif %}
+        </h1>
+
+
+            <div class="rounded-5 border lazy bg-contain my-3"
+                 data-bg="{{ card.getModelImage ?: '/assets/img/blank.svg' }}"
+                 title="{{ card.getBrandName }} {{ card.getModelName }}"
+                 style="width: 100%; height: 250px;"
+            >
+
+            </div>
+
+            {#{{ include(_self|replace({ "content.html.twig": "_characteristic.html.twig" })) }}#}
+
+        <ul class="nav nav-pills d-flex gap-1 mb-2 w-100" id="pills-tab" role="tablist">
+
+            {% for i in card.getModelFrom()..card.getModelTo() %}
+
+                <li class="nav-item" role="presentation">
+                    <button class="btn nav-link fw-bolder {{ loop.first ? 'active' }}"
+                            id="pills-{{ i }}-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#pills-{{ i }}"
+                            type="button" role="tab"
+                            aria-controls="pills-{{ i }}"
+                    >
+                        <span class="text-uppercase px-2">{{ i }}</span>
+                    </button>
+                </li>
+
+            {% endfor %}
+
+           {# <li class="nav-item ms-auto" role="presentation">
+                <a
+                        href="{{ path('reference-cars:user.filter') }}"
+                        class="btn btn-link fw-bolder text-decoration-none text-uppercase small text-dark">
+                    Подбор по автомобилю
+                </a>
+            </li>#}
+
+        </ul>
+
+
+
+        <div class="w-100 d-flex flex-column">
+
+            <div class="tab-content w-100" id="pills-tabContent">
+
+                {% for year in card.getModelFrom()..card.getModelTo() %}
+
+                    <div class="tab-pane fade {{ loop.first ? 'show active' }}"
+                         id="pills-{{ year }}" role="tabpanel" aria-labelledby="pills-{{ year }}-tab"
+                         tabindex="0">
+                        {#Год выпуска {{ i }}#}
+
+                        {{ include(_self|replace({ "content.html.twig": "_characteristic.html.twig" })) }}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {# Характеристики #}
+            {# <div class="d-flex gap-5 mb-3"> #}
+
+
+        </div>
+
+
+    </section>
 
 </main>
+
+
+
+
 
 
 

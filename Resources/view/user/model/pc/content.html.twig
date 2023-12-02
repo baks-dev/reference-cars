@@ -408,16 +408,6 @@
         {# LIGHTBOX  #}
 
         <div class="w-auto">
-
-            {# {% set image_path = null %}
-
-            {% if card.model_image_ext is defined and card.model_image_ext is not null %}
-                {% set img_host =  card.model_image_cdn == true  ? CDN_HOST : '' %}
-                {% set img_dir = card.model_image %}
-                {% set img_file = (img_host is empty ? '/image.' : '/small.') ~ card.model_image_ext %}
-                {% set image_path = img_host ~ img_dir ~ img_file %}
-            {% endif %} #}
-
             <div
                     class="icon rounded-5 border lazy bg-contain shadow-none" style="width: 350px; height: 350px;"
                     data-bg="{{ card.getModelImage ?: '/assets/img/blank.svg' }}"
@@ -425,8 +415,6 @@
             >
 
             </div>
-
-            {# ДОПОЛНИТЕЛЬНЫЕ ФОТО #}
         </div>
 
 
