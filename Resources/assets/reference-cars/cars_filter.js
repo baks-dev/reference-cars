@@ -85,9 +85,10 @@ function changeObjectBrand() {
                 select2.remove();
             }
 
+
             let replacer = document.getElementById(replaceId);
 
-            if (select2 && replacer.tagName === 'SELECT') {
+            if (result.dataset.select === 'select2' && replacer.tagName === 'SELECT') {
                 new NiceSelect(replacer, {searchable: true, id: 'select2-' + replaceId});
 
                 /** Событие на изменение торгового предложения */
@@ -156,10 +157,9 @@ function changeObjectModel() {
                 select2.remove();
             }
 
-
             let replacer = document.getElementById(replaceId);
 
-            if (select2 && replacer.tagName === 'SELECT') {
+            if (result.dataset.select === 'select2' && replacer.tagName === 'SELECT') {
                 new NiceSelect(replacer, {searchable: true, id: 'select2-' + replaceId});
 
                 /** Событие на изменение торгового предложения */
