@@ -31,6 +31,7 @@ use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
 use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Entity\Brand\Info\CarsBrandInfo;
 use BaksDev\Reference\Cars\Entity\Brand\Logo\CarsBrandLogo;
+use BaksDev\Reference\Cars\Entity\Brand\Modify\CarsBrandModify;
 use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
 use BaksDev\Reference\Cars\Entity\Model\CarsModel;
 use BaksDev\Reference\Cars\Entity\Modification\CarsModification;
@@ -41,36 +42,37 @@ use Generator;
 
 final class CarBrandsChoice implements CarBrandsChoiceInterface
 {
-    private ORMQueryBuilder $ORMQueryBuilder;
+    //private ORMQueryBuilder $ORMQueryBuilder;
     private DBALQueryBuilder $DBALQueryBuilder;
 
     public function __construct(
-        ORMQueryBuilder $ORMQueryBuilder,
+        //ORMQueryBuilder $ORMQueryBuilder,
         DBALQueryBuilder $DBALQueryBuilder
     )
     {
-        $this->ORMQueryBuilder = $ORMQueryBuilder;
+        //$this->ORMQueryBuilder = $ORMQueryBuilder;
         $this->DBALQueryBuilder = $DBALQueryBuilder;
     }
 
     public function getCollectionByTires(): Generator
     {
-        $qb = $this->DBALQueryBuilder
+
+        $dbal = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
             ->bindLocal();
 
-        $qb->from(CarsBrand::TABLE, 'main');
+        $dbal->from(CarsBrand::class, 'main');
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'main',
-            CarsBrandInfo::TABLE,
+            CarsBrandInfo::class,
             'info',
             'info.brand = main.id'
         );
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'main',
-            CarsBrandTrans::TABLE,
+            CarsBrandTrans::class,
             'trans',
             'trans.event = main.event AND trans.local = :local'
         );
@@ -80,40 +82,40 @@ final class CarBrandsChoice implements CarBrandsChoiceInterface
 
         $objQueryExistModel
             ->select('1')
-            ->from(CarsModel::TABLE, 'model')
+            ->from(CarsModel::class, 'model')
             ->where('model.brand = main.id');
 
 
         $objQueryExistModel->join(
             'model',
-            CarsModification::TABLE,
+            CarsModification::class,
             'mod',
             'mod.model = model.id');
 
         $objQueryExistModel->join(
             'mod',
-            CarsModificationCharacteristics::TABLE,
+            CarsModificationCharacteristics::class,
             'char',
             'char.event = mod.event');
 
         $objQueryExistModel->join(
             'char',
-            CarsModificationTires::TABLE,
+            CarsModificationTires::class,
             'tires',
             'tires.characteristic = char.id');
 
 
         //$qb->andWhere($qb->expr()->exists($objQueryExistModel->getDQL()));
-        $qb->andWhere('EXISTS('.$objQueryExistModel->getSQL().')');
+        $dbal->andWhere('EXISTS('.$objQueryExistModel->getSQL().')');
 
-        $qb->orderBy('trans.name');
+        $dbal->orderBy('trans.name');
 
 
-        $qb->addSelect('main.id AS value');
-        $qb->addSelect('trans.name AS attr');
-        $qb->addSelect('info.review AS option');
-        
-        return $qb
+        $dbal->addSelect('main.id AS value');
+        $dbal->addSelect('trans.name AS attr');
+        $dbal->addSelect('info.review AS option');
+
+        return $dbal
             ->enableCache('reference-cars', 86400)
             ->fetchAllHydrate(CarsBrandUid::class);
     }
@@ -121,48 +123,57 @@ final class CarBrandsChoice implements CarBrandsChoiceInterface
 
     public function getDetailCollectionByTires(): ?array
     {
-        $qb = $this->ORMQueryBuilder
+        $dbal = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
             ->bindLocal();
-
 
         //        $select = sprintf('new %s(main.id, trans.name, info.review)', CarsBrandUid::class);
         //        $qb->addSelect($select);
 
-        $qb->from(CarsBrand::class, 'main');
+        $dbal->from(CarsBrand::class, 'main');
 
-        $qb
+        $dbal
             ->addSelect('info.review AS brand_review')
             ->addSelect('info.url AS brand_url')
             ->leftJoin(
+                'main',
                 CarsBrandInfo::class,
                 'info',
-                'WITH',
                 'info.brand = main.id'
             );
 
-        $qb
+        $dbal
             ->addSelect('trans.name AS brand_name')
             ->leftJoin(
+                'main',
                 CarsBrandTrans::class,
                 'trans',
-                'WITH',
                 'trans.event = main.event AND trans.local = :local'
             );
 
 
-        $qb
+        $dbal
+            ->addSelect('modify.mod_date AS last_modify')
+            ->leftJoin(
+                'main',
+                CarsBrandModify::class,
+                'modify',
+                'modify.event = main.event'
+            );
+
+
+        $dbal
             //->addSelect('logo.name AS image_name')
             ->addSelect('logo.ext AS image_ext')
             ->addSelect('logo.cdn AS image_cdn')
             ->leftJoin(
+                'main',
                 CarsBrandLogo::class,
                 'logo',
-                'WITH',
                 'logo.event = main.event'
             );
 
-        $qb->addSelect("
+        $dbal->addSelect("
         			CASE
         			   WHEN logo.name IS NOT NULL THEN
         					CONCAT ( '/upload/".CarsBrandLogo::TABLE."' , '/', logo.name)
@@ -182,62 +193,65 @@ final class CarBrandsChoice implements CarBrandsChoiceInterface
         //        );
 
 
-        $objQueryExistModel = $this->ORMQueryBuilder->createQueryBuilder(self::class);
+        $objQueryExistModel = $this->DBALQueryBuilder->createQueryBuilder(self::class);
 
         $objQueryExistModel
             ->select('1')
             ->from(CarsModel::class, 'model')
             ->where('model.brand = main.id');
 
-
         $objQueryExistModel->join(
+            'model',
             CarsModification::class,
-            'mod', 'WITH',
+            'mod',
             'mod.model = model.id');
 
         $objQueryExistModel->join(
+            'mod',
             CarsModificationCharacteristics::class,
-            'char', 'WITH',
+            'char',
             'char.event = mod.event');
 
         $objQueryExistModel->join(
+            'char',
             CarsModificationTires::class,
-            'tires', 'WITH',
+            'tires',
             'tires.characteristic = char.id');
 
 
-        $qb->andWhere($qb->expr()->exists($objQueryExistModel->getDQL()));
+        //$qb->andWhere($qb->expr()->exists($objQueryExistModel->getDQL()));
+        $dbal->andWhere('EXISTS('.$objQueryExistModel->getSQL().')');
 
-        $qb->orderBy('trans.name');
+        $dbal->orderBy('trans.name');
 
-        return $qb
+        return $dbal
             ->enableCache('reference-cars', 86400)
-            ->getResult();
+            ->fetchAllAssociative();
     }
 
 
     public function getCollection(): Generator
     {
-        $qb = $this->DBALQueryBuilder
+        $dbal = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
             ->bindLocal();
 
-        $qb->from(CarsBrand::TABLE, 'main');
+        $dbal->from(CarsBrand::class, 'main');
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'main',
-            CarsBrandTrans::TABLE,
+            CarsBrandTrans::class,
             'trans',
             'trans.event = main.event AND trans.local = :local'
         );
 
-        $qb->orderBy('trans.name');
+        $dbal->orderBy('trans.name');
 
 
-        $qb->addSelect('main.id AS value');
-        $qb->addSelect('trans.name AS attr');
+        $dbal->addSelect('main.id AS value');
+        $dbal->addSelect('trans.name AS attr');
 
-        return $qb
+        return $dbal
             ->enableCache('reference-cars', 86400)
             ->fetchAllHydrate(CarsBrandUid::class);
     }

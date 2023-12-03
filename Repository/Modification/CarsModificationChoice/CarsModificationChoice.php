@@ -33,6 +33,7 @@ use BaksDev\Reference\Cars\Entity\Modification\Characteristics\Motor\CarsModific
 use BaksDev\Reference\Cars\Entity\Modification\Characteristics\Tires\CarsModificationTires;
 use BaksDev\Reference\Cars\Entity\Modification\Event\CarsModificationEvent;
 use BaksDev\Reference\Cars\Entity\Modification\Info\CarsModificationInfo;
+use BaksDev\Reference\Cars\Entity\Modification\Modify\CarsModificationModify;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use BaksDev\Reference\Cars\Type\Modification\Characteris\CarsModificationCharacteristicsUid;
 use BaksDev\Reference\Cars\Type\Modification\Id\CarsModificationUid;
@@ -181,6 +182,15 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
                 CarsModificationEvent::TABLE,
                 'event',
                 'event.id = main.event'
+            );
+
+        $qb
+            ->addSelect('modify.mod_date AS last_modify')
+            ->leftJoin(
+                'main',
+                CarsModificationModify::TABLE,
+                'modify',
+                'modify.event = main.event'
             );
 
         $qb

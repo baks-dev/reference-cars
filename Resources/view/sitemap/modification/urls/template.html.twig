@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for mod in mods %}
+        <url>
+            <loc>{{ absolute_url(path('reference-cars:user.detail', {
+                    brand: card.getBrandUrl(),
+                    model: card.getModelUrl(),
+                    modification: mod.url,
+                    engine: mod.motor_engine,
+                    power: mod.motor_power,
+                })) }}</loc>
+            <lastmod>{{ mod.last_modify|date('Y-m-d\\TH:i:sP') }}</lastmod>
+        </url>
+    {% endfor %}
+</urlset>

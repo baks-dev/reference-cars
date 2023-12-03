@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    {% for model in models %}
+        <sitemap>
+            <loc>{{ absolute_url(path('reference-cars:sitemap.modification.urls', { brand : brand.url, model: model.url })) }}</loc>
+        </sitemap>
+    {% endfor %}
+    
+</sitemapindex>

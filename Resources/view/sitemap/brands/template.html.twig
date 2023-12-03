@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    {% for brand in brands %}
+
+        {# Ссылки на модели бренда  #}
+        <sitemap>
+            <loc>{{ absolute_url(path('reference-cars:sitemap.models.urls', { brand : brand.brand_url })) }}</loc>
+        </sitemap>
+
+        {# Карта на модификации моделей #}
+        <sitemap>
+            <loc>{{ absolute_url(path('reference-cars:sitemap.models', { brand : brand.brand_url })) }}</loc>
+        </sitemap>
+    {% endfor %}
+
+</sitemapindex>

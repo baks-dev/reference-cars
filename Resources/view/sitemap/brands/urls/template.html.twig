@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>{{ absolute_url(path('reference-cars:user.filter')) }}</loc>
+    </url>
+
+    {% for url in urls %}
+        <url>
+            <loc>{{ absolute_url(path('reference-cars:user.brand', { brand: url.brand_url } )) }}</loc>
+            <lastmod>{{ url.last_modify|date('Y-m-d\\TH:i:sP') }}</lastmod>
+        </url>
+    {% endfor %}
+</urlset>
