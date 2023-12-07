@@ -71,13 +71,13 @@
                         <td>
 
                             {% if offers.quantity >= 20 %}
-                                <span class='text-success fw-bold'>более 20 шт.</span>
+                                <span class='text-success fw-bold'>> 20 шт.</span>
 
                             {% elseif offers.quantity == 0 %}
                                 <span class='text-danger fw-bold'>Нет в наличие</span>
 
                             {% else %}
-                                <span class='text-warning fw-bold'>менее 20 шт.</span>
+                                <span class='text-warning fw-bold'>< 20 шт.</span>
                             {% endif %}
 
                         </td>

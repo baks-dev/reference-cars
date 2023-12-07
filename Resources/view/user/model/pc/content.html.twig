@@ -27,7 +27,7 @@
                     <h2 id="headingOne">
                         <button class="accordion-button rounded-4 ps-4 pe-2 py-2 border-0 bg-primary shadow-none {# collapsed #}"
                                 type="button"
-                                aria-label="Подбор шин"
+                                title="Подбор шин"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne"
                                 aria-expanded="true"
@@ -38,8 +38,10 @@
                         </button>
                     </h2>
 
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-label="headingOne"
-                         data-bs-parent="#accordionExample">
+                    <div id="collapseOne"
+                         class="accordion-collapse collapse show"
+                         data-bs-parent="#accordionExample"
+                    >
                         <div class="accordion-body">
 
                             <ul class="nav position-absolute z-index-5 gap-3" id="pills-tab" role="tablist"
@@ -53,7 +55,7 @@
                                             data-bs-target="#pills-home"
                                             type="button"
                                             role="tab"
-                                            aria-label="По авто"
+                                            title="По авто"
                                             aria-controls="pills-home"
                                             aria-selected="true"
                                     >
@@ -96,8 +98,10 @@
 
 
                             <div class="tab-content text-white" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                     aria-label="pills-home-tab" tabindex="0">
+                                <div class="tab-pane fade show active"
+                                     id="pills-home"
+                                     role="tabpanel"
+                                >
 
                                     {# {{ include(_self|replace({ "content.html.twig": "filter.html.twig" })) }} #}
 
@@ -110,8 +114,7 @@
                                 <div class="tab-pane fade"
                                      id="pills-profile"
                                      role="tabpanel"
-                                     aria-label="pills-profile-tab"
-                                     tabindex="0">
+                                >
 
 
                                     <div class="d-flex justify-content-between gap-4 text-white">
@@ -120,7 +123,7 @@
                                             <label for="oldWidth" class="form-label ps-3">Ширина</label>
                                             <select id="oldWidth"
                                                     class="form-select rounded-4 py-2"
-                                                    aria-label="Ширина">
+                                                    title="Ширина">
                                                 <option value="">Неважно</option>
                                                 <option value="145">145</option>
                                                 <option value="155">155</option>
@@ -147,7 +150,7 @@
                                         <div class="w-100">
                                             <label for="oldWidth" class="form-label ps-3">Профиль</label>
                                             <select id="oldProfile" class="form-select rounded-4 py-2"
-                                                    aria-label="Профиль">
+                                                    title="Профиль">
                                                 <option value="">Неважно</option>
                                                 <option value="30">30</option>
                                                 <option value="35">35</option>
@@ -167,7 +170,7 @@
                                         <div class="w-100">
                                             <label for="oldWidth" class="form-label ps-3">Диаметр</label>
                                             <select id="oldRadius" class="form-select rounded-4 py-2"
-                                                    aria-label="Диаметр">
+                                                    title="Диаметр">
 
                                                 <option value="">Неважно</option>
                                                 <option value="12">12</option>
@@ -349,7 +352,7 @@
                                         <div class="w-100">
                                             <button class="btn btn-danger w-100 h-100 rounded-4 text-uppercase fw-bolder"
                                                     value="подобрать шины"
-                                                    aria-label="Подобрать шины"
+                                                    title="Подобрать шины"
                                             >подобрать шины
                                             </button>
                                         </div>
@@ -426,10 +429,10 @@
                 {% for year in card.getModelFrom()..card.getModelTo() %}
 
                 <div class="tab-pane fade {{ loop.first ? 'show active' }}"
-                     id="pills-{{ year }}" role="tabpanel" aria-labelledby="pills-{{ year }}-tab"
-                     tabindex="0">
+                     id="pills-{{ year }}"
+                     role="tabpanel"
+                >
                     {#Год выпуска {{ i }}#}
-
                     {{ include(_self|replace({ "content.html.twig": "_characteristic.html.twig" })) }}
 
                 </div>

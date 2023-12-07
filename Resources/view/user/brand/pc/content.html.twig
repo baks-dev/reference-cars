@@ -28,7 +28,7 @@
                     <h2 id="headingOne">
                         <button class="accordion-button rounded-4 ps-4 pe-2 py-2 border-0 bg-primary shadow-none {# collapsed #}"
                                 type="button"
-                                aria-label="Подбор шин"
+                                title="Подбор шин"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne"
                                 aria-expanded="true"
@@ -39,8 +39,7 @@
                         </button>
                     </h2>
 
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-label="headingOne"
-                         data-bs-parent="#accordionExample">
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
 
                             <ul class="nav position-absolute z-index-5 gap-3" id="pills-tab" role="tablist"
@@ -54,7 +53,7 @@
                                             data-bs-target="#pills-home"
                                             type="button"
                                             role="tab"
-                                            aria-label="По авто"
+                                            title="По авто"
                                             aria-controls="pills-home"
                                             aria-selected="true"
                                     >
@@ -98,8 +97,7 @@
 
 
                             <div class="tab-content text-white" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                     aria-label="pills-home-tab" tabindex="0">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" tabindex="0">
 
                                     {% include '@reference-cars/user/filter/pc/filter.html.twig' %}
 
@@ -156,8 +154,9 @@
     <div class="tab-content w-100" id="alphabet-tabContent">
 
         <div class="tab-pane fade show active"
-             id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab"
-             tabindex="0">
+             id="pills-popular"
+             role="tabpanel"
+        >
 
             <section class="cards-box ">
 
@@ -184,8 +183,9 @@
 
 
         <div class="tab-pane fade"
-             id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab"
-             tabindex="0">
+             id="pills-all"
+             role="tabpanel"
+        >
 
 
             <section class="cards-box ">

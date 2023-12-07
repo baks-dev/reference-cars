@@ -13,7 +13,6 @@
 		
 		<li class="breadcrumb-item">
 			<a href="{{ path('core:user.homepage') }}" class="text-muted"
-					aria-label="{{ 'breadcrumb.homepage.user'|trans({}, 'pages') }}"
 					title="{{ 'breadcrumb.homepage.user'|trans({}, 'pages') }}">
 				{{ 'breadcrumb.homepage.user'|trans({}, 'pages') }}
 			</a>
@@ -21,47 +20,18 @@
 
 		<li class="breadcrumb-item">
 			<a href="{{ path('reference-cars:user.filter') }}" class="text-muted"
-			   aria-label="Подбор по автомобилю"
-			   title="Подбор по автомобилю">
+			   title="Подбор по автомобилю"
+			>
 				Подбор по автомобилю
 			</a>
 		</li>
-		
-		{#<li class="breadcrumb-item">
-			<a href="#}{#{{ path('products-product:user.catalog.category', { url : card.category_url }) }}#}{#" class="text-muted"
-					aria-label="{{ card.brand_name }}"
-					title="{{ card.brand_name }}">
-				{{ card.brand_name }}
-			</a>
-		</li>#}
 
-		{#<li class="breadcrumb-item">
-			<a href="#}{#{{ path('products-product:user.catalog.category', { url : card.category_url }) }}#}{#" class="text-muted"
-			   aria-label="{{ card.model_name }}"
-			   title="{{ card.model_name }}">
-				{{ card.brand_name }} {{ card.model_name }}
-			</a>
-		</li>#}
-		
 		<li class="breadcrumb-item active text-primary"
 				aria-current="page"
-				aria-label="{{ brand.name }}"
 				title="{{ brand.name }}">
-
-			{# Значение торгового предложения #}
 			{{ brand.name }}
 		</li>
 
 
-
-		{# <li class="breadcrumb-item">
-					<a href="#" class="text-muted" aria-label="Продукция" title="Продукция">Шины</a>
-				</li>
-
-				<li class="breadcrumb-item">
-					<a href="#" class="text-muted" aria-label="Продукция" title="Продукция">Triangle</a>
-				</li>
-
-				<li class="breadcrumb-item active text-primary" aria-current="page" aria-label="Sports TH201" title="Sports TH201">Sports TH201</li> #}
 	</ol>
 </nav>

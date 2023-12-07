@@ -2,37 +2,6 @@
 
 <main class="main d-print-none">
 
-    <section id="card" class="container shadow mt-4 pb-3">
-
-        <h1 class="h6 text-uppercase fw-bolder">
-            Шины для {{ card.brand_name }}
-            {{ card.model_name }}
-            {{ card.modification_name }}
-            ({{ card.model_code }})
-        </h1>
-
-
-        {% set image_path = null %}
-
-        {% if card.model_image_ext is defined and card.model_image_ext is not null %}
-            {% set img_host =  card.model_image_cdn == true  ? CDN_HOST : '' %}
-            {% set img_dir = card.model_image %}
-            {% set img_file = (img_host is empty ? '/image.' : '/small.') ~ card.model_image_ext %}
-            {% set image_path = img_host ~ img_dir ~ img_file %}
-        {% endif %}
-
-        <div class="rounded-5 border lazy bg-contain my-3"
-             data-bg="{{ image_path }}"
-             title="{{ card.brand_name }} {{ card.model_name }} {{ card.modification_name }} {{ card.model_code }}"
-             style="width: 100%; height: 250px; background-image: url('/assets/img/empty.webp');"
-        >
-
-        </div>
-
-        {{ include(_self|replace({ "content.html.twig": "_characteristic.html.twig" })) }}
-
-    </section>
-
 
     <section class="container shadow pb-3">
 
@@ -150,6 +119,36 @@
             </div>
 
         </div>
+
+    </section>
+
+    <section id="card" class="container shadow mt-4 pb-3">
+
+        <h1 class="h6 text-uppercase fw-bolder">
+            Шины для {{ card.brand_name }}
+            {{ card.model_name }}
+            {{ card.modification_name }}
+            ({{ card.model_code }})
+        </h1>
+
+        {% set image_path = null %}
+
+        {% if card.model_image_ext is defined and card.model_image_ext is not null %}
+            {% set img_host =  card.model_image_cdn == true  ? CDN_HOST : '' %}
+            {% set img_dir = card.model_image %}
+            {% set img_file = (img_host is empty ? '/image.' : '/small.') ~ card.model_image_ext %}
+            {% set image_path = img_host ~ img_dir ~ img_file %}
+        {% endif %}
+
+        <div class="rounded-5 border lazy bg-contain my-3"
+             data-bg="{{ image_path }}"
+             title="{{ card.brand_name }} {{ card.model_name }} {{ card.modification_name }} {{ card.model_code }}"
+             style="width: 100%; height: 250px; background-image: url('/assets/img/empty.webp');"
+        >
+
+        </div>
+
+        {{ include(_self|replace({ "content.html.twig": "_characteristic.html.twig" })) }}
 
     </section>
 

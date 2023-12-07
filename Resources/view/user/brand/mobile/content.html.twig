@@ -12,7 +12,7 @@
                 <h2 id="headingOne">
                     <button class="accordion-button rounded-3 ps-4 pe-2 py-2 border-0 bg-primary shadow-none collapsed"
                             type="button"
-                            aria-label="Подбор шин"
+                            title="Подбор шин"
                             data-bs-toggle="collapse"
                             data-bs-target="#collapseOne"
                             aria-expanded="true"
@@ -23,8 +23,7 @@
                     </button>
                 </h2>
 
-                <div id="collapseOne" class="accordion-collapse collapse" aria-label="headingOne"
-                     data-bs-parent="#accordionExample">
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
 
                     <div class="accordion-body">
                         {% include '@reference-cars/user/filter/mobile/filter.html.twig' %}
@@ -69,22 +68,20 @@
                 </button>
             </li>
 
-            {#<li class="nav-item ms-auto" role="presentation">
+            {# <li class="nav-item ms-auto" role="presentation">
                 <a
                         href="{{ path('reference-cars:user.filter') }}"
                         class="btn btn-link fw-bolder text-decoration-none text-uppercase small text-dark">
                     Подбор по автомобилю
                 </a>
-            </li>#}
+            </li> #}
         </ul>
-
 
 
         <div class="tab-content w-100" id="alphabet-tabContent">
 
             <div class="tab-pane fade show active"
-                 id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab"
-                 tabindex="0">
+                 id="pills-popular" role="tabpanel" tabindex="0">
 
                 <section class="cards-box ">
 
@@ -111,8 +108,7 @@
 
 
             <div class="tab-pane fade"
-                 id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab"
-                 tabindex="0">
+                 id="pills-all" role="tabpanel" tabindex="0">
 
 
                 <section class="cards-box ">
