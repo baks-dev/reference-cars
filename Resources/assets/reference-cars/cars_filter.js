@@ -20,7 +20,7 @@
  *  THE SOFTWARE.
  */
 
-let limit = 100;
+limit = 100;
 
 setTimeout(function initCarFilter() {
 

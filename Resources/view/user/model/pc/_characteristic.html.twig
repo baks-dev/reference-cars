@@ -10,10 +10,6 @@
 	{% for mod in mods|filter(v => v.characteristic_from <= year and (v.characteristic_to >= year or v.characteristic_to == 0) ) %}
 
 		{% set iterate = iterate + 1 %}
-
-
-		{#{{ dd(mod) }}#}
-
 		{#// /{{ card.getBrandUrl() }}/{{ card.getModelUrl() }}/{{ mod.url }}/{{ mod.motor_engine }}/{{ mod.motor_power }}#}
 
 		<div class="d-flex justify-content-between p-2 rounded-4 {{ cycle([odd, even], iterate) }}">

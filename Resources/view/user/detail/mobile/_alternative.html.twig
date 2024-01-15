@@ -29,10 +29,10 @@
 
                                     {{ offers.product_name }}<br>
 
-                                    {{ offers.product_variation_value|call_twig_func(offers.product_variation_reference)
-                                    ~ offers.product_modification_value|call_twig_func(offers.product_modification_reference) }}
+                                    {{ offers.product_variation_value|call_twig_func(offers.product_variation_reference~'_render')
+                                    ~ offers.product_modification_value|call_twig_func(offers.product_modification_reference~'_render') }}
 
-                                    {{ offers.product_offer_value|call_twig_func(offers.product_offer_reference) }}
+                                    {{ offers.product_offer_value|call_twig_func(offers.product_offer_reference~'_render') }}
                                 </a>
 
                             </div>
