@@ -114,5 +114,8 @@ final class CarsBrandEditTest extends KernelTestCase
 
         self::assertTrue(($handle instanceof CarsBrand), $handle.': Ошибка CarsBrand');
 
+        $em->clear();
+        //$em->close();
+
     }
 }

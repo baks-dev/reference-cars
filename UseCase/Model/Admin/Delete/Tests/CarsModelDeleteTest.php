@@ -83,6 +83,9 @@ final class CarsModelDeleteTest extends KernelTestCase
         self::assertEquals('webp', $CarsBrandLogoDTO->getExt());
         self::assertTrue($CarsBrandLogoDTO->getCdn());
 
+        $em->clear();
+        //$em->close();
+
     }
 
     public static function tearDownAfterClass(): void
@@ -107,6 +110,9 @@ final class CarsModelDeleteTest extends KernelTestCase
         }
 
         $em->flush();
+
+        $em->clear();
+        //$em->close();
     }
 
 }

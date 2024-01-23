@@ -80,6 +80,9 @@ final class CarsModelNewTest extends KernelTestCase
         }
 
         $em->flush();
+
+        $em->clear();
+        //$em->close();
     }
 
 

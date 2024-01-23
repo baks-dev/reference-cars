@@ -97,6 +97,9 @@ final class CarsBrandDeleteTest extends KernelTestCase
 //
 //        self::assertTrue(($handle instanceof CarsBrand), $handle.': Ошибка CarsBrand');
 
+        $em->clear();
+        //$em->close();
+
     }
 
     /**
@@ -124,6 +127,9 @@ final class CarsBrandDeleteTest extends KernelTestCase
         }
 
         $em->flush();
+
+        $em->clear();
+        //$em->close();
     }
 
 }
