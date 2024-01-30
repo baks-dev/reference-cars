@@ -35,11 +35,16 @@ return static function(FrameworkConfig $framework) {
         ->transport('reference-cars')
         ->dsn('%env(MESSENGER_TRANSPORT_DSN)%')
         ->options(['queue_name' => 'reference-cars'])
+        ->failureTransport('failed-reference-cars')
         ->retryStrategy()
         ->maxRetries(2)
         ->delay(1000)
         ->maxDelay(0)
         ->multiplier(3) // увеличиваем задержку перед каждой повторной попыткой
-        ->service(null);
+        ->service(null)
 
+    ;
+
+    $messenger->transport('failed-reference-cars')
+        ->dsn('%env(MESSENGER_TRANSPORT_DSN)%');
 };
