@@ -18,19 +18,18 @@
 
 namespace BaksDev\Reference\Cars\Type\Model\Type;
 
-use App\Module\Users\Profile\UserProfile\Type\Status\UserProfileStatus;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
 final class CarsModelClassType extends StringType
 {
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
     {
         return (string) $value;
     }
     
-    public function convertToPHPValue($value, AbstractPlatform $platform): mixed
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?CarsModelClass
     {
         return !empty($value) ? new CarsModelClass($value) : null;
     }
@@ -51,5 +50,6 @@ final class CarsModelClassType extends StringType
         
         return $platform->getStringTypeDeclarationSQL($column);
     }
+
     
 }
