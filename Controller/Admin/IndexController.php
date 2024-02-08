@@ -54,7 +54,7 @@ final class IndexController extends AbstractController
 
         foreach($activeEventCarsBrand->getAllCurrentEvents() as $item)
         {
-            dump($item);
+            //dump($item);
 
             break;
         }
