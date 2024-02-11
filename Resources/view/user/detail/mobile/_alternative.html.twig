@@ -21,7 +21,9 @@
                         <td>
                             <div>
 
-                                <a href="{{ path('products-product:user.detail', { url: offers.product_url,
+                                <a href="{{ path('products-product:user.detail', {
+                                    category: card.brand_url,
+                                    url: offers.product_url,
                                     offer : offers.product_offer_value,
                                     variation : offers.product_variation_value,
                                     modification : offers.product_modification_value
