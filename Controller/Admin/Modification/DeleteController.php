@@ -50,7 +50,7 @@ final class DeleteController extends AbstractController
     {
 
 
-        dd(544546);
+        return new Response('544546');
 
         $CarsModificationDeleteDTO = new CarsModificationDeleteDTO();
         $CarsModificationEvent->getDto($CarsModificationDeleteDTO);

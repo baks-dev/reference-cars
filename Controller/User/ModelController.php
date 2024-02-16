@@ -55,12 +55,6 @@ final class ModelController extends AbstractController
 
         $carsModifications = $carsModificationChoice->getDetailCollectionByTires($CarModel->getModelId());
 
-        //dd($carsModifications);
-
-//        dd($CarModel);
-//
-//        dd('ModelController');
-
 
 //        // Поиск
 //        $search = new SearchDTO();

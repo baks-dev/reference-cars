@@ -1,10 +1,6 @@
-
-
-    {% if card %}
-
-        {% include '@reference-cars/user/detail/pc/content.html.twig' %}
-
-    {% else %}
+{% if card %}
+    {% include '@reference-cars/user/detail/pc/content.html.twig' %}
+{% else %}
 
     <main class="main d-print-none container px-4">
 
@@ -70,26 +66,6 @@
 
                                 </li>
 
-                                {# <li class="nav-item" role="presentation">
-                                <button class="btn btn-link nav-link rounded-4 px-3 text-white" id="pills-profile-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile" type="button"
-                                        role="tab"
-                                        aria-label="По параметрам"
-                                        aria-controls="pills-profile"
-                                        aria-selected="false">
-									<span>
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor"
-                                             class="bi bi-gear-fill" viewBox="0 0 16 16">
-											<path
-                                                    d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-										</svg>
-									</span>
-                                    <span class="ms-3 text-uppercase fw-bolder">По параметрам</span>
-                                </button>
-                            </li> #}
-
                             </ul>
 
 
@@ -110,8 +86,6 @@
             </div>
 
         </section>
-
-        {# {{ dump(brands) }} #}
 
         {# ПОЛУЛЯРНЫЕ #}
         <hr class="mt-5 rounded-circle border-0" style="height: 20px; box-shadow: 0 -20px 20px -6px #000;">
@@ -151,164 +125,131 @@
         <div class="tab-content w-100" id="pills-tabContent">
 
 
-        <div class="tab-pane fade show active"
-             id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab"
-             tabindex="0">
+            <div class="tab-pane fade show active"
+                 id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab"
+                 tabindex="0">
 
-            <section class="cards-box ">
+                <section class="cards-box ">
 
-                <div class="container">
-                    <div class="row">
+                    <div class="container">
+                        <div class="row">
 
-                        <div class="col-12">
+                            <div class="col-12">
 
 
-                            <div class="row cards-box-body mt-3">
+                                <div class="row cards-box-body mt-3">
 
-                                {% for brand in brands|sort((a, b) => a.brand_review <=> b.brand_review)|reverse|slice(0, 6) %}
-                                    <div class="col-2">
-                                        {{ include(_self|replace({ "content.html.twig":"brand.html.twig" })) }}
-                                    </div>
-                                {% endfor %}
+                                    {% for brand in brands|sort((a, b) => a.brand_review <=> b.brand_review)|reverse|slice(0, 6) %}
+                                        <div class="col-2">
+                                            {{ include(_self|replace({ "content.html.twig":"brand.html.twig" })) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
+
+
                         </div>
-
-
                     </div>
-                </div>
-            </section>
+                </section>
 
-        </div>
+            </div>
 
 
-        <div class="tab-pane fade"
-             id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab"
-             tabindex="0">
+            <div class="tab-pane fade"
+                 id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab"
+                 tabindex="0">
 
-        <div class="d-flex" {# style="margin-top: -40px;" #}>
-            <ul class="nav nav-pills d-flex gap-1 mb-2" id="alphabet-tab" role="tablist">
+                <div class="d-flex" {# style="margin-top: -40px;" #}>
+                    <ul class="nav nav-pills d-flex gap-1 mb-2" id="alphabet-tab" role="tablist">
 
-                {% set ALPHABET = null %}
-                {% set br = null %}
+                        {% set ALPHABET = null %}
+                        {% set br = null %}
 
-                {% for brand in brands %}
+                        {% for brand in brands %}
 
-                    {% set ABC = brand.brand_name|slice(0, 1)|upper %}
+                            {% set ABC = brand.brand_name|slice(0, 1)|upper %}
 
-                    {% if ALPHABET != ABC %}
+                            {% if ALPHABET != ABC %}
 
-                        {# {% if ALPHABET is null or br != isRus(ABC) %}
+                                {# {% if ALPHABET is null or br != isRus(ABC) %}
                                         {% set br = ABC %}
                                     {% endif %} #}
 
 
-                        <li class="nav-item" role="presentation">
-                            <button class="btn nav-link fw-bolder px-1 {{ loop.first ? 'active' }}"
-                                    id="alphabet-{{ ABC }}-tab"
-                                    data-bs-toggle="pill"
-                                    data-bs-target="#alphabet-{{ ABC }}"
-                                    type="button" role="tab"
-                                    aria-controls="alphabet-{{ ABC }}"
-                            >
-                                <span class="text-uppercase p-2">{{ ABC }}</span>
-                            </button>
-                        </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="btn nav-link fw-bolder px-1 {{ loop.first ? 'active' }}"
+                                            id="alphabet-{{ ABC }}-tab"
+                                            data-bs-toggle="pill"
+                                            data-bs-target="#alphabet-{{ ABC }}"
+                                            type="button" role="tab"
+                                            aria-controls="alphabet-{{ ABC }}"
+                                    >
+                                        <span class="text-uppercase p-2">{{ ABC }}</span>
+                                    </button>
+                                </li>
 
-                    {% endif %}
+                            {% endif %}
 
-                    {% set ALPHABET = ABC %}
+                            {% set ALPHABET = ABC %}
 
-                {% endfor %}
+                        {% endfor %}
 
-            </ul>
-        </div>
-
-
+                    </ul>
+                </div>
 
 
+                <div class="tab-content w-100" id="alphabet-tabContent">
 
-        <div class="tab-content w-100" id="alphabet-tabContent">
-
-
-        {% set ALPHABET = null %}
-
-        {% for brand in brands %}
-
-            {% set ABC = brand.brand_name|slice(0, 1)|upper %}
-
-            {% if ALPHABET != ABC %}
-
-                {% if ALPHABET is not null %}
-
-                    </div></div></div></div></section>
-                    </div>
-                {% endif %}
-
-                <div class="tab-pane fade {{ loop.first ? 'show active' }}"
-                id="alphabet-{{ ABC }}" role="tabpanel" aria-labelledby="alphabet-{{ ABC }}-tab"
-                tabindex="0">
-                {# ALPHABET {{ ABC }} #}
-
-
-                <section class="cards-box ">
-                <div class="container">
-                <div class="row">
-                <div class="col-12">
-                <div class="row cards-box-body mt-3">
-
-
-            {% endif %}
-
-            <div class="col-2">
-                {{ include(_self|replace({ "content.html.twig":"brand.html.twig" })) }}
-            </div>
-
-            {# {{ brand.attr }} #}
-
-
-            {% set ALPHABET = ABC %}
-
-        {% endfor %}
-
-
-        </div>
-
-
-        </div>
-        </section>
-
-
-        {# <div class="d-flex flex-wrap gap-3">
 
                     {% set ALPHABET = null %}
 
                     {% for brand in brands %}
 
-                    {% set ABC = brand.attr|slice(0, 1)|upper %}
+                    {% set ABC = brand.brand_name|slice(0, 1)|upper %}
 
                     {% if ALPHABET != ABC %}
 
                     {% if ALPHABET is not null %}
-                    </ul>
-                </div> #}
 
-        {# {% endif %} #}
+                </div>
+            </div>
+        </div>
+        </div></section>
+        </div>
+        {% endif %}
 
-        {# <div class="col-2">
-                    <h3 class="h6">{{ ABC }}</h3>
-                    <ul class="leader list-group list-group-flush ">
+        <div class="tab-pane fade {{ loop.first ? 'show active' }}"
+             id="alphabet-{{ ABC }}" role="tabpanel" aria-labelledby="alphabet-{{ ABC }}-tab"
+             tabindex="0">
+            {# ALPHABET {{ ABC }} #}
 
-                        {% set ALPHABET = ABC %}
 
-                        {% endif %}
+            <section class="cards-box ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row cards-box-body mt-3">
 
-                        <li class="list-group-item bg-transparent border-0 text-truncate rounded-5">
-                            <a href="" class="d-block w-100 text-decoration-none">{{ brand.attr }}</a>
-                        </li>
 
-                        {% endfor %}
-                    </ul>
-                </div> #}
+                                {% endif %}
+
+                                <div class="col-2">
+                                    {{ include(_self|replace({ "content.html.twig":"brand.html.twig" })) }}
+                                </div>
+
+                                {# {{ brand.attr }} #}
+
+
+                                {% set ALPHABET = ABC %}
+
+                                {% endfor %}
+
+
+                            </div>
+
+
+                        </div>
+            </section>
 
 
         </div>
@@ -317,7 +258,7 @@
 
         </div>
     </main>
-    {% endif %}
+{% endif %}
 
 
 

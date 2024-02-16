@@ -41,35 +41,6 @@
 
                         </td>
 
-                       {# <td>
-                            {{ offers.product_variation_value|call_twig_func(offers.product_variation_reference)
-                            ~ offers.product_modification_value|call_twig_func(offers.product_modification_reference) }}
-
-                            {{ offers.product_offer_value|call_twig_func(offers.product_offer_reference) }}
-                        </td>#}
-
-                        {#<td>
-                            <div class="d-flex gap-2 align-items-center">
-
-                                #}{#{{ dump(arr_property) }}#}{#
-
-                                {% for name_property in arr_property %}
-                                    {{ name_property.field_value|call_twig_func(name_property.field_type~'_render') }}
-                                {% endfor %}
-
-                                #}{# <span class="badge bg-success rounded-2">Новинка</span> #}{#
-                                #}{# <span class="badge bg-hit rounded-2 ">Хит</span> #}{#
-                            </div>
-                        </td>#}
-
-                        {#{% if name_variation %}
-                            <td>{{ offers.product_variation_value|call_twig_func(offers.product_variation_reference~'_render') }}</td>
-                        {% endif %}
-
-                        {% if name_modification %}
-                            <td>{{ offers.product_modification_value|call_twig_func(offers.product_modification_reference~'_render') }}</td>
-                        {% endif %}#}
-
                         <td>
 
                             {% if offers.quantity >= 20 %}
