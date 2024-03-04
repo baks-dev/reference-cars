@@ -56,7 +56,9 @@ final class IndexController extends AbstractController
     {
         // Поиск
         $search = new SearchDTO();
-        $searchForm = $this->createForm(SearchForm::class, $search);
+        $searchForm = $this->createForm(SearchForm::class, $search,
+            ['action' => $this->generateUrl('reference-cars:admin.modification.index')]
+        );
         $searchForm->handleRequest($request);
 
 
