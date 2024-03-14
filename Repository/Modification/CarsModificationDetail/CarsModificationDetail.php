@@ -489,9 +489,9 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             $qb = $this->DBALQueryBuilder->createQueryBuilder(self::class);
 
             $qb
-                ->update(CarsBrandInfo::TABLE, 'info')
+                ->update(CarsBrandInfo::TABLE)
                 ->set('review', 'review + 1')
-                ->where('info.brand = :brand')
+                ->where('brand = :brand')
                 ->setParameter('brand', $this->brand, CarsBrandUid::TYPE)
                 ->executeQuery();
         }
@@ -501,9 +501,9 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             $qb = $this->DBALQueryBuilder->createQueryBuilder(self::class);
 
             $qb
-                ->update(CarsModelInfo::TABLE, 'info')
+                ->update(CarsModelInfo::TABLE)
                 ->set('review', 'review + 1')
-                ->where('info.model = :model')
+                ->where('model = :model')
                 ->setParameter('model', $this->model, CarsModelUid::TYPE)
                 ->executeQuery();
         }
