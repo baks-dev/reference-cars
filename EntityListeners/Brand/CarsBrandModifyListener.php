@@ -19,9 +19,11 @@ namespace BaksDev\Reference\Cars\EntityListeners\Brand;
 
 use BaksDev\Core\Type\Ip\IpAddress;
 use BaksDev\Reference\Cars\Entity\Brand\Modify\CarsBrandModify;
+use BaksDev\Users\User\Entity\User;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 
 final class CarsBrandModifyListener
 {
@@ -40,10 +42,17 @@ final class CarsBrandModifyListener
     public function prePersist(CarsBrandModify $data, LifecycleEventArgs $event) : void
     {
         $token = $this->token->getToken();
-        
-        if($token)
-        {
+
+        if ($token) {
+
             $data->setUsr($token->getUser());
+
+            if($token instanceof SwitchUserToken)
+            {
+                /** @var User $originalUser */
+                $originalUser = $token->getOriginalToken()->getUser();
+                $data->setUsr($originalUser);
+            }
         }
         
         /* Если пользователь не из консоли */
