@@ -48,14 +48,17 @@ final class AutoController extends AbstractController
 {
     #[Route('/auto/{brand}/{model}/{modification}/{engine}/{power}', name: 'user.detail', methods: ['GET'])]
     public function detail(
-        //Request $request,
+
         string $brand,
         string $model,
         string $modification,
-        string $engine,
-        string $power,
+
         CarsModificationDetailInterface $carsModificationDetail,
         ProductAlternativeInterface $productAlternative,
+
+        ?string $engine = null,
+        ?string $power = null,
+
     ): Response
     {
         $card = $carsModificationDetail->findCarDetailByUrl(

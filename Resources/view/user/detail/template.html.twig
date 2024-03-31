@@ -1,23 +1,28 @@
 {# ---- ШАБЛОН ------------------------------------------------------------ #}
 {% extends Template('/user/base.html.twig') %}
 
-{#{% block title %}
-    Шины для {{ card.getBrandName() }} {{ card.getModelName() }}
-{% endblock %}#}
+{% block title %}
+    Шины для
+    {{ card.brand_name }}
+    {{ card.model_name }}
+    {{ card.modification_name }}
+    ({{ card.model_code }})
+{% endblock %}
 
 {# ---- CSS ------------------------------------------------------------ #}
 {% block stylesheets %}
     <link href="/assets/plugins/nice-select2/nice-select2.min.css" rel="stylesheet">
+    <link rel="canonical" href="{{ absolute_url(path('reference-cars:user.detail', {
+        brand: card.brand_url,
+        model: card.model_url,
+        modification: card.modification_url,
+        engine: card.modification_engine,
+        power: card.modification_power
+    })) }}">
 {% endblock %}
 
 {# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
 {% block content %}
-
-
-{#    {% set arr_property = card.category_section_field|json_decode %}#}
-{#    {% set product_offers = card.product_offers|json_decode %}#}
-
-
     {{ include(_self|replace({ "template.html.twig":baks_settings.device~"/content.html.twig" })) }}
 {% endblock %}
 

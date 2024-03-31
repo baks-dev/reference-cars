@@ -30,6 +30,7 @@ use BaksDev\Reference\Cars\Type\Modification\Id\CarsModificationUid;
 
 interface CarsModificationDetailInterface
 {
+
     public function findCarDetail(
         CarsBrandUid $brand,
         CarsModelUid $model,
@@ -41,8 +42,8 @@ interface CarsModificationDetailInterface
         string $brand,
         string $model,
         string $modification,
-        string $engine,
-        string $power
+        ?string $engine = null,
+        ?string $power = null
 
     ): ?array;
 }

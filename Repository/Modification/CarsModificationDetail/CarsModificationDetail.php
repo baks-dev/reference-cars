@@ -261,8 +261,8 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
         string $brand,
         string $model,
         string $modification,
-        string $engine,
-        string $power
+        ?string $engine = null,
+        ?string $power = null
 
     ): ?array
     {
@@ -390,14 +390,19 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             ->addSelect('mod_motor.power as modification_power')
             ->addSelect('mod_motor.drive as modification_drive')
             ->addSelect('mod_motor.power as modification_power')
-            ->join(
+            ->leftOneJoin(
                 'char',
                 CarsModificationMotor::TABLE,
                 'mod_motor',
-                'mod_motor.characteristic = char.id AND mod_motor.engine = :engine AND mod_motor.power = :power'
+                'mod_motor.characteristic = char.id'
+                .($engine ? ' AND mod_motor.engine = :engine' : '')
+                .($power ? ' AND mod_motor.power = :power' : ''),
+                'characteristic'
             )
             ->setParameter('engine', $engine)
             ->setParameter('power', $power);
+
+
 
         $qb
             ->addSelect('mod_event.modification as modification_name')
