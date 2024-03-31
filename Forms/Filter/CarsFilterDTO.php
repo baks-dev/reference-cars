@@ -25,17 +25,23 @@ declare(strict_types=1);
 
 namespace BaksDev\Reference\Cars\Forms\Filter;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 final class CarsFilterDTO
 {
+    #[Assert\NotBlank]
     private mixed $brand = null;
+
+    #[Assert\NotBlank]
     private mixed $model = null;
+
+    #[Assert\NotBlank]
     private mixed $modification = null;
+
     private mixed $season = null;
 
-
     private mixed $studs = false;
-
-
+    
     /**
      * Brand
      */

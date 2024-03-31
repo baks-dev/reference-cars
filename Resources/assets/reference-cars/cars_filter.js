@@ -72,6 +72,11 @@ function changeObjectBrand() {
         /* request.readyState - возвращает текущее состояние объекта XHR(XMLHttpRequest) */
         if (requestModalName.readyState === 4 && requestModalName.status === 200) {
 
+            (requestModalName.response
+                .getElementById('cars_filter_form_model'))?.classList.remove('is-invalid');
+
+            (requestModalName.response
+                .getElementById('cars_filter_form_modification'))?.classList.remove('is-invalid');
 
             let result = requestModalName.response.getElementById(replaceId);
 
@@ -145,6 +150,8 @@ function changeObjectModel() {
         /* request.readyState - возвращает текущее состояние объекта XHR(XMLHttpRequest) */
         if (requestModalName.readyState === 4 && requestModalName.status === 200) {
 
+            (requestModalName.response
+                .getElementById('cars_filter_form_modification'))?.classList.remove('is-invalid');
 
             let result = requestModalName.response.getElementById(replaceId);
 

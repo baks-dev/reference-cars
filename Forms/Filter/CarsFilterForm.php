@@ -113,7 +113,8 @@ final class CarsFilterForm extends AbstractType
 
         $builder->add('model', TextType::class, [
             //'choices' => [],
-            'label' => false
+            'label' => false,
+            'attr' => ['readonly' => 'readonly']
         ]);
 
 
@@ -175,7 +176,8 @@ final class CarsFilterForm extends AbstractType
 
         $builder->add('modification', TextType::class, [
             //'choices' => [],
-            'label' => false
+            'label' => false,
+            'attr' => ['readonly' => 'readonly']
         ]);
 
 
