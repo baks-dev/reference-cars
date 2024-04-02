@@ -29,7 +29,7 @@ use BaksDev\Core\Type\UidType\ParamConverter;
 use BaksDev\Products\Category\Entity\ProductCategory;
 use BaksDev\Products\Category\Repository\AllCategoryByMenu\AllCategoryByMenuInterface;
 use BaksDev\Reference\Cars\Repository\Brands\CarBrandByUrl\CarBrandByUrlInterface;
-use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoice;
+use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoiceRepository;
 use BaksDev\Reference\Cars\Repository\Models\CarModelByUrl\CarModelByUrlInterface;
 use BaksDev\Reference\Cars\Repository\Models\CarsModelsChoice\CarsModelsChoiceInterface;
 use BaksDev\Reference\Cars\Repository\Modification\CarsModificationChoice\CarsModificationChoiceInterface;
@@ -51,7 +51,7 @@ final class SitemapController extends AbstractController
      * Карта на разделы автомобилей
      */
     #[Route('/sitemaps/auto/sitemap.xml', name: 'sitemap', methods: ['GET'])]
-    public function sitemap(CarBrandsChoice $carBrandsChoice): Response
+    public function sitemap(CarBrandsChoiceRepository $carBrandsChoice): Response
     {
         $brands = $carBrandsChoice->getDetailCollectionByTires();
 
@@ -66,7 +66,7 @@ final class SitemapController extends AbstractController
      * Ссылки на бренды автомобилей
      */
     #[Route('/sitemap/auto/urls.xml', name: 'sitemap.brands.urls', methods: ['GET'])]
-    public function urls(CarBrandsChoice $carBrandsChoice): Response
+    public function urls(CarBrandsChoiceRepository $carBrandsChoice): Response
     {
         $brands = $carBrandsChoice->getDetailCollectionByTires();
 
@@ -82,7 +82,7 @@ final class SitemapController extends AbstractController
      * Карта моделей автомобилей
      */
     #[Route('/sitemaps/auto/models/sitemap.xml', name: 'sitemap.brands', methods: ['GET'])]
-    public function sitemapBrands(CarBrandsChoice $carBrandsChoice): Response
+    public function sitemapBrands(CarBrandsChoiceRepository $carBrandsChoice): Response
     {
 
         $brands = $carBrandsChoice->getDetailCollectionByTires();

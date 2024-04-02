@@ -73,24 +73,24 @@ class CarsModificationCharacteristics extends EntityEvent
 
     /** Двигатель */
     #[Assert\Valid]
-    #[ORM\OneToOne(mappedBy: 'characteristic', targetEntity: Motor\CarsModificationMotor::class, cascade: ['all'])]
+    #[ORM\OneToOne(targetEntity: Motor\CarsModificationMotor::class, mappedBy: 'characteristic', cascade: ['all'])]
     private Motor\CarsModificationMotor $motor;
 
     /** Шаси */
     #[Assert\Valid]
-    #[ORM\OneToOne(mappedBy: 'characteristic', targetEntity: Chassis\CarsModificationChassis::class, cascade: ['all'])]
+    #[ORM\OneToOne(targetEntity: Chassis\CarsModificationChassis::class, mappedBy: 'characteristic', cascade: ['all'])]
     private Chassis\CarsModificationChassis $chassis;
 
     /* Подбор комплектующих */
 
     /** Шины */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'characteristic', targetEntity: Tires\CarsModificationTires::class, cascade: ['all'])]
+    #[ORM\OneToMany(targetEntity: Tires\CarsModificationTires::class, mappedBy: 'characteristic', cascade: ['all'])]
     private Collection $tire;
 
     /** Диски */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'characteristic', targetEntity: Disc\CarsModificationDisc::class, cascade: ['all'])]
+    #[ORM\OneToMany(targetEntity: Disc\CarsModificationDisc::class, mappedBy: 'characteristic', cascade: ['all'])]
     private Collection $disc;
 
 

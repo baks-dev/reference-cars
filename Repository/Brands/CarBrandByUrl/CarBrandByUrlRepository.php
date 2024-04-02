@@ -23,62 +23,62 @@
 
 declare(strict_types=1);
 
-namespace BaksDev\Reference\Cars\Repository\Brands\AllCarsBrand;
+namespace BaksDev\Reference\Cars\Repository\Brands\CarBrandByUrl;
 
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
-use BaksDev\Core\Form\Search\SearchDTO;
-use BaksDev\Core\Services\Paginator\Paginator;
 use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
-use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
+use BaksDev\Reference\Cars\Entity\Brand\Info\CarsBrandInfo;
 use BaksDev\Reference\Cars\Entity\Brand\Logo\CarsBrandLogo;
 use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
+use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
+use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-final class AllCarsBrand implements AllCarsBrandInterface
+final class CarBrandByUrlRepository implements CarBrandByUrlInterface
 {
     private DBALQueryBuilder $DBALQueryBuilder;
-
-    private ?SearchDTO $search = null;
-
-    private Paginator $paginator;
+    private string $CDN_HOST;
 
     public function __construct(
-        Paginator $paginator,
+        #[Autowire(env: 'CDN_HOST')] string $CDN_HOST,
         DBALQueryBuilder $DBALQueryBuilder,
     )
     {
         $this->DBALQueryBuilder = $DBALQueryBuilder;
-        $this->paginator = $paginator;
-    }
-
-    public function search(SearchDTO $search): self
-    {
-        $this->search = $search;
-        return $this;
+        $this->CDN_HOST = $CDN_HOST;
     }
 
 
-    public function fetchAllAllCarsBrandAssociative(): Paginator
-    {
-        $qb = $this->DBALQueryBuilder->createQueryBuilder(self::class)->bindLocal();
+    private ?array $brand = null;
 
-        //$qb->select('*');
+
+    /**
+     * Возвращает бренд по url
+     */
+    public function getBrand(string $url): self
+    {
+        $qb = $this->DBALQueryBuilder
+            ->createQueryBuilder(self::class)
+            ->bindLocal();
+
+        $qb->select('info.url');
+
+        $qb->from(CarsBrandInfo::TABLE, 'info')
+            ->where('info.url = :url')
+            ->setParameter('url', $url);
 
         $qb
             ->addSelect('main.id')
             ->addSelect('main.event')
-            ->from(CarsBrand::TABLE, 'main');
-
-        $qb
-            ->leftJoin(
+            ->join(
+                'info',
+                CarsBrand::TABLE,
                 'main',
-                CarsBrandEvent::TABLE,
-                'event',
-                'event.id = main.event'
+                'main.id = info.brand'
             );
 
         $qb
-            ->addSelect('trans.name AS brand_name')
-            ->addSelect('trans.description AS brand_desc')
+            ->addSelect('trans.name')
             ->leftJoin(
                 'main',
                 CarsBrandTrans::TABLE,
@@ -87,7 +87,7 @@ final class AllCarsBrand implements AllCarsBrandInterface
             );
 
         $qb
-            ->addSelect("CONCAT('/upload/".CarsBrandLogo::TABLE."' , '/', logo.name) AS logo_name")
+            ->addSelect('logo.name AS logo_image')
             ->addSelect('logo.ext AS logo_ext')
             ->addSelect('logo.cdn AS logo_cdn')
             ->leftJoin(
@@ -97,26 +97,44 @@ final class AllCarsBrand implements AllCarsBrandInterface
                 'logo.event = main.event'
             );
 
-        /* Поиск */
-        if($this->search?->getQuery())
+        $this->brand = $qb
+            ->enableCache('reference-cars', 86400)
+            ->fetchAssociative();
+
+        return $this;
+    }
+
+
+    public function getId(): CarsBrandUid
+    {
+        return new CarsBrandUid($this->brand['id']);
+    }
+
+    public function getEvent(): CarsBrandEventUid
+    {
+        return new CarsBrandEventUid($this->brand['event']);
+    }
+
+    public function getUrl(): string
+    {
+        return $this->brand['url'];
+    }
+
+    public function getName(): string
+    {
+        return $this->brand['name'];
+    }
+
+    public function getLogo(): ?string
+    {
+        if($this->brand['logo_ext'])
         {
-            $qb
-                ->createSearchQueryBuilder($this->search)
-                ->addSearchLike('trans.name')
-                //->addSearchLike('personal.location')
-            ;
+            return
+                ($this->brand['logo_cdn'] ? $this->CDN_HOST : '').
+                '/upload/'.CarsBrandLogo::TABLE.'/'.$this->brand['logo_image'].
+                ($this->brand['logo_cdn'] ? '/small.' : '/image.').$this->brand['logo_ext'];
         }
 
-
-        $qb->addOrderBy('trans.name');
-
-
-
-
-        return $this->paginator->fetchAllAssociative($qb);
-
-        //        return $qb
-        //            // ->enableCache('reference-cars', 3600)
-        //            ->fetchAllAssociative();
+        return null;
     }
 }

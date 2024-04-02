@@ -74,19 +74,19 @@ class CarsModelEvent extends EntityEvent
 	private ?int $to = null;
 	
 	/** Обложка модели */
-	#[ORM\OneToOne(mappedBy: 'event', targetEntity: CarsModelImage::class, cascade: ['all'])]
+	#[ORM\OneToOne(targetEntity: CarsModelImage::class, mappedBy: 'event', cascade: ['all'])]
 	private ?CarsModelImage $image = null;
 	
 	/** Модификатор */
-	#[ORM\OneToOne(mappedBy: 'event', targetEntity: CarsModelModify::class, cascade: ['all'])]
+	#[ORM\OneToOne(targetEntity: CarsModelModify::class, mappedBy: 'event', cascade: ['all'])]
 	private CarsModelModify $modify;
 	
 	/** Перевод */
-	#[ORM\OneToMany(mappedBy: 'event', targetEntity: CarsModelTrans::class, cascade: ['all'])]
+	#[ORM\OneToMany(targetEntity: CarsModelTrans::class, mappedBy: 'event', cascade: ['all'])]
 	private Collection $translate;
 
     /** Информация о модели */
-    #[ORM\OneToOne(mappedBy: 'event', targetEntity: CarsModelInfo::class, cascade: ['all'])]
+    #[ORM\OneToOne(targetEntity: CarsModelInfo::class, mappedBy: 'event', cascade: ['all'])]
     private ?CarsModelInfo $info = null;
 
 

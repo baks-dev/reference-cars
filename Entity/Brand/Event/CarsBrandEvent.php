@@ -52,26 +52,26 @@ class CarsBrandEvent extends EntityEvent
 	/**
      * Лого
      */
-	#[ORM\OneToOne(mappedBy: 'event', targetEntity: CarsBrandLogo::class, cascade: ['all'])]
+	#[ORM\OneToOne(targetEntity: CarsBrandLogo::class, mappedBy: 'event', cascade: ['all'])]
 	private ?CarsBrandLogo $logo = null;
 	
 	/**
      * Модификатор
      */
-	#[ORM\OneToOne(mappedBy: 'event', targetEntity: CarsBrandModify::class, cascade: ['all'])]
+	#[ORM\OneToOne(targetEntity: CarsBrandModify::class, mappedBy: 'event', cascade: ['all'])]
 	private CarsBrandModify $modify;
 	
 	/**
      * Перевод
      */
-	#[ORM\OneToMany(mappedBy: 'event', targetEntity: CarsBrandTrans::class, cascade: ['all'])]
+	#[ORM\OneToMany(targetEntity: CarsBrandTrans::class, mappedBy: 'event', cascade: ['all'])]
 	private Collection $translate;
 
 
     /**
      * Информация о бренде
      */
-    #[ORM\OneToOne(mappedBy: 'event', targetEntity: CarsBrandInfo::class, cascade: ['all'])]
+    #[ORM\OneToOne(targetEntity: CarsBrandInfo::class, mappedBy: 'event', cascade: ['all'])]
     private ?CarsBrandInfo $info = null;
 
 

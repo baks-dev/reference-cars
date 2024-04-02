@@ -30,7 +30,7 @@ use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
 use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 
-final class CarsBrandExists implements CarsBrandExistsInterface
+final class CarsBrandExistsRepository implements CarsBrandExistsInterface
 {
     private DBALQueryBuilder $DBALQueryBuilder;
 

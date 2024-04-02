@@ -31,7 +31,7 @@ use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 
-final class ActiveEventCarsBrand implements ActiveEventCarsBrandInterface
+final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterface
 {
     private ORMQueryBuilder $ORMQueryBuilder;
 

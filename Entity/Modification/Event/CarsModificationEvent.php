@@ -62,17 +62,17 @@ class CarsModificationEvent extends EntityEvent
 	
 	/** Характеристика модификации модели */
     #[Assert\Valid]
-	#[ORM\OneToMany(mappedBy: 'event', targetEntity: CarsModificationCharacteristics::class, cascade: ['all'])]
+	#[ORM\OneToMany(targetEntity: CarsModificationCharacteristics::class, mappedBy: 'event', cascade: ['all'])]
 	private Collection $characteristic;
 	
 	/** Модификатор события */
     #[Assert\Valid]
-	#[ORM\OneToOne(mappedBy: 'event', targetEntity: CarsModificationModify::class, cascade: ['all'])]
+	#[ORM\OneToOne(targetEntity: CarsModificationModify::class, mappedBy: 'event', cascade: ['all'])]
 	private CarsModificationModify $modify;
 
 
     /** Информация о модификации */
-    #[ORM\OneToOne(mappedBy: 'event', targetEntity: CarsModificationInfo::class, cascade: ['all'])]
+    #[ORM\OneToOne(targetEntity: CarsModificationInfo::class, mappedBy: 'event', cascade: ['all'])]
     private ?CarsModificationInfo $info = null;
 
 

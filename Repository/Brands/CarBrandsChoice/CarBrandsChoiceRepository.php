@@ -40,7 +40,7 @@ use BaksDev\Reference\Cars\Entity\Modification\Characteristics\Tires\CarsModific
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use Generator;
 
-final class CarBrandsChoice implements CarBrandsChoiceInterface
+final class CarBrandsChoiceRepository implements CarBrandsChoiceInterface
 {
     //private ORMQueryBuilder $ORMQueryBuilder;
     private DBALQueryBuilder $DBALQueryBuilder;

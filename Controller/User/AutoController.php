@@ -31,7 +31,7 @@ use BaksDev\Core\Form\Search\SearchForm;
 use BaksDev\Products\Product\Repository\ProductAlternative\ProductAlternativeInterface;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterDTO;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterForm;
-use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoice;
+use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoiceRepository;
 use BaksDev\Reference\Cars\Repository\Modification\CarsModificationDetail\CarsModificationDetailInterface;
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
@@ -111,7 +111,7 @@ final class AutoController extends AbstractController
     #[Route('/auto', name: 'user.filter', methods: ['GET', 'POST'])]
     public function auto(
         Request $request,
-        CarBrandsChoice $carBrandsChoice,
+        CarBrandsChoiceRepository $carBrandsChoice,
         CarsModificationDetailInterface $carsModificationDetail,
         ProductAlternativeInterface $productAlternative,
     ): Response
