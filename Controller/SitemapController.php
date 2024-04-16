@@ -26,7 +26,7 @@ namespace BaksDev\Reference\Cars\Controller;
 use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use BaksDev\Core\Type\UidType\ParamConverter;
-use BaksDev\Products\Category\Entity\ProductCategory;
+use BaksDev\Products\Category\Entity\CategoryProduct;
 use BaksDev\Products\Category\Repository\AllCategoryByMenu\AllCategoryByMenuInterface;
 use BaksDev\Reference\Cars\Repository\Brands\CarBrandByUrl\CarBrandByUrlInterface;
 use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoiceRepository;
