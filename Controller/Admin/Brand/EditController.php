@@ -66,6 +66,8 @@ final class EditController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid() && $form->has('cars_brand'))
         {
+            $this->refreshTokenForm($form);
+
             $handle = $CarsBrandHandler->handle($CarsBrandDTO);
 
             $this->addFlash

@@ -57,6 +57,8 @@ final class NewController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid() && $form->has('cars_modification'))
         {
+            $this->refreshTokenForm($form);
+
             $handle = $CarsModificationHandler->handle($CarsModificationDTO);
 
             $this->addFlash

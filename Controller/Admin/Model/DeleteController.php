@@ -61,6 +61,8 @@ final class DeleteController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid() && $form->has('cars_model_delete'))
         {
+            $this->refreshTokenForm($form);
+
             $handle = $CarsModelDeleteHandler->handle($CarsModelDeleteDTO);
 
             $this->addFlash
