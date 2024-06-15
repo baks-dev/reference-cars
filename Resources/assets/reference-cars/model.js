@@ -20,7 +20,7 @@
  *  THE SOFTWARE.
  */
 
-$name = document.querySelector('[data-lang="cars_model_form_translate_' + $lang + '"]');
+$name = document.querySelector('[data-lang="cars_model_form_translate_' + $locale + '"]');
 
 if ($name) {
 

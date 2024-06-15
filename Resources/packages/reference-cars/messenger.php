@@ -33,8 +33,8 @@ return static function(FrameworkConfig $framework) {
 
     $messenger
         ->transport('reference-cars')
-        ->dsn('%env(MESSENGER_TRANSPORT_DSN)%')
-        ->options(['queue_name' => 'reference-cars'])
+        ->dsn('redis://%env(REDIS_PASSWORD)%@%env(REDIS_HOST)%:%env(REDIS_PORT)%?auto_setup=true')
+        ->options(['stream' => 'reference-cars'])
         ->failureTransport('failed-reference-cars')
         ->retryStrategy()
         ->maxRetries(2)
@@ -45,7 +45,9 @@ return static function(FrameworkConfig $framework) {
 
     ;
 
-    $messenger->transport('failed-reference-cars')
+    $failure = $framework->messenger();
+
+    $failure->transport('failed-reference-cars')
         ->dsn('%env(MESSENGER_TRANSPORT_DSN)%')
         ->options(['queue_name' => 'failed-reference-cars'])
     ;
