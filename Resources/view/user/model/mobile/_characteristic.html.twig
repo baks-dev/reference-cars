@@ -24,10 +24,11 @@
 						engine: mod.motor_engine,
 						power: mod.motor_power,
 					})}}" class="w-100 text-decoration-none text-dark"
-					{#data-bs-toggle="tooltip"
-					data-bs-html="true"
-					data-bs-placement="left"
-					data-bs-delay='{"show":600,"hide":100}'#}
+					{#
+					role="tooltip" data-bs-toggle="tooltip"
+                          data-bs-html="true"
+                          data-bs-placement="left"
+                          data-bs-delay='{"show":600,"hide":100}'#}
 
 					title="Шины для {{ card.getBrandName() }} {{ card.getModelName() }} {{ mod.modification }} {{ year }} г.в. с двигателем {{ mod.motor_engine }} {{ mod.motor_fuel }} {{ mod.motor_power }} л.с.
 					 <br> Выпуск модели {{ mod.characteristic_from }}-{{ mod.characteristic_to ? : date('now')|date('Y') }} г.г."
