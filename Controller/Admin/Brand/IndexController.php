@@ -25,7 +25,6 @@ declare(strict_types=1);
 
 namespace BaksDev\Reference\Cars\Controller\Admin\Brand;
 
-
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Form\Search\SearchForm;
 use BaksDev\Reference\Cars\Forms\Admin\CarsFilterDTO;
@@ -47,16 +46,17 @@ final class IndexController extends AbstractController
         Request $request,
         AllCarsBrandInterface $allCarsBrand,
         int $page = 0,
-    ): Response
-    {
+    ): Response {
+
         // Поиск
         $search = new SearchDTO();
-        $searchForm = $this->createForm(SearchForm::class, $search,
+        $searchForm = $this->createForm(
+            SearchForm::class,
+            $search,
             ['action' => $this->generateUrl('reference-cars:admin.brand.index')]
         );
         $searchForm->handleRequest($request);
 
-        // Фильтр
         $filter = new CarsFilterDTO();
         $filterForm = $this->createForm(CarsFilterForm::class, $filter);
         $filterForm->handleRequest($request);
@@ -69,13 +69,9 @@ final class IndexController extends AbstractController
             }
         }
 
-
-        // Получаем список
         $CarsBrand = $allCarsBrand
             ->search($search)
             ->fetchAllAllCarsBrandAssociative();
-
-
 
         return $this->render(
             [
