@@ -34,7 +34,7 @@ use BaksDev\Reference\Cars\UseCase\Modification\NewEdit\CarModificationForm;
 use BaksDev\Reference\Cars\UseCase\Modification\NewEdit\CarModificationHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 
 #[AsController]
