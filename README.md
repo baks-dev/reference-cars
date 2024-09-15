@@ -1,6 +1,6 @@
 # BaksDev Reference Cars
 
-[![Version](https://img.shields.io/badge/version-7.1.7-blue)](https://github.com/baks-dev/reference-cars/releases)
+[![Version](https://img.shields.io/badge/version-7.1.8-blue)](https://github.com/baks-dev/reference-cars/releases)
 ![php 8.3+](https://img.shields.io/badge/php-min%208.3-red.svg)
 
 Библиотека автомобилей (Бренды, модели, параметры)
