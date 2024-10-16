@@ -17,7 +17,6 @@
 
 namespace BaksDev\Reference\Cars\Entity\Brand\Event;
 
-
 use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Core\Type\Locale\Locale;
 use BaksDev\Core\Type\Modify\Modify\ModifyActionNew;
