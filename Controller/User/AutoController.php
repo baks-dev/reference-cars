@@ -117,8 +117,6 @@ final class AutoController extends AbstractController
                 ['action' => $this->generateUrl('reference-cars:user.filter')],
             )
             ->handleRequest(
-
-
                 $request);
 
         $brands = null;
@@ -133,12 +131,7 @@ final class AutoController extends AbstractController
 
             $returnSeason = null;
 
-            if
-
-
-            (
-                'true' === $filter->getStuds()
-            )
+            if('true' === $filter->getStuds())
             {
                 $returnSeason[] = (object) ['field_uid' => '01876af0-ddfe-7a4b-a184-771635c4190d', 'field_value' => 'true'];
             }
