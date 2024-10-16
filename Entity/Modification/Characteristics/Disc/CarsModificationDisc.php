@@ -31,68 +31,68 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'cars_modification_disc')]
 class CarsModificationDisc extends EntityEvent
 {
-	public const TABLE = 'cars_modification_disc';
-	
-	/** Идентификатор */
+    public const TABLE = 'cars_modification_disc';
+
+    /** Идентификатор */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\Id]
-	#[ORM\Column(type: CarsModificationDiscUid::TYPE)]
-	private CarsModificationDiscUid $id;
-	
-	/** Связь на характеристику */
+    #[ORM\Id]
+    #[ORM\Column(type: CarsModificationDiscUid::TYPE)]
+    private CarsModificationDiscUid $id;
+
+    /** Связь на характеристику */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\ManyToOne(targetEntity: CarsModificationCharacteristics::class, inversedBy: "disc")]
-	#[ORM\JoinColumn(name: 'characteristic', referencedColumnName: "id")]
-	private CarsModificationCharacteristics $characteristic;
-	
-	/** Вылет (ET) */
-	#[ORM\Column(type: Types::STRING,  nullable: true)]
-	private ?string $et = null;
-	
-	/* Размер 9.5x18 */
-	
-	/** Диаметр 18″ */
-	#[ORM\Column(type: Types::STRING, nullable: true)]
-	private ?string $diameter = null;
-	
-	/** Ширина 9.5″ */
-	#[ORM\Column(type: Types::STRING, nullable: true)]
-	private ?string $width = null;
-	
-	
-	public function __construct(CarsModificationCharacteristics $characteristic)
-	{
-		$this->characteristic = $characteristic;
-		$this->id = new CarsModificationDiscUid();
-	}
+    #[ORM\ManyToOne(targetEntity: CarsModificationCharacteristics::class, inversedBy: "disc")]
+    #[ORM\JoinColumn(name: 'characteristic', referencedColumnName: "id")]
+    private CarsModificationCharacteristics $characteristic;
+
+    /** Вылет (ET) */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $et = null;
+
+    /* Размер 9.5x18 */
+
+    /** Диаметр 18″ */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $diameter = null;
+
+    /** Ширина 9.5″ */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $width = null;
+
+
+    public function __construct(CarsModificationCharacteristics $characteristic)
+    {
+        $this->characteristic = $characteristic;
+        $this->id = new CarsModificationDiscUid();
+    }
 
     public function __toString(): string
     {
         return (string) $this->characteristic;
     }
 
-	public function getDto($dto): mixed
-	{
+    public function getDto($dto): mixed
+    {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
 
-		if($dto instanceof CarsModificationDiscInterface)
-		{
-			return parent::getDto($dto);
-		}
-		
-		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
-	}
-	
-	public function setEntity($dto): mixed
-	{
-		if($dto instanceof CarsModificationDiscInterface || $dto instanceof self)
-		{
-			return parent::setEntity($dto);
-		}
-		
-		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
-	}
-	
+        if($dto instanceof CarsModificationDiscInterface)
+        {
+            return parent::getDto($dto);
+        }
+
+        throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
+    public function setEntity($dto): mixed
+    {
+        if($dto instanceof CarsModificationDiscInterface || $dto instanceof self)
+        {
+            return parent::setEntity($dto);
+        }
+
+        throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
 }

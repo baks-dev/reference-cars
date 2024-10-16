@@ -22,17 +22,20 @@
 
 limit = 100;
 
-setTimeout(function initCarFilter() {
+setTimeout(function initCarFilter()
+{
 
     cars_filter_form_brand = document.getElementById('cars_filter_form_brand');
     cars_filter_form_model = document.getElementById('cars_filter_form_model');
 
-    if (cars_filter_form_brand) {
+    if(cars_filter_form_brand)
+    {
 
         cars_filter_form_brand.addEventListener('change', changeObjectBrand, false);
 
 
-        if (cars_filter_form_model.tagName === 'SELECT') {
+        if(cars_filter_form_model.tagName === 'SELECT')
+        {
             cars_filter_form_model.addEventListener('change', changeObjectModel, false);
         }
 
@@ -40,7 +43,8 @@ setTimeout(function initCarFilter() {
     }
 
 
-    if (limit > 1000) {
+    if(limit > 1000)
+    {
         return;
     }
 
@@ -49,7 +53,8 @@ setTimeout(function initCarFilter() {
 }, 100);
 
 
-function changeObjectBrand() {
+function changeObjectBrand()
+{
 
     let replaceId = 'cars_filter_form_model';
 
@@ -68,9 +73,11 @@ function changeObjectBrand() {
     requestModalName.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     /* Получаем ответ от сервера на запрос*/
-    requestModalName.addEventListener("readystatechange", function () {
+    requestModalName.addEventListener("readystatechange", function()
+    {
         /* request.readyState - возвращает текущее состояние объекта XHR(XMLHttpRequest) */
-        if (requestModalName.readyState === 4 && requestModalName.status === 200) {
+        if(requestModalName.readyState === 4 && requestModalName.status === 200)
+        {
 
             (requestModalName.response
                 .getElementById('cars_filter_form_model'))?.classList.remove('is-invalid');
@@ -86,24 +93,26 @@ function changeObjectBrand() {
             let select2 = document.getElementById(replaceId + '_select2');
 
 
-            if (select2) {
+            if(select2)
+            {
                 select2.remove();
             }
 
 
             let replacer = document.getElementById(replaceId);
 
-            if (result.dataset.select === 'select2' && replacer.tagName === 'SELECT') {
+            if(result.dataset.select === 'select2' && replacer.tagName === 'SELECT')
+            {
                 new NiceSelect(replacer, {searchable: true, id: 'select2-' + replaceId});
 
                 /** Событие на изменение торгового предложения */
                 let offerChange = document.getElementById(replaceId);
 
-                if (offerChange) {
+                if(offerChange)
+                {
                     offerChange.addEventListener('change', changeObjectModel, false);
                 }
-            }
-            else
+            } else
             {
                 replacer.addEventListener('change', changeObjectModel, false);
             }
@@ -116,7 +125,8 @@ function changeObjectBrand() {
             /* Удаляем предыдущий Select2 */
             let reset2 = document.getElementById(resetId + '_select2');
 
-            if (reset2) {
+            if(reset2)
+            {
                 reset2.remove();
             }
         }
@@ -127,7 +137,8 @@ function changeObjectBrand() {
     requestModalName.send(formData);
 }
 
-function changeObjectModel() {
+function changeObjectModel()
+{
 
     let replaceId = 'cars_filter_form_modification';
 
@@ -146,9 +157,11 @@ function changeObjectModel() {
     requestModalName.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
     /* Получаем ответ от сервера на запрос*/
-    requestModalName.addEventListener("readystatechange", function () {
+    requestModalName.addEventListener("readystatechange", function()
+    {
         /* request.readyState - возвращает текущее состояние объекта XHR(XMLHttpRequest) */
-        if (requestModalName.readyState === 4 && requestModalName.status === 200) {
+        if(requestModalName.readyState === 4 && requestModalName.status === 200)
+        {
 
             (requestModalName.response
                 .getElementById('cars_filter_form_modification'))?.classList.remove('is-invalid');
@@ -160,13 +173,15 @@ function changeObjectModel() {
             /* Удаляем предыдущий Select2 */
             let select2 = document.getElementById(replaceId + '_select2');
 
-            if (select2) {
+            if(select2)
+            {
                 select2.remove();
             }
 
             let replacer = document.getElementById(replaceId);
 
-            if (result.dataset.select === 'select2' && replacer.tagName === 'SELECT') {
+            if(result.dataset.select === 'select2' && replacer.tagName === 'SELECT')
+            {
                 new NiceSelect(replacer, {searchable: true, id: 'select2-' + replaceId});
 
                 /** Событие на изменение торгового предложения */

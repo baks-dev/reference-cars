@@ -26,7 +26,6 @@ declare(strict_types=1);
 namespace BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Info;
 
 use BaksDev\Reference\Cars\Entity\Brand\Info\CarsBrandInfoInterface;
-use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /** @see CarsBrandInfo */

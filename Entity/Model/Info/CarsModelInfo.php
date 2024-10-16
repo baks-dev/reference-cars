@@ -23,17 +23,9 @@
 
 namespace BaksDev\Reference\Cars\Entity\Model\Info;
 
-use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Core\Entity\EntityReadonly;
-use BaksDev\Products\Product\Entity\Event\ProductEvent;
-use BaksDev\Products\Product\Entity\Product;
-use BaksDev\Products\Product\Type\Barcode\ProductBarcode;
-use BaksDev\Products\Product\Type\Id\ProductUid;
-use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Entity\Model\Event\CarsModelEvent;
-use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
-use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -98,7 +90,7 @@ class CarsModelInfo extends EntityReadonly
     {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
 
-        if ($dto instanceof CarsModelInfoInterface)
+        if($dto instanceof CarsModelInfoInterface)
         {
             return parent::getDto($dto);
         }
@@ -109,14 +101,15 @@ class CarsModelInfo extends EntityReadonly
 
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof CarsModelInfoInterface || $dto instanceof self) {
+        if($dto instanceof CarsModelInfoInterface || $dto instanceof self)
+        {
             return parent::setEntity($dto);
         }
 
         throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
     }
 
-    public function updateUrlUniq() : void
+    public function updateUrlUniq(): void
     {
         $this->url = uniqid($this->url.'_', false);
     }

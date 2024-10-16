@@ -17,9 +17,7 @@
 
 namespace BaksDev\Reference\Cars\Entity\Model\Modify;
 
-use BaksDev\Core\Type\Modify\ModifyAction;
-
 interface CarsModelModifyInterface
 {
-	//public function getModify() : ModifyAction;
+    //public function getModify() : ModifyAction;
 }

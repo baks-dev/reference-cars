@@ -31,18 +31,17 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 interface CarsModelClassInterface
 {
     /**
-     * Возвращает значение (value)
-     */
-    public function getValue(): string;
-
-    /**
      * Сортировка (чем меньше число - тем первым в итерации будет значение)
      */
     public static function sort(): int;
-
 
     /**
      * Проверяет, относится ли статус к данному объекту
      */
     public static function equals(string $class): bool;
+
+    /**
+     * Возвращает значение (value)
+     */
+    public function getValue(): string;
 }

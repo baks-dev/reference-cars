@@ -51,15 +51,15 @@
         </h1>
 
 
-            <div class="rounded-5 border lazy bg-contain my-3"
-                 data-bg="{{ card.getModelImage ?: '/assets/img/blank.svg' }}"
-                 title="{{ card.getBrandName }} {{ card.getModelName }}"
-                 style="width: 100%; height: 250px;"
-            >
+        <div class="rounded-5 border lazy bg-contain my-3"
+             data-bg="{{ card.getModelImage ?: '/assets/img/blank.svg' }}"
+             title="{{ card.getBrandName }} {{ card.getModelName }}"
+             style="width: 100%; height: 250px;"
+        >
 
-            </div>
+        </div>
 
-            {#{{ include(_self|replace({ "content.html.twig": "_characteristic.html.twig" })) }}#}
+        {# {{ include(_self|replace({ "content.html.twig": "_characteristic.html.twig" })) }} #}
 
         <ul class="nav nav-pills d-flex gap-1 mb-2 w-100" id="pills-tab" role="tablist">
 
@@ -79,16 +79,15 @@
 
             {% endfor %}
 
-           {# <li class="nav-item ms-auto" role="presentation">
+            {# <li class="nav-item ms-auto" role="presentation">
                 <a
                         href="{{ path('reference-cars:user.filter') }}"
                         class="btn btn-link fw-bolder text-decoration-none text-uppercase small text-dark">
                     Подбор по автомобилю
                 </a>
-            </li>#}
+            </li> #}
 
         </ul>
-
 
 
         <div class="w-100 d-flex flex-column">
@@ -101,7 +100,7 @@
                          id="pills-{{ year }}"
                          role="tabpanel"
                     >
-                        {#Год выпуска {{ i }}#}
+                        {# Год выпуска {{ i }} #}
 
                         {{ include(_self|replace({ "content.html.twig": "_characteristic.html.twig" })) }}
 

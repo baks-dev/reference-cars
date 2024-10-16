@@ -29,46 +29,45 @@ use Symfony\Component\Validator\Constraints as Assert;
 class CarsBrand
 {
     public const TABLE = 'cars_brand';
-    
+
     /** ID */
     #[Assert\Uuid]
     #[Assert\NotBlank]
     #[ORM\Id]
     #[ORM\Column(type: CarsBrandUid::TYPE)]
     private CarsBrandUid $id;
-	
-	
-	/** ID События */
+
+
+    /** ID События */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\Column(type: CarsBrandEventUid::TYPE, unique: true)]
-	private CarsBrandEventUid $event;
-	
+    #[ORM\Column(type: CarsBrandEventUid::TYPE, unique: true)]
+    private CarsBrandEventUid $event;
 
-	public function __construct(?CarsBrandUid $id = null)
-	{
-		$this->id = $id ?: new CarsBrandUid();
-	}
+
+    public function __construct(?CarsBrandUid $id = null)
+    {
+        $this->id = $id ?: new CarsBrandUid();
+    }
 
     public function __toString(): string
     {
         return (string) $this->id;
     }
-	
-	public function getId() : CarsBrandUid
-	{
-		return $this->id;
-	}
-	
-	public function getEvent() : CarsBrandEventUid
-	{
-		return $this->event;
-	}
-	
-	
-	public function setEvent(CarsBrandEventUid|CarsBrandEvent $event) : void
-	{
-		$this->event = $event instanceof CarsBrandEvent ? $event->getId() : $event;
-	}
-	
+
+    public function getEvent(): CarsBrandEventUid
+    {
+        return $this->event;
+    }
+
+    public function setEvent(CarsBrandEventUid|CarsBrandEvent $event): void
+    {
+        $this->event = $event instanceof CarsBrandEvent ? $event->getId() : $event;
+    }
+
+    public function getId(): CarsBrandUid
+    {
+        return $this->id;
+    }
+
 }

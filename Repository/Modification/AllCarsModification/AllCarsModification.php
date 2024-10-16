@@ -26,17 +26,15 @@ declare(strict_types=1);
 namespace BaksDev\Reference\Cars\Repository\Modification\AllCarsModification;
 
 
+use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Services\Paginator\PaginatorInterface;
-use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
 use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
 use BaksDev\Reference\Cars\Entity\Model\CarsModel;
 use BaksDev\Reference\Cars\Entity\Model\Event\CarsModelEvent;
 use BaksDev\Reference\Cars\Entity\Model\Trans\CarsModelTrans;
 use BaksDev\Reference\Cars\Entity\Modification\CarsModification;
-use BaksDev\Reference\Cars\Entity\Modification\Characteristics\CarsModificationCharacteristics;
-use BaksDev\Reference\Cars\Entity\Modification\Characteristics\Motor\CarsModificationMotor;
 use BaksDev\Reference\Cars\Entity\Modification\Event\CarsModificationEvent;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 
@@ -76,8 +74,7 @@ final class AllCarsModification implements AllCarsModificationInterface
     {
         $qb = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
-            ->bindLocal()
-        ;
+            ->bindLocal();
 
         //$qb->select('*');
 
@@ -94,7 +91,6 @@ final class AllCarsModification implements AllCarsModificationInterface
                 'event',
                 'event.id = main.event'
             );
-
 
 
         $qb
@@ -124,7 +120,6 @@ final class AllCarsModification implements AllCarsModificationInterface
             );
 
 
-
         $qb
             ->leftJoin(
                 'model',
@@ -142,29 +137,29 @@ final class AllCarsModification implements AllCarsModificationInterface
                 'brand_trans.event = brand.event AND brand_trans.local = :local'
             );
 
-//        $qb
-//            ->addSelect('char.model')
-//            ->addSelect('char.year_from')
-//            ->addSelect('char.year_to')
-//            ->leftJoin(
-//                'main',
-//                CarsModificationCharacteristics::TABLE,
-//                'char',
-//                'char.event = main.event'
-//            );
+        //        $qb
+        //            ->addSelect('char.model')
+        //            ->addSelect('char.year_from')
+        //            ->addSelect('char.year_to')
+        //            ->leftJoin(
+        //                'main',
+        //                CarsModificationCharacteristics::TABLE,
+        //                'char',
+        //                'char.event = main.event'
+        //            );
 
 
-//        $qb
-//            ->addSelect('motor.fuel')
-//            ->addSelect('motor.engine')
-//            ->addSelect('motor.power')
-//            ->addSelect('motor.drive')
-//            ->leftJoin(
-//                'char',
-//                CarsModificationMotor::TABLE,
-//                'motor',
-//                'motor.characteristic = char.id'
-//            );
+        //        $qb
+        //            ->addSelect('motor.fuel')
+        //            ->addSelect('motor.engine')
+        //            ->addSelect('motor.power')
+        //            ->addSelect('motor.drive')
+        //            ->leftJoin(
+        //                'char',
+        //                CarsModificationMotor::TABLE,
+        //                'motor',
+        //                'motor.characteristic = char.id'
+        //            );
 
 
         if($this->model)
@@ -182,8 +177,7 @@ final class AllCarsModification implements AllCarsModificationInterface
                 ->addSearchLike('event.modification')
                 ->addSearchLike('model_event.code')
                 ->addSearchLike('brand_trans.name')
-                ->addSearchLike('model_trans.name')
-                //->addSearchLike('personal.location')
+                ->addSearchLike('model_trans.name')//->addSearchLike('personal.location')
             ;
         }
 

@@ -26,9 +26,9 @@ declare(strict_types=1);
 namespace BaksDev\Reference\Cars\Repository\Models\AllCarsModel;
 
 
+use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Services\Paginator\PaginatorInterface;
-use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
 use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
 use BaksDev\Reference\Cars\Entity\Model\CarsModel;
@@ -74,8 +74,7 @@ final class AllCarsModel implements AllCarsModelInterface
     {
         $qb = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
-            ->bindLocal()
-        ;
+            ->bindLocal();
 
 
         $qb
@@ -89,32 +88,32 @@ final class AllCarsModel implements AllCarsModelInterface
             ->addSelect('event.year_from')
             ->addSelect('event.year_to')
             ->leftJoin(
-            'main',
-            CarsModelEvent::TABLE,
-            'event',
-            'event.id = main.event'
-        );
+                'main',
+                CarsModelEvent::TABLE,
+                'event',
+                'event.id = main.event'
+            );
 
         $qb
             ->addSelect('trans.name AS model_name')
             ->addSelect('trans.description AS model_desc')
             ->leftJoin(
-            'main',
-            CarsModelTrans::TABLE,
-            'trans',
-            'trans.event = main.event AND trans.local = :local'
-        );
+                'main',
+                CarsModelTrans::TABLE,
+                'trans',
+                'trans.event = main.event AND trans.local = :local'
+            );
 
         $qb
-        ->addSelect("CONCAT('/upload/".CarsModelImage::TABLE."' , '/', image.name) AS image_name")
-        ->addSelect('image.ext AS image_ext')
-        ->addSelect('image.cdn AS image_cdn')
-        ->leftJoin(
-            'main',
-            CarsModelImage::TABLE,
-            'image',
-            'image.event = main.event'
-        );
+            ->addSelect("CONCAT('/upload/".CarsModelImage::TABLE."' , '/', image.name) AS image_name")
+            ->addSelect('image.ext AS image_ext')
+            ->addSelect('image.cdn AS image_cdn')
+            ->leftJoin(
+                'main',
+                CarsModelImage::TABLE,
+                'image',
+                'image.event = main.event'
+            );
 
 
         $qb
@@ -148,8 +147,7 @@ final class AllCarsModel implements AllCarsModelInterface
             $qb
                 ->createSearchQueryBuilder($this->search)
                 ->addSearchLike('trans.name')
-                ->addSearchLike('event.code')
-            ;
+                ->addSearchLike('event.code');
         }
 
         return $this->paginator->fetchAllAssociative($qb);

@@ -19,7 +19,6 @@ namespace BaksDev\Reference\Cars\Type\Modification\Disc;
 
 use App\Kernel;
 use BaksDev\Core\Type\UidType\Uid;
-use Symfony\Component\Uid\AbstractUid;
 
 final class CarsModificationDiscUid extends Uid
 {

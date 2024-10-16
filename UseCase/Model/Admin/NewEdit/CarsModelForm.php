@@ -28,7 +28,6 @@ namespace BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit;
 use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoiceInterface;
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\Type\Model\Type\CarsModelClass;
-use BaksDev\Reference\Cars\Type\Model\Type\CarsModelClass\Collection\CarsModelClassInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -42,7 +41,8 @@ final class CarsModelForm extends AbstractType
 
     private CarBrandsChoiceInterface $carBrandsChoice;
 
-    public function __construct(CarBrandsChoiceInterface $carBrandsChoice) {
+    public function __construct(CarBrandsChoiceInterface $carBrandsChoice)
+    {
         $this->carBrandsChoice = $carBrandsChoice;
     }
 

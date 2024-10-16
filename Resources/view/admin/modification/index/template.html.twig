@@ -1,4 +1,3 @@
-
 {# ---- ШАБЛОН ------------------------------------------------------------ #}
 {% extends Template('/admin/base.html.twig') %}
 
@@ -21,25 +20,27 @@
 
 
 {% block javascript %}
-<script nonce='{{ csp_nonce() }}' async  data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}' class='lazy'></script>
+<script nonce='{{ csp_nonce() }}' async data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}'
+            class='lazy'></script>
 
-<script nonce="{{ csp_nonce() }}">
-document.addEventListener("DOMContentLoaded", (event) => {
-
-
-    let $cars_filter_form_brand = document.getElementById('cars_filter_form_brand');
-
-    $cars_filter_form_brand.addEventListener('change', () => {
-        let cars_filter_form_model = document.getElementById('cars_filter_form_model');
-    cars_filter_form_model.selectedIndex = 0;
-     });
+    <script nonce="{{ csp_nonce() }}">
+        document.addEventListener("DOMContentLoaded", (event) =>
+        {
 
 
+            let $cars_filter_form_brand = document.getElementById('cars_filter_form_brand');
 
-	const form = document.forms.cars_filter_form;
-	form.addEventListener('change', () => { setTimeout(() => { form.submit(); }, 300); });
+            $cars_filter_form_brand.addEventListener('change', () =>
+            {
+                let cars_filter_form_model = document.getElementById('cars_filter_form_model');
+                cars_filter_form_model.selectedIndex = 0;
+            });
 
-});
-</script>
+
+            const form = document.forms.cars_filter_form;
+            form.addEventListener('change', () => { setTimeout(() => { form.submit(); }, 300); });
+
+        });
+    </script>
 
 {% endblock %}

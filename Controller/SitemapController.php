@@ -33,8 +33,6 @@ use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoiceRepo
 use BaksDev\Reference\Cars\Repository\Models\CarModelByUrl\CarModelByUrlInterface;
 use BaksDev\Reference\Cars\Repository\Models\CarsModelsChoice\CarsModelsChoiceInterface;
 use BaksDev\Reference\Cars\Repository\Modification\CarsModificationChoice\CarsModificationChoiceInterface;
-use ReflectionAttribute;
-use ReflectionClass;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,7 +73,6 @@ final class SitemapController extends AbstractController
 
         return $response;
     }
-
 
 
     /**
@@ -123,8 +120,6 @@ final class SitemapController extends AbstractController
 
         return $response;
     }
-
-
 
 
     /**
@@ -175,8 +170,8 @@ final class SitemapController extends AbstractController
 
         $response = $this->render(
             [
-                'card' =>  $CarModel,
-                'mods' =>  $carsModifications,
+                'card' => $CarModel,
+                'mods' => $carsModifications,
             ]
         );
         $response->headers->set('Content-Type', 'text/xml');

@@ -53,7 +53,7 @@ final class EventCarModelByName implements EventCarModelByNameInterface
     /**
      * Метод получает активное событие модели автомобиля по названию
      */
-    public function getEvent(CarsModelInterface $model) : ?CarsModelEvent
+    public function getEvent(CarsModelInterface $model): ?CarsModelEvent
     {
         $qb = $this->entityManager->createQueryBuilder();
 
@@ -91,7 +91,6 @@ final class EventCarModelByName implements EventCarModelByNameInterface
             'WITH',
             'brand.event = brand_event.id'
         );
-
 
 
         $qb->join(

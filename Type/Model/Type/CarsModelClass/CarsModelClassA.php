@@ -32,14 +32,6 @@ final class CarsModelClassA implements CarsModelClassInterface
     public const CLASS_MODEL = 'A';
 
     /**
-     * Возвращает значение (value)
-     */
-    public function getValue(): string
-    {
-        return self::CLASS_MODEL;
-    }
-
-    /**
      * Сортировка (чем меньше число - тем первым в итерации будет значение)
      */
     public static function sort(): int
@@ -53,5 +45,13 @@ final class CarsModelClassA implements CarsModelClassInterface
     public static function equals(string $class): bool
     {
         return mb_strtolower(self::CLASS_MODEL) === mb_strtolower($class);
+    }
+
+    /**
+     * Возвращает значение (value)
+     */
+    public function getValue(): string
+    {
+        return self::CLASS_MODEL;
     }
 }

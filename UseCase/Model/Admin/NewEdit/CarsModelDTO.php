@@ -30,29 +30,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 final class CarsModelDTO implements CarsModelEventInterface
 {
 
-	/** Идентификатор события */
-	#[Assert\Uuid]
-	private ?CarsModelEventUid $id = null;
-	
-	private CarsModelClass $class;
-	
-	/** Код автомобиля  */
-	private ?string $code = null;
-	
-	/** Год начала выпуска авто  */
-    #[Assert\NotBlank]
-	private int $from;
-	
-	/** Год окончания выпуска авто (null - по наст. время) */
-	private ?int $to = null;
+    /** Идентификатор события */
+    #[Assert\Uuid]
+    private ?CarsModelEventUid $id = null;
 
-	/** Обложка модели */
-	#[Assert\Valid]
-	private CarsModelImageDTO $image;
-	
-	/** Перевод */
-	#[Assert\Valid]
-	private ArrayCollection $translate;
+    private CarsModelClass $class;
+
+    /** Код автомобиля  */
+    private ?string $code = null;
+
+    /** Год начала выпуска авто  */
+    #[Assert\NotBlank]
+    private int $from;
+
+    /** Год окончания выпуска авто (null - по наст. время) */
+    private ?int $to = null;
+
+    /** Обложка модели */
+    #[Assert\Valid]
+    private CarsModelImageDTO $image;
+
+    /** Перевод */
+    #[Assert\Valid]
+    private ArrayCollection $translate;
 
     #[Assert\Valid]
     private Info\CarsModelInfoDTO $info;
@@ -61,111 +61,109 @@ final class CarsModelDTO implements CarsModelEventInterface
     /** Бренд */
     #[Assert\Valid]
     private ?CarsBrandUid $brand = null;
-	
-	public function __construct()
-	{
-		$this->translate = new ArrayCollection();
-		$this->image = new Image\CarsModelImageDTO();
-        $this->info = new Info\CarsModelInfoDTO();
-	}
-	
-	
-	public function getEvent() : ?CarsModelEventUid
-	{
-		return $this->id;
-	}
-	
-	
-	/* CLASS */
-	
-	public function getClass() : CarsModelClass
-	{
-		return $this->class;
-	}
 
-	public function setClass(mixed $class) : void
-	{
-		$this->class = new CarsModelClass($class);
-	}
-	
-	
-	/* IMAGE */
-	
-	public function getImage() : Image\CarsModelImageDTO
-	{
-		return $this->image;
-	}
-	
-	public function setImage(Image\CarsModelImageDTO $image) : void
-	{
-		$this->image = $image;
-	}
-	
-	
-	/* TRANSLATE */
-	
-	public function getTranslate() : ArrayCollection
-	{
-		/* Вычисляем расхождение и добавляем неопределенные локали */
-		foreach(Locale::diffLocale($this->translate) as $locale)
-		{
-			$TransFormDTO = new Trans\CarsModelTransDTO();
-			$TransFormDTO->setLocal($locale);
-			$this->addTranslate($TransFormDTO);
-		}
-		
-		return $this->translate;
-	}
-	
-	public function addTranslate(Trans\CarsModelTransDTO $translate) : void
-	{
+    public function __construct()
+    {
+        $this->translate = new ArrayCollection();
+        $this->image = new Image\CarsModelImageDTO();
+        $this->info = new Info\CarsModelInfoDTO();
+    }
+
+
+    public function getEvent(): ?CarsModelEventUid
+    {
+        return $this->id;
+    }
+
+
+    /* CLASS */
+
+    public function getClass(): CarsModelClass
+    {
+        return $this->class;
+    }
+
+    public function setClass(mixed $class): void
+    {
+        $this->class = new CarsModelClass($class);
+    }
+
+
+    /* IMAGE */
+
+    public function getImage(): Image\CarsModelImageDTO
+    {
+        return $this->image;
+    }
+
+    public function setImage(Image\CarsModelImageDTO $image): void
+    {
+        $this->image = $image;
+    }
+
+
+    /* TRANSLATE */
+
+    public function getTranslate(): ArrayCollection
+    {
+        /* Вычисляем расхождение и добавляем неопределенные локали */
+        foreach(Locale::diffLocale($this->translate) as $locale)
+        {
+            $TransFormDTO = new Trans\CarsModelTransDTO();
+            $TransFormDTO->setLocal($locale);
+            $this->addTranslate($TransFormDTO);
+        }
+
+        return $this->translate;
+    }
+
+    public function addTranslate(Trans\CarsModelTransDTO $translate): void
+    {
         if(empty($translate->getLocal()->getLocalValue()))
         {
             return;
         }
 
-		$this->translate->add($translate);
-	}
-	
-	public function removeTranslate(Trans\CarsModelTransDTO $translate) : void
-	{
-		$this->translate->removeElement($translate);
-	}
+        $this->translate->add($translate);
+    }
+
+    public function removeTranslate(Trans\CarsModelTransDTO $translate): void
+    {
+        $this->translate->removeElement($translate);
+    }
 
 
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
 
-	public function getCode() : ?string
-	{
-		return $this->code;
-	}
-
-	public function setCode(?string $code) : void
-	{
-		$this->code = $code;
-	}
-	
-
-	public function getFrom() : int
-	{
-		return $this->from;
-	}
-
-	public function setFrom(int|string $from) : void
-	{
-		$this->from = (int) filter_var($from, FILTER_SANITIZE_NUMBER_INT);
-	}
-	
+    public function setCode(?string $code): void
+    {
+        $this->code = $code;
+    }
 
 
-	public function getTo() : ?int
-	{
-		return $this->to;
-	}
+    public function getFrom(): int
+    {
+        return $this->from;
+    }
 
-	public function setTo(int|string|null $to) : void
-	{
-		$this->to = $to ? (int) filter_var($to, FILTER_SANITIZE_NUMBER_INT) : null;
-	}
+    public function setFrom(int|string $from): void
+    {
+        $this->from = (int) filter_var($from, FILTER_SANITIZE_NUMBER_INT);
+    }
+
+
+    public function getTo(): ?int
+    {
+        return $this->to;
+    }
+
+    public function setTo(int|string|null $to): void
+    {
+        $this->to = $to ? (int) filter_var($to, FILTER_SANITIZE_NUMBER_INT) : null;
+    }
 
 
     /**

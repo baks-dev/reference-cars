@@ -25,7 +25,7 @@ use BaksDev\Reference\Cars\Type\Modification\Tires\CarsModificationTiresType;
 use BaksDev\Reference\Cars\Type\Modification\Tires\CarsModificationTiresUid;
 use Symfony\Config\DoctrineConfig;
 
-return static function (ContainerConfigurator $container, DoctrineConfig $doctrine): void {
+return static function(ContainerConfigurator $container, DoctrineConfig $doctrine): void {
 
     $services = $container->services()
         ->defaults()

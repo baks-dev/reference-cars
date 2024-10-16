@@ -31,5 +31,5 @@ interface CarBrandsChoiceInterface
 
     public function getCollectionByTires(): Generator;
 
-    public function getDetailCollectionByTires() : ?array;
+    public function getDetailCollectionByTires(): ?array;
 }

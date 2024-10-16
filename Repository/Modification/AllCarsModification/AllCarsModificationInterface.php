@@ -31,5 +31,5 @@ interface AllCarsModificationInterface
     /** Метод возвращает пагинатор CarsModification */
     public function fetchAllCarsModificationAssociative(): PaginatorInterface;
 
-    public function model(CarsModelUid $model) : self;
+    public function model(CarsModelUid $model): self;
 }

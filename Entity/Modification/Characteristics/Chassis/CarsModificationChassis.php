@@ -31,74 +31,74 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'cars_modification_chassis')]
 class CarsModificationChassis extends EntityEvent
 {
-	public const TABLE = 'cars_modification_chassis';
-	
-	/** ID характеристики */
+    public const TABLE = 'cars_modification_chassis';
+
+    /** ID характеристики */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\Id]
-	#[ORM\OneToOne(inversedBy: 'chassis', targetEntity: CarsModificationCharacteristics::class)]
-	#[ORM\JoinColumn(name: 'characteristic', referencedColumnName: 'id')]
-	private CarsModificationCharacteristics $characteristic;
-	
-	/** Ступичное отверстие (DIA):*/
-	#[ORM\Column(type: Types::STRING, nullable: true)]
-	private ?string $dia = null;
-	
-	/** Диаметр (PCD):*/
-	#[ORM\Column(type: Types::STRING, nullable: true)]
-	private ?string $pcd = null;
-	
-	/** Количество крепежей */
-	#[ORM\Column(type: Types::INTEGER, nullable: true)]
-	private ?int $number = null;
-	
-	/** Крепёж */
-	#[ORM\Column(type: Types::STRING, nullable: true)]
-	private ?string $fastener = null;
-	
-	
-	public function __construct(CarsModificationCharacteristics $characteristic)
-	{
-		$this->characteristic = $characteristic;
-	}
+    #[ORM\Id]
+    #[ORM\OneToOne(inversedBy: 'chassis', targetEntity: CarsModificationCharacteristics::class)]
+    #[ORM\JoinColumn(name: 'characteristic', referencedColumnName: 'id')]
+    private CarsModificationCharacteristics $characteristic;
+
+    /** Ступичное отверстие (DIA):*/
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $dia = null;
+
+    /** Диаметр (PCD):*/
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $pcd = null;
+
+    /** Количество крепежей */
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
+    private ?int $number = null;
+
+    /** Крепёж */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $fastener = null;
+
+
+    public function __construct(CarsModificationCharacteristics $characteristic)
+    {
+        $this->characteristic = $characteristic;
+    }
 
     public function __toString(): string
     {
         return (string) $this->characteristic;
     }
-	
-	public function getDto($dto): mixed
-	{
+
+    public function getDto($dto): mixed
+    {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
 
-		if($dto instanceof CarsModificationChassisInterface)
-		{
-			return parent::getDto($dto);
-		}
-		
-		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
-	}
-	
-	
-	public function setEntity($dto): mixed
-	{
-		if($dto instanceof CarsModificationChassisInterface || $dto instanceof self)
-		{
-			if(
-				empty($dto->getPcd()) &&
-				empty($dto->getDia()) &&
-				empty($dto->getFastener()) &&
-				empty($dto->getNumber())
-			)
-			{
-				return false;
-			}
-			
-			return parent::setEntity($dto);
-		}
-		
-		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
-	}
-	
+        if($dto instanceof CarsModificationChassisInterface)
+        {
+            return parent::getDto($dto);
+        }
+
+        throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
+
+    public function setEntity($dto): mixed
+    {
+        if($dto instanceof CarsModificationChassisInterface || $dto instanceof self)
+        {
+            if(
+                empty($dto->getPcd()) &&
+                empty($dto->getDia()) &&
+                empty($dto->getFastener()) &&
+                empty($dto->getNumber())
+            )
+            {
+                return false;
+            }
+
+            return parent::setEntity($dto);
+        }
+
+        throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
 }

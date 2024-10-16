@@ -22,12 +22,12 @@ use BaksDev\Core\Type\UidType\UidType;
 
 final class CarsBrandEventType extends UidType
 {
-    
+
     public function getClassType(): string
     {
         return CarsBrandEventUid::class;
     }
-    
+
     public function getName(): string
     {
         return CarsBrandEventUid::TYPE;

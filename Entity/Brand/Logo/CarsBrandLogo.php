@@ -98,10 +98,10 @@ class CarsBrandLogo extends EntityEvent implements UploadEntityInterface
             return false;
         }
 
-//        if(!empty($dto->file))
-//        {
-//            $dto->setEntityUpload($this);
-//        }
+        //        if(!empty($dto->file))
+        //        {
+        //            $dto->setEntityUpload($this);
+        //        }
 
         if($dto instanceof CarsBrandLogoInterface || $dto instanceof self)
         {
@@ -149,20 +149,20 @@ class CarsBrandLogo extends EntityEvent implements UploadEntityInterface
 
 
 
-//    public function getUploadDir(): object
-//    {
-//        return $this->event->getId();
-//    }
-//
-//
-//    public static function getDirName(): string
-//    {
-//        return CarsBrandEventUid::class;
-//    }
-//
-//    public function getDir(): CarsBrandEventUid
-//    {
-//        return $this->dir;
-//    }
+    //    public function getUploadDir(): object
+    //    {
+    //        return $this->event->getId();
+    //    }
+    //
+    //
+    //    public static function getDirName(): string
+    //    {
+    //        return CarsBrandEventUid::class;
+    //    }
+    //
+    //    public function getDir(): CarsBrandEventUid
+    //    {
+    //        return $this->dir;
+    //    }
 
 }

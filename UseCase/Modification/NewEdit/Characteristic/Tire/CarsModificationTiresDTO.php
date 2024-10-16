@@ -22,53 +22,49 @@ use BaksDev\Reference\Cars\Entity\Modification\Characteristics\Tires\CarsModific
 final class CarsModificationTiresDTO implements CarsModificationTiresInterface
 {
 
-	/** Размер */
-	private ?int $size = null;
-	
-	/** Профиль */
-	private ?int $profile = null;
-	
-	/** Радиус */
-	private ?int $radius = null;
-	
-	
-	
-	
-	/** Размер */
-	public function getSize() : ?int
-	{
-		return $this->size;
-	}
+    /** Размер */
+    private ?int $size = null;
 
-	public function setSize(?int $size) : void
-	{
-		$this->size = $size;
-	}
-	
-	
-	
-	/** Профиль */
-	public function getProfile() : ?int
-	{
-		return $this->profile;
-	}
+    /** Профиль */
+    private ?int $profile = null;
 
-	public function setProfile(?int $profile) : void
-	{
-		$this->profile = $profile;
-	}
-	
-	
-	
-	/** Радиус */
-	public function getRadius() : ?int
-	{
-		return $this->radius;
-	}
+    /** Радиус */
+    private ?int $radius = null;
 
-	public function setRadius(?int $radius) : void
-	{
-		$this->radius = $radius;
-	}
-	
+
+    /** Размер */
+    public function getSize(): ?int
+    {
+        return $this->size;
+    }
+
+    public function setSize(?int $size): void
+    {
+        $this->size = $size;
+    }
+
+
+    /** Профиль */
+    public function getProfile(): ?int
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?int $profile): void
+    {
+        $this->profile = $profile;
+    }
+
+
+    /** Радиус */
+    public function getRadius(): ?int
+    {
+        return $this->radius;
+    }
+
+    public function setRadius(?int $radius): void
+    {
+        $this->radius = $radius;
+    }
+
 }

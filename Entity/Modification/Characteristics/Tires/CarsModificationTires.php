@@ -31,40 +31,40 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(name: 'cars_modification_tires')]
 class CarsModificationTires extends EntityEvent
 {
-	public const TABLE = 'cars_modification_tires';
-	
-	/** Идентификатор */
+    public const TABLE = 'cars_modification_tires';
+
+    /** Идентификатор */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\Id]
-	#[ORM\Column(type: CarsModificationTiresUid::TYPE)]
-	private CarsModificationTiresUid $id;
-	
-	/** Связь на характеристику */
+    #[ORM\Id]
+    #[ORM\Column(type: CarsModificationTiresUid::TYPE)]
+    private CarsModificationTiresUid $id;
+
+    /** Связь на характеристику */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\ManyToOne(targetEntity: CarsModificationCharacteristics::class, inversedBy: "tire")]
-	#[ORM\JoinColumn(name: 'characteristic', referencedColumnName: "id")]
-	private CarsModificationCharacteristics $characteristic;
-	
-	/** Размер */
-	#[ORM\Column(type: Types::SMALLINT, nullable: true)]
-	private ?int $size = null;
-	
-	/** Профиль */
-	#[ORM\Column(type: Types::SMALLINT, nullable: true)]
-	private ?int $profile = null;
-	
-	/** Радиус */
-	#[ORM\Column(type: Types::SMALLINT, nullable: true)]
-	private ?int $radius = null;
-	
-	
-	public function __construct(CarsModificationCharacteristics $characteristic)
-	{
-		$this->characteristic = $characteristic;
-		$this->id = new CarsModificationTiresUid();
-	}
+    #[ORM\ManyToOne(targetEntity: CarsModificationCharacteristics::class, inversedBy: "tire")]
+    #[ORM\JoinColumn(name: 'characteristic', referencedColumnName: "id")]
+    private CarsModificationCharacteristics $characteristic;
+
+    /** Размер */
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $size = null;
+
+    /** Профиль */
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $profile = null;
+
+    /** Радиус */
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $radius = null;
+
+
+    public function __construct(CarsModificationCharacteristics $characteristic)
+    {
+        $this->characteristic = $characteristic;
+        $this->id = new CarsModificationTiresUid();
+    }
 
 
     public function __toString(): string
@@ -72,28 +72,28 @@ class CarsModificationTires extends EntityEvent
         return (string) $this->characteristic;
     }
 
-	public function getDto($dto): mixed
-	{
+    public function getDto($dto): mixed
+    {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
 
-		if($dto instanceof CarsModificationTiresInterface)
-		{
-			return parent::getDto($dto);
-		}
-		
-		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
-	}
-	
-	public function setEntity($dto): mixed
-	{
-		
-		if($dto instanceof CarsModificationTiresInterface || $dto instanceof self)
-		{
-			return parent::setEntity($dto);
-		}
-		
-		throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
-	}
-	
+        if($dto instanceof CarsModificationTiresInterface)
+        {
+            return parent::getDto($dto);
+        }
+
+        throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
+    public function setEntity($dto): mixed
+    {
+
+        if($dto instanceof CarsModificationTiresInterface || $dto instanceof self)
+        {
+            return parent::setEntity($dto);
+        }
+
+        throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
+    }
+
 
 }

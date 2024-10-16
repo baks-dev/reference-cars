@@ -102,15 +102,12 @@ final class AllCarsBrandRepository implements AllCarsBrandInterface
         {
             $qb
                 ->createSearchQueryBuilder($this->search)
-                ->addSearchLike('trans.name')
-                //->addSearchLike('personal.location')
+                ->addSearchLike('trans.name')//->addSearchLike('personal.location')
             ;
         }
 
 
         $qb->addOrderBy('trans.name');
-
-
 
 
         return $this->paginator->fetchAllAssociative($qb);

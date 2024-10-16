@@ -31,7 +31,7 @@ interface ActiveEventCarsBrandInterface
     /**
      * Метод возвращает активное событие по идентификатору
      */
-    public function getCurrentEvent(CarsBrandUid $id) : ?CarsBrandEvent;
+    public function getCurrentEvent(CarsBrandUid $id): ?CarsBrandEvent;
 
     /**
      * Метод возвращает активное событие по названию
@@ -41,5 +41,5 @@ interface ActiveEventCarsBrandInterface
     /**
      * Метод возвращает все активные события
      */
-    public function getAllCurrentEvents() : ?array;
+    public function getAllCurrentEvents(): ?array;
 }

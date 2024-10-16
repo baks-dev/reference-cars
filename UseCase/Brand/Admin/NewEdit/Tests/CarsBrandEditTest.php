@@ -25,28 +25,25 @@ declare(strict_types=1);
 
 namespace BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Tests;
 
+use BaksDev\Core\Type\Locale\Locale;
 use BaksDev\Core\Type\Locale\Locales\Ru;
 use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
 use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\CarsBrandDTO;
-use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
-use BaksDev\Core\Type\Locale\Locale;
 use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\CarsBrandHandler;
 use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Logo\CarsBrandLogoDTO;
 use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Trans\CarsBrandTransDTO;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @group reference-cars
  * @group reference-cars-brand
  *
  * @depends BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Tests\CarsBrandNewTest::class
- * @see CarsBrandNewTest
+ * @see     CarsBrandNewTest
  */
 #[When(env: 'test')]
 final class CarsBrandEditTest extends KernelTestCase
@@ -92,7 +89,6 @@ final class CarsBrandEditTest extends KernelTestCase
 
         self::assertEquals('Description', $CarsBrandTrans->getDescription());
         $CarsBrandTrans->setDescription('DescriptionEdit');
-
 
 
         /** @var CarsBrandLogoDTO $CarsBrandLogoDTO */

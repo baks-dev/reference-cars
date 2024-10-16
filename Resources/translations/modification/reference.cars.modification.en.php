@@ -1,6 +1,6 @@
 <?php
 
 return [
-	'placeholder' => 'Select vehicle equipment ...',
-	'label' => 'Equipment',
+    'placeholder' => 'Select vehicle equipment ...',
+    'label' => 'Equipment',
 ];

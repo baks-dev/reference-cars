@@ -19,5 +19,5 @@ namespace BaksDev\Reference\Cars\Entity\Modification\Characteristics;
 
 interface CarsModificationCharacteristicsInterface
 {
-	
+
 }

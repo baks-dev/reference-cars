@@ -23,7 +23,6 @@ use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\Type\Model\Event\CarsModelEventUid;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /* CarsModel */
@@ -33,61 +32,61 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(columns: ['brand'])]
 class CarsModel
 {
-	public const TABLE = 'cars_model';
-	
-	/** ID */
-    #[Assert\Uuid]
-    #[Assert\NotBlank]
-	#[ORM\Id]
-	#[ORM\Column(type: CarsModelUid::TYPE)]
-	private CarsModelUid $id;
+    public const TABLE = 'cars_model';
 
-	/** ID События */
+    /** ID */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\Column(type: CarsModelEventUid::TYPE, unique: true)]
-	private CarsModelEventUid $event;
-	
-	/** ID Бренда */
+    #[ORM\Id]
+    #[ORM\Column(type: CarsModelUid::TYPE)]
+    private CarsModelUid $id;
+
+    /** ID События */
     #[Assert\Uuid]
-	#[ORM\Column(type: CarsBrandUid::TYPE, nullable: true)]
-	private ?CarsBrandUid $brand = null;
-	
-	public function __construct(CarsModelUid $id = null)
-	{
-		$this->id = $id ?: new CarsModelUid();
-	}
+    #[Assert\NotBlank]
+    #[ORM\Column(type: CarsModelEventUid::TYPE, unique: true)]
+    private CarsModelEventUid $event;
+
+    /** ID Бренда */
+    #[Assert\Uuid]
+    #[ORM\Column(type: CarsBrandUid::TYPE, nullable: true)]
+    private ?CarsBrandUid $brand = null;
+
+    public function __construct(CarsModelUid $id = null)
+    {
+        $this->id = $id ?: new CarsModelUid();
+    }
 
     public function __toString(): string
     {
         return (string) $this->id;
     }
-	
-	public function getId() : CarsModelUid
-	{
-		return $this->id;
-	}
-	
-	public function getEvent() : CarsModelEventUid
-	{
-		return $this->event;
-	}
-	
-	public function setEvent(CarsModelEventUid|CarsModelEvent $event) : void
-	{
-		$this->event = $event instanceof CarsModelEvent ? $event->getId() : $event;
-	}
 
-    /**
-     * Brand
-     */
-	public function setBrand(CarsBrandUid|CarsBrand $brand) : void
-	{
-		$this->brand = $brand instanceof CarsBrand ? $brand->getId() : $brand;
-	}
+    public function getEvent(): CarsModelEventUid
+    {
+        return $this->event;
+    }
+
+    public function setEvent(CarsModelEventUid|CarsModelEvent $event): void
+    {
+        $this->event = $event instanceof CarsModelEvent ? $event->getId() : $event;
+    }
+
+    public function getId(): CarsModelUid
+    {
+        return $this->id;
+    }
 
     public function getBrand(): ?CarsBrandUid
     {
         return $this->brand;
+    }
+
+    /**
+     * Brand
+     */
+    public function setBrand(CarsBrandUid|CarsBrand $brand): void
+    {
+        $this->brand = $brand instanceof CarsBrand ? $brand->getId() : $brand;
     }
 }

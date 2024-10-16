@@ -22,13 +22,13 @@ use BaksDev\Core\Type\UidType\UidType;
 
 final class CarsModificationEventType extends UidType
 {
-	public function getClassType(): string
-	{
-		return CarsModificationEventUid::class;
-	}
-	
-	public function getName(): string
-	{
-		return CarsModificationEventUid::TYPE;
-	}
+    public function getClassType(): string
+    {
+        return CarsModificationEventUid::class;
+    }
+
+    public function getName(): string
+    {
+        return CarsModificationEventUid::TYPE;
+    }
 }

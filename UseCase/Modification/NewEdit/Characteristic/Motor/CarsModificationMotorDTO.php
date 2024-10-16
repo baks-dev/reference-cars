@@ -23,63 +23,63 @@ use Symfony\Component\Validator\Constraints as Assert;
 /** @see CarsModificationMotor */
 final class CarsModificationMotorDTO implements CarsModificationMotorInterface
 {
-	/** Тип двигателя (бензин/дизль ...) */
-	private ?string $fuel = null;
-	
-	/** Объем двигателя (л) */
-	private ?string $engine = null;
-	
-	/** Мощность двигателя, л.с. */
-	private ?string $power;
-	
-	/** Привод */
-	private ?string $drive;
-	
-	
-	/** Тип двигателя (бензин/дизль ...) */
-	public function getFuel() : ?string
-	{
-		return $this->fuel;
-	}
-	
-	public function setFuel(?string $fuel) : void
-	{
-		$this->fuel = $fuel;
-	}
-	
-	/** Объем двигателя (л) */
-	public function getEngine() : ?string
-	{
-		return $this->engine;
-	}
-	
-	/** Объем двигателя (л) */
-	public function setEngine(?string $engine) : void
-	{
-		$this->engine = $engine;
-	}
-	
-	/** Мощность двигателя, л.с. */
-	public function getPower() : ?string
-	{
-		return $this->power;
-	}
-	
-	public function setPower(?string $power) : void
-	{
-		$this->power = $power;
-	}
-	
-	/** Привод */
-	public function getDrive() : ?string
-	{
-		return $this->drive;
-	}
-	
-	
-	public function setDrive(?string $drive) : void
-	{
-		$this->drive = $drive;
-	}
-	
+    /** Тип двигателя (бензин/дизль ...) */
+    private ?string $fuel = null;
+
+    /** Объем двигателя (л) */
+    private ?string $engine = null;
+
+    /** Мощность двигателя, л.с. */
+    private ?string $power;
+
+    /** Привод */
+    private ?string $drive;
+
+
+    /** Тип двигателя (бензин/дизль ...) */
+    public function getFuel(): ?string
+    {
+        return $this->fuel;
+    }
+
+    public function setFuel(?string $fuel): void
+    {
+        $this->fuel = $fuel;
+    }
+
+    /** Объем двигателя (л) */
+    public function getEngine(): ?string
+    {
+        return $this->engine;
+    }
+
+    /** Объем двигателя (л) */
+    public function setEngine(?string $engine): void
+    {
+        $this->engine = $engine;
+    }
+
+    /** Мощность двигателя, л.с. */
+    public function getPower(): ?string
+    {
+        return $this->power;
+    }
+
+    public function setPower(?string $power): void
+    {
+        $this->power = $power;
+    }
+
+    /** Привод */
+    public function getDrive(): ?string
+    {
+        return $this->drive;
+    }
+
+
+    public function setDrive(?string $drive): void
+    {
+        $this->drive = $drive;
+    }
+
 }

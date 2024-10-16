@@ -25,7 +25,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use BaksDev\Reference\Cars\BaksDevReferenceCarsBundle;
 
-return static function (ContainerConfigurator $configurator): void {
+return static function(ContainerConfigurator $configurator): void {
 
     $services = $configurator->services()
         ->defaults()

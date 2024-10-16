@@ -51,8 +51,7 @@ final class CarsModelBrand implements CarsModelBrandInterface
         $qb
             ->from(CarsModel::class, 'main')
             ->where('main.id = :main')
-            ->setParameter('main', $model, CarsModelUid::TYPE)
-        ;
+            ->setParameter('main', $model, CarsModelUid::TYPE);
 
         return $qb
             ->enableCache('reference-cars', 86400)

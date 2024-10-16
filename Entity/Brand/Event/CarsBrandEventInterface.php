@@ -21,5 +21,5 @@ use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
 
 interface CarsBrandEventInterface
 {
-	public function getEvent() : ?CarsBrandEventUid;
+    public function getEvent(): ?CarsBrandEventUid;
 }

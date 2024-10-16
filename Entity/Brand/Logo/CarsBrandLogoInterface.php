@@ -18,17 +18,15 @@
 
 namespace BaksDev\Reference\Cars\Entity\Brand\Logo;
 
-use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
-
 interface CarsBrandLogoInterface
 {
-	public function getName() : ?string;
-	
-	
-	public function getExt() : ?string;
-	
-	
-	public function getCdn() : bool;
+    public function getName(): ?string;
 
-	
+
+    public function getExt(): ?string;
+
+
+    public function getCdn(): bool;
+
+
 }

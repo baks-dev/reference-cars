@@ -18,9 +18,7 @@
 namespace BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\Image;
 
 use BaksDev\Reference\Cars\Entity\Model\Image\CarsModelImageInterface;
-use BaksDev\Reference\Cars\Type\Model\Event\CarsModelEventUid;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /** @see CarsModelImage */
 final class CarsModelImageDTO implements CarsModelImageInterface
@@ -38,7 +36,7 @@ final class CarsModelImageDTO implements CarsModelImageInterface
 
     /* NAME */
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -50,10 +48,9 @@ final class CarsModelImageDTO implements CarsModelImageInterface
     }
 
 
-
     /* EXT */
 
-    public function getExt() : ?string
+    public function getExt(): ?string
     {
         return $this->ext;
     }
@@ -65,10 +62,9 @@ final class CarsModelImageDTO implements CarsModelImageInterface
     }
 
 
-
     /* CDN */
 
-    public function getCdn() : bool
+    public function getCdn(): bool
     {
         return $this->cdn;
     }

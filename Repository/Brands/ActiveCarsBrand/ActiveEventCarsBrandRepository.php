@@ -43,15 +43,14 @@ final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterf
     /**
      * Метод возвращает активное событие по идентификатору
      */
-    public function getCurrentEvent(CarsBrandUid $id) : ?CarsBrandEvent
+    public function getCurrentEvent(CarsBrandUid $id): ?CarsBrandEvent
     {
         $qb = $this->ORMQueryBuilder->createQueryBuilder(self::class);
 
         $qb
             ->from(CarsBrand::class, 'main')
             ->where('main.id = :id')
-            ->setParameter('id', $id, CarsBrandUid::TYPE)
-        ;
+            ->setParameter('id', $id, CarsBrandUid::TYPE);
 
         $qb
             ->select('event')
@@ -70,7 +69,7 @@ final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterf
     /**
      * Метод возвращает все активные события
      */
-    public function getAllCurrentEvents() : ?array
+    public function getAllCurrentEvents(): ?array
     {
         $qb = $this->ORMQueryBuilder->createQueryBuilder(self::class);
 
@@ -90,7 +89,7 @@ final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterf
     /**
      * Метод возвращает активное событие по названию
      */
-    public function getEventByName(string $name) : ?CarsBrandEvent
+    public function getEventByName(string $name): ?CarsBrandEvent
     {
         $qb = $this->ORMQueryBuilder->createQueryBuilder(self::class);
 
@@ -98,8 +97,7 @@ final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterf
         $qb
             ->from(CarsBrandTrans::class, 'trans')
             ->where('trans.name = :name')
-            ->setParameter('name', $name)
-        ;
+            ->setParameter('name', $name);
 
         $qb->join(
             CarsBrand::class,
@@ -111,10 +109,10 @@ final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterf
         $qb
             ->select('event')
             ->leftJoin(CarsBrandEvent::class,
-            'event',
+                'event',
                 'WITH',
                 'event.id = trans.event'
-        );
+            );
 
         $qb->setMaxResults(1);
 

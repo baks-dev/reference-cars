@@ -19,12 +19,11 @@ namespace BaksDev\Reference\Cars\Type\Model\Event;
 
 use App\Kernel;
 use BaksDev\Core\Type\UidType\Uid;
-use Symfony\Component\Uid\AbstractUid;
 
 final class CarsModelEventUid extends Uid
 {
     public const TEST = '0188a9a2-a925-7d79-b873-e2217ab89e12';
 
-	public const TYPE = 'cars_model_event';
+    public const TYPE = 'cars_model_event';
 
 }

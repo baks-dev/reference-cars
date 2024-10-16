@@ -23,22 +23,22 @@
 
             </div>
 
-            {#class="text-decoration-none text-dark w-100 modal-link disabled"
+            {# class="text-decoration-none text-dark w-100 modal-link disabled"
             data-bs-toggle="modal"
             data-bs-target="#modal"
-            title="{{ 'btn.delete'|trans({}, 'core.btn') }}"#}
+            title="{{ 'btn.delete'|trans({}, 'core.btn') }}" #}
 
             {# Добавить #}
-             {% if is_granted(ROLE~'_NEW') or is_granted('ROLE_ADMIN') %}
-				<a href="{{ path('reference-cars:admin.brand.newedit.new') }}"
+            {% if is_granted(ROLE~'_NEW') or is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('reference-cars:admin.brand.newedit.new') }}"
                    class="btn btn-danger fw-bolder modal-link disabled"
                    data-bs-toggle="modal"
                    data-bs-target="#modal"
                    title="{{ 'btn.new'|trans({}, 'core.btn') }}"
                 >
-					{{ 'btn.new'|trans({}, 'core.btn') }}
-				</a>
-			{% endif %}
+                    {{ 'btn.new'|trans({}, 'core.btn') }}
+                </a>
+            {% endif %}
 
 
         </div>
@@ -91,7 +91,7 @@
                 </thead>
                 <tbody>
 
-                 {% for item in query.data %}
+                {% for item in query.data %}
                     {{ include(_self|replace({ "content.html.twig": "card.html.twig" })) }}
                 {% endfor %}
 

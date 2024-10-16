@@ -3,7 +3,7 @@
 use BaksDev\Reference\Cars\BaksDevReferenceCarsBundle;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
-return static function (RoutingConfigurator $routes) {
+return static function(RoutingConfigurator $routes) {
 
     $MODULE = BaksDevReferenceCarsBundle::PATH;
 

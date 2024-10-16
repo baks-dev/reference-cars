@@ -36,7 +36,6 @@ use BaksDev\Reference\Cars\Entity\Modification\Info\CarsModificationInfo;
 use BaksDev\Reference\Cars\Entity\Modification\Modify\CarsModificationModify;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use BaksDev\Reference\Cars\Type\Modification\Characteris\CarsModificationCharacteristicsUid;
-use BaksDev\Reference\Cars\Type\Modification\Id\CarsModificationUid;
 use Generator;
 
 final class CarsModificationChoice implements CarsModificationChoiceInterface
@@ -105,7 +104,6 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
             ->enableCache('reference-cars', 86400)
             ->fetchAllHydrate(CarsModificationCharacteristicsUid::class);
     }
-
 
 
     public function getCollection(CarsModelUid $model): Generator

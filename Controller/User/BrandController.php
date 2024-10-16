@@ -25,19 +25,14 @@ declare(strict_types=1);
 
 namespace BaksDev\Reference\Cars\Controller\User;
 
-use BaksDev\Core\Form\Search\SearchDTO;
-use BaksDev\Core\Form\Search\SearchForm;
+use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterDTO;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterForm;
 use BaksDev\Reference\Cars\Repository\Brands\CarBrandByUrl\CarBrandByUrlInterface;
 use BaksDev\Reference\Cars\Repository\Models\CarsModelsChoice\CarsModelsChoiceInterface;
-use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use BaksDev\Core\Controller\AbstractController;
-use Symfony\Component\Routing\Attribute\Route;
-use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 final class BrandController extends AbstractController

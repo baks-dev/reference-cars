@@ -22,41 +22,41 @@
     <section class="selection-box">
 
 
-            <div class="accordion accordion-flush mt-3" id="accordionExample">
-                <div class="accordion-item rounded-4 bg-info shadow">
+        <div class="accordion accordion-flush mt-3" id="accordionExample">
+            <div class="accordion-item rounded-4 bg-info shadow">
 
-                    <h2 id="headingOne">
-                        <button class="accordion-button rounded-4 ps-4 pe-2 py-2 border-0 bg-primary shadow-none {# collapsed #}"
-                                type="button"
-                                title="Подбор шин"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne"
-                                aria-expanded="true"
-                                aria-controls="collapseOne">
+                <h2 id="headingOne">
+                    <button class="accordion-button rounded-4 ps-4 pe-2 py-2 border-0 bg-primary shadow-none {# collapsed #}"
+                            type="button"
+                            title="Подбор шин"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne"
+                            aria-expanded="true"
+                            aria-controls="collapseOne">
 						<span class="h5 text-uppercase fw-bold text-white mb-0">
 							Подбор шин
 						</span>
-                        </button>
-                    </h2>
+                    </button>
+                </h2>
 
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
 
-                            <ul class="nav position-absolute z-index-5 gap-3" id="pills-tab" role="tablist"
-                                style="margin-top: -67px; margin-left: 185px;">
+                        <ul class="nav position-absolute z-index-5 gap-3" id="pills-tab" role="tablist"
+                            style="margin-top: -67px; margin-left: 185px;">
 
-                                <li class="nav-item" role="presentation">
+                            <li class="nav-item" role="presentation">
 
-                                    <button class="btn btn-link nav-link active rounded-4 px-3 text-white"
-                                            id="pills-home-tab"
-                                            data-bs-toggle="pill"
-                                            data-bs-target="#pills-home"
-                                            type="button"
-                                            role="tab"
-                                            title="По авто"
-                                            aria-controls="pills-home"
-                                            aria-selected="true"
-                                    >
+                                <button class="btn btn-link nav-link active rounded-4 px-3 text-white"
+                                        id="pills-home-tab"
+                                        data-bs-toggle="pill"
+                                        data-bs-target="#pills-home"
+                                        type="button"
+                                        role="tab"
+                                        title="По авто"
+                                        aria-controls="pills-home"
+                                        aria-selected="true"
+                                >
 
 									<span>
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -67,13 +67,13 @@
 										</svg>
 									</span>
 
-                                        <span class="ms-3 text-uppercase fw-bolder">По авто</span>
-                                    </button>
+                                    <span class="ms-3 text-uppercase fw-bolder">По авто</span>
+                                </button>
 
 
-                                </li>
+                            </li>
 
-                                {# <li class="nav-item" role="presentation">
+                            {# <li class="nav-item" role="presentation">
                                 <button class="btn btn-link nav-link rounded-4 px-3 text-white" id="pills-profile-tab"
                                         data-bs-toggle="pill"
                                         data-bs-target="#pills-profile" type="button"
@@ -93,20 +93,20 @@
                                 </button>
                             </li> #}
 
-                            </ul>
+                        </ul>
 
 
-                            <div class="tab-content text-white" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" tabindex="0">
+                        <div class="tab-content text-white" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" tabindex="0">
 
-                                    {% include '@reference-cars/user/filter/pc/filter.html.twig' %}
+                                {% include '@reference-cars/user/filter/pc/filter.html.twig' %}
 
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
     </section>
 

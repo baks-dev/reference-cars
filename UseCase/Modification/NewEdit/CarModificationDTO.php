@@ -25,19 +25,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 final class CarModificationDTO implements CarModificationEventInterface
 {
-	
-	/** Идентификатор события */
-	#[Assert\Uuid]
-	private ?CarsModificationEventUid $id = null;
-	
-	/** Модификация */
-	#[Assert\NotBlank]
-	private string $modification;
-	
-	
-	/** Характеристика модификации */
-	#[Assert\Valid]
-	private ArrayCollection $characteristic;
+
+    /** Идентификатор события */
+    #[Assert\Uuid]
+    private ?CarsModificationEventUid $id = null;
+
+    /** Модификация */
+    #[Assert\NotBlank]
+    private string $modification;
+
+
+    /** Характеристика модификации */
+    #[Assert\Valid]
+    private ArrayCollection $characteristic;
 
     #[Assert\Uuid]
     private ?CarsModelUid $model = null;
@@ -46,49 +46,49 @@ final class CarModificationDTO implements CarModificationEventInterface
     private Info\CarsModificationInfoDTO $info;
 
 
-    public function __construct(){
-		//$this->characteristic = new Characteristic\CarsModificationCharacteristicsDTO();
-		$this->characteristic = new ArrayCollection();
+    public function __construct()
+    {
+        //$this->characteristic = new Characteristic\CarsModificationCharacteristicsDTO();
+        $this->characteristic = new ArrayCollection();
         $this->info = new Info\CarsModificationInfoDTO();
     }
-	
-	public function getEvent() : ?CarsModificationEventUid
-	{
-		return $this->id;
-	}
-	
-	/** Модификация */
-	public function getModification(): string
-	{
-		return $this->modification;
-	}
 
-	public function setModification(string $modification) : void
-	{
-		$this->modification = $modification;
-	}
+    public function getEvent(): ?CarsModificationEventUid
+    {
+        return $this->id;
+    }
 
-	
-	
-	/** Характеристика модификации */
-	public function getCharacteristic() : ArrayCollection
-	{
-		return $this->characteristic;
-	}
-	
-	public function addCharacteristic(Characteristic\CarsModificationCharacteristicsDTO $characteristic) : void
-	{
-		if(!$this->characteristic->contains($characteristic))
-		{
-			$this->characteristic->add($characteristic);
-		}
-	}
-	
-	
-		public function removeCharacteristic(Characteristic\CarsModificationCharacteristicsDTO $characteristic) : void
-	{
-		$this->characteristic->removeElement($characteristic);
-	}
+    /** Модификация */
+    public function getModification(): string
+    {
+        return $this->modification;
+    }
+
+    public function setModification(string $modification): void
+    {
+        $this->modification = $modification;
+    }
+
+
+    /** Характеристика модификации */
+    public function getCharacteristic(): ArrayCollection
+    {
+        return $this->characteristic;
+    }
+
+    public function addCharacteristic(Characteristic\CarsModificationCharacteristicsDTO $characteristic): void
+    {
+        if(!$this->characteristic->contains($characteristic))
+        {
+            $this->characteristic->add($characteristic);
+        }
+    }
+
+
+    public function removeCharacteristic(Characteristic\CarsModificationCharacteristicsDTO $characteristic): void
+    {
+        $this->characteristic->removeElement($characteristic);
+    }
 
     /**
      * Model

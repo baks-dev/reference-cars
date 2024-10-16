@@ -27,19 +27,11 @@ namespace BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\Tests;
 
 use BaksDev\Core\Type\Locale\Locale;
 use BaksDev\Core\Type\Locale\Locales\Ru;
-use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
-use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Entity\Model\CarsModel;
 use BaksDev\Reference\Cars\Entity\Model\Event\CarsModelEvent;
-use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
-use BaksDev\Reference\Cars\Type\Model\Event\CarsModelEventUid;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use BaksDev\Reference\Cars\Type\Model\Type\CarsModelClass;
 use BaksDev\Reference\Cars\Type\Model\Type\CarsModelClass\CarsModelClassA;
-use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\CarsBrandDTO;
-use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\CarsBrandHandler;
-use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Logo\CarsBrandLogoDTO;
-use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Trans\CarsBrandTransDTO;
 use BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\CarsModelDTO;
 use BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\CarsModelHandler;
 use BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\Image\CarsModelImageDTO;
@@ -109,8 +101,7 @@ final class CarsModelNewTest extends KernelTestCase
         $CarsModelDTO->setTo('2023');
         self::assertEquals(2023, $CarsModelDTO->getTo());
         $CarsModelDTO->setTo(null);
-        self::assertNull( $CarsModelDTO->getTo());
-
+        self::assertNull($CarsModelDTO->getTo());
 
 
         /** @var CarsModelTransDTO $CarsModelTransDTO */

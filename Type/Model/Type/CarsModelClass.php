@@ -73,37 +73,9 @@ final class CarsModelClass
         throw new InvalidArgumentException(sprintf('Not found Cars Model Class %s', $class));
     }
 
-
-    public function __toString(): string
-    {
-        return $this->class->getvalue();
-    }
-
     public function getCarsModelClass(): CarsModelClassInterface
     {
         return $this->class;
-    }
-
-    public function getCarsModelClassValue(): string
-    {
-        return $this->class->getValue();
-    }
-
-
-    public static function cases(): array
-    {
-        $case = [];
-
-        foreach(self::getDeclared() as $class)
-        {
-            /** @var CarsModelClassInterface $class */
-            $class = new $class;
-            $case[$class::sort()] = new self($class);
-        }
-
-        ksort($case);
-
-        return $case;
     }
 
     public static function getDeclared(): array
@@ -121,6 +93,32 @@ final class CarsModelClass
         $class = new self($class);
 
         return $this->getCarsModelClassValue() === $class->getCarsModelClassValue();
+    }
+
+    public function getCarsModelClassValue(): string
+    {
+        return $this->class->getValue();
+    }
+
+    public static function cases(): array
+    {
+        $case = [];
+
+        foreach(self::getDeclared() as $class)
+        {
+            /** @var CarsModelClassInterface $class */
+            $class = new $class;
+            $case[$class::sort()] = new self($class);
+        }
+
+        ksort($case);
+
+        return $case;
+    }
+
+    public function __toString(): string
+    {
+        return $this->class->getvalue();
     }
 
 }

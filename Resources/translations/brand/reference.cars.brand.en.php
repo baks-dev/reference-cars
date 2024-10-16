@@ -1,6 +1,6 @@
 <?php
 
 return [
-	'placeholder' => 'Choose a car brand ...',
-	'label' => 'Brand',
+    'placeholder' => 'Choose a car brand ...',
+    'label' => 'Brand',
 ];

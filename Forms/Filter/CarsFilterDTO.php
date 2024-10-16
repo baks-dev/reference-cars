@@ -41,7 +41,7 @@ final class CarsFilterDTO
     private mixed $season = null;
 
     private mixed $studs = false;
-    
+
     /**
      * Brand
      */
@@ -111,8 +111,6 @@ final class CarsFilterDTO
         $this->studs = $studs;
         return $this;
     }
-
-
 
 
 }

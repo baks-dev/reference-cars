@@ -22,17 +22,21 @@
 
 $name = document.querySelector('[data-lang="cars_model_form_translate_' + $locale + '"]');
 
-if ($name) {
+if($name)
+{
 
     let debouncerepeat = 100;
 
-    setTimeout(function zZFlBXCqXd() {
+    setTimeout(function zZFlBXCqXd()
+    {
 
-        if (debouncerepeat > 500) {
+        if(debouncerepeat > 500)
+        {
             return;
         }
 
-        if (typeof semanticUrl.debounce === 'function') {
+        if(typeof semanticUrl.debounce === 'function')
+        {
             $name.addEventListener('input', semanticUrl.debounce(500));
             return;
         }
@@ -44,7 +48,8 @@ if ($name) {
     }, 100);
 
 
-    function semanticUrl() {
+    function semanticUrl()
+    {
         /* Заполняем транслитом URL */
         $semantic = translitRuEn(this.value).toLowerCase();
         document.getElementById('cars_model_form_info_url').value = $semantic;

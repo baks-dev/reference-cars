@@ -25,32 +25,56 @@ declare(strict_types=1);
 
 namespace BaksDev\Reference\Cars\UseCase\Brand\Admin\Delete\Tests;
 
-use BaksDev\Core\Type\Locale\Locales\Ru;
 use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
 use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\CarsBrandDTO;
-use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
-use BaksDev\Core\Type\Locale\Locale;
-use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\CarsBrandHandler;
 use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Logo\CarsBrandLogoDTO;
 use BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Trans\CarsBrandTransDTO;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @group reference-cars
  * @group reference-cars-brand
  *
  * @depends BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Tests\CarsBrandEditTest::class
- * @see CarsBrandEditTest
+ * @see     CarsBrandEditTest
  */
 #[When(env: 'test')]
 final class CarsBrandDeleteTest extends KernelTestCase
 {
+    /**
+     * This method is called after the last test of this test class is run.
+     */
+    public static function tearDownAfterClass(): void
+    {
+        /** @var EntityManagerInterface $em */
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+
+        $CarsBrand = $em->getRepository(CarsBrand::class)
+            ->findBy(['id' => CarsBrandUid::TEST]);
+
+        foreach($CarsBrand as $remove)
+        {
+            $em->remove($remove);
+        }
+
+        $CarsBrandEvent = $em->getRepository(CarsBrandEvent::class)
+            ->findBy(['main' => CarsBrandUid::TEST]);
+
+        foreach($CarsBrandEvent as $remove)
+        {
+            $em->remove($remove);
+        }
+
+        $em->flush();
+
+        $em->clear();
+        //$em->close();
+    }
+
     public function testUseCase()
     {
         /** @var CarsBrandTransDTO $CarsBrandTransDTO */
@@ -91,45 +115,15 @@ final class CarsBrandDeleteTest extends KernelTestCase
         self::assertEquals('webp', $CarsBrandLogoDTO->getExt());
         self::assertTrue($CarsBrandLogoDTO->getCdn());
 
-//        /** @var CarsBrandHandler $CarsBrandHandler */
-//        $CarsBrandHandler = self::getContainer()->get(CarsBrandHandler::class);
-//        $handle = $CarsBrandHandler->handle($CarsBrandDTO);
-//
-//        self::assertTrue(($handle instanceof CarsBrand), $handle.': Ошибка CarsBrand');
+        //        /** @var CarsBrandHandler $CarsBrandHandler */
+        //        $CarsBrandHandler = self::getContainer()->get(CarsBrandHandler::class);
+        //        $handle = $CarsBrandHandler->handle($CarsBrandDTO);
+        //
+        //        self::assertTrue(($handle instanceof CarsBrand), $handle.': Ошибка CarsBrand');
 
         $em->clear();
         //$em->close();
 
-    }
-
-    /**
-     * This method is called after the last test of this test class is run.
-     */
-    public static function tearDownAfterClass(): void
-    {
-        /** @var EntityManagerInterface $em */
-        $em = self::getContainer()->get(EntityManagerInterface::class);
-
-        $CarsBrand = $em->getRepository(CarsBrand::class)
-            ->findBy(['id' => CarsBrandUid::TEST]);
-
-        foreach($CarsBrand as $remove)
-        {
-            $em->remove($remove);
-        }
-
-        $CarsBrandEvent = $em->getRepository(CarsBrandEvent::class)
-            ->findBy(['main' => CarsBrandUid::TEST]);
-
-        foreach($CarsBrandEvent as $remove)
-        {
-            $em->remove($remove);
-        }
-
-        $em->flush();
-
-        $em->clear();
-        //$em->close();
     }
 
 }

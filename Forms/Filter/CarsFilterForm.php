@@ -34,7 +34,6 @@ use BaksDev\Reference\Cars\Repository\Modification\CarsModificationChoice\CarsMo
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use BaksDev\Reference\Cars\Type\Modification\Characteris\CarsModificationCharacteristicsUid;
-use BaksDev\Reference\Cars\Type\Modification\Id\CarsModificationUid;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

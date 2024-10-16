@@ -24,7 +24,6 @@
 namespace BaksDev\Reference\Cars\Entity\Modification\Info;
 
 use BaksDev\Core\Entity\EntityReadonly;
-use BaksDev\Reference\Cars\Entity\Model\Event\CarsModelEvent;
 use BaksDev\Reference\Cars\Entity\Modification\Event\CarsModificationEvent;
 use BaksDev\Reference\Cars\Type\Modification\Id\CarsModificationUid;
 use Doctrine\DBAL\Types\Types;
@@ -91,7 +90,7 @@ class CarsModificationInfo extends EntityReadonly
     {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
 
-        if ($dto instanceof CarsModificationInfoInterface)
+        if($dto instanceof CarsModificationInfoInterface)
         {
             return parent::getDto($dto);
         }
@@ -102,14 +101,15 @@ class CarsModificationInfo extends EntityReadonly
 
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof CarsModificationInfoInterface || $dto instanceof self) {
+        if($dto instanceof CarsModificationInfoInterface || $dto instanceof self)
+        {
             return parent::setEntity($dto);
         }
 
         throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
     }
 
-    public function updateUrlUniq() : void
+    public function updateUrlUniq(): void
     {
         $this->url = uniqid($this->url.'_', false);
     }

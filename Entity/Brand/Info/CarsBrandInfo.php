@@ -23,15 +23,9 @@
 
 namespace BaksDev\Reference\Cars\Entity\Brand\Info;
 
-use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Core\Entity\EntityReadonly;
-use BaksDev\Products\Product\Entity\Event\ProductEvent;
-use BaksDev\Products\Product\Entity\Product;
-use BaksDev\Products\Product\Type\Barcode\ProductBarcode;
-use BaksDev\Products\Product\Type\Id\ProductUid;
 use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
-use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -97,7 +91,7 @@ class CarsBrandInfo extends EntityReadonly
     {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
 
-        if ($dto instanceof CarsBrandInfoInterface)
+        if($dto instanceof CarsBrandInfoInterface)
         {
             return parent::getDto($dto);
         }
@@ -108,15 +102,16 @@ class CarsBrandInfo extends EntityReadonly
 
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof CarsBrandInfoInterface || $dto instanceof self) {
+        if($dto instanceof CarsBrandInfoInterface || $dto instanceof self)
+        {
             return parent::setEntity($dto);
         }
 
         throw new InvalidArgumentException(sprintf('Class %s interface error', $dto::class));
     }
 
-//    public function updateUrlUniq() : void
-//    {
-//        $this->url = uniqid($this->url.'_', false);
-//    }
+    //    public function updateUrlUniq() : void
+    //    {
+    //        $this->url = uniqid($this->url.'_', false);
+    //    }
 }

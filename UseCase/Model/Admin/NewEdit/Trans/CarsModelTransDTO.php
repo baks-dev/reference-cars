@@ -18,68 +18,68 @@
 
 namespace BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\Trans;
 
-use BaksDev\Reference\Cars\Entity\Model\Trans\CarsModelTransInterface;
 use BaksDev\Core\Type\Locale\Locale;
+use BaksDev\Reference\Cars\Entity\Model\Trans\CarsModelTransInterface;
 use ReflectionProperty;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CarsModelTransDTO implements CarsModelTransInterface
 {
-	/** Локаль */
-	#[Assert\NotBlank]
-	private readonly Locale $local;
-	
-	/** Название */
-	#[Assert\NotBlank]
-	#[Assert\Regex(pattern: '/^[\w \/\[\]\&\:\`\'\?\\\«\»\+\.\,\_\-\(\)\%]+$/iu')]
-	private string $name;
-	
-	/** Описание */
-	#[Assert\Regex(pattern: '/^[\w \.\,\_\-\(\)\%]+$/iu')]
-	private ?string $description;
-	
-	
-	/* LOCAL */
-	
-	public function getLocal() : Locale
-	{
-		return $this->local;
-	}
+    /** Локаль */
+    #[Assert\NotBlank]
+    private readonly Locale $local;
+
+    /** Название */
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[\w \/\[\]\&\:\`\'\?\\\«\»\+\.\,\_\-\(\)\%]+$/iu')]
+    private string $name;
+
+    /** Описание */
+    #[Assert\Regex(pattern: '/^[\w \.\,\_\-\(\)\%]+$/iu')]
+    private ?string $description;
 
 
-    public function setLocal(Locale|string $local) : void
+    /* LOCAL */
+
+    public function getLocal(): Locale
+    {
+        return $this->local;
+    }
+
+
+    public function setLocal(Locale|string $local): void
     {
         if(!(new ReflectionProperty(self::class, 'local'))->isInitialized($this))
         {
             $this->local = $local instanceof Locale ? $local : new Locale($local);
         }
     }
-	
-	
-	/* NAME */
-	
-	public function getName(): string
-	{
-		return $this->name;
-	}
-	
-	public function setName(string $name) : void
-	{
-		$this->name = $name;
-	}
-	
-	
-	/* DESCRIPTION */
-	
-	public function getDescription() : ?string
-	{
-		return $this->description;
-	}
-	
-	public function setDescription(?string $description) : void
-	{
-		$this->description = $description;
-	}
-	
-	
+
+
+    /* NAME */
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+
+    /* DESCRIPTION */
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+
 }

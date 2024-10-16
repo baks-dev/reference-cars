@@ -21,5 +21,5 @@ use BaksDev\Core\Type\Modify\ModifyAction;
 
 interface CarModificationModifyInterface
 {
-	public function getModify() : ModifyAction;
+    public function getModify(): ModifyAction;
 }

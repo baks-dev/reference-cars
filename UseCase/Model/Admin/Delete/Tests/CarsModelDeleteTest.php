@@ -40,11 +40,38 @@ use Symfony\Component\DependencyInjection\Attribute\When;
  * @group reference-cars-model
  *
  * @depends BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\Tests\CarsModelEditTest::class
- * @see CarsModelEditTest
+ * @see     CarsModelEditTest
  */
 #[When(env: 'test')]
 final class CarsModelDeleteTest extends KernelTestCase
 {
+    public static function tearDownAfterClass(): void
+    {
+        /** @var EntityManagerInterface $em */
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+
+        $CarsBrand = $em->getRepository(CarsModel::class)
+            ->findBy(['id' => CarsModelUid::TEST]);
+
+        foreach($CarsBrand as $remove)
+        {
+            $em->remove($remove);
+        }
+
+        $CarsBrandEvent = $em->getRepository(CarsModelEvent::class)
+            ->findBy(['main' => CarsModelUid::TEST]);
+
+        foreach($CarsBrandEvent as $remove)
+        {
+            $em->remove($remove);
+        }
+
+        $em->flush();
+
+        $em->clear();
+        //$em->close();
+    }
+
     public function testUseCase()
     {
         self::bootKernel();
@@ -86,33 +113,6 @@ final class CarsModelDeleteTest extends KernelTestCase
         $em->clear();
         //$em->close();
 
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        /** @var EntityManagerInterface $em */
-        $em = self::getContainer()->get(EntityManagerInterface::class);
-
-        $CarsBrand = $em->getRepository(CarsModel::class)
-            ->findBy(['id' => CarsModelUid::TEST]);
-
-        foreach($CarsBrand as $remove)
-        {
-            $em->remove($remove);
-        }
-
-        $CarsBrandEvent = $em->getRepository(CarsModelEvent::class)
-            ->findBy(['main' => CarsModelUid::TEST]);
-
-        foreach($CarsBrandEvent as $remove)
-        {
-            $em->remove($remove);
-        }
-
-        $em->flush();
-
-        $em->clear();
-        //$em->close();
     }
 
 }

@@ -21,5 +21,5 @@ use BaksDev\Reference\Cars\Type\Modification\Event\CarsModificationEventUid;
 
 interface CarModificationEventInterface
 {
-	public function getEvent() : ?CarsModificationEventUid;
+    public function getEvent(): ?CarsModificationEventUid;
 }

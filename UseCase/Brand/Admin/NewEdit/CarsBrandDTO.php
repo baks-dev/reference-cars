@@ -18,90 +18,87 @@
 namespace BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit;
 
 
-use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEventInterface;
-use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
-use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
 use BaksDev\Core\Type\Locale\Locale;
+use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEventInterface;
+use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class CarsBrandDTO implements CarsBrandEventInterface
 {
-	/** Идентификатор события */
-	#[Assert\Uuid]
-	private ?CarsBrandEventUid $id = null;
-	
-	/** Перевод */
-	#[Assert\Valid]
-	private ArrayCollection $translate;
-	
-	/** Логотип */
-	#[Assert\Valid]
-	private Logo\CarsBrandLogoDTO $logo;
+    /** Идентификатор события */
+    #[Assert\Uuid]
+    private ?CarsBrandEventUid $id = null;
+
+    /** Перевод */
+    #[Assert\Valid]
+    private ArrayCollection $translate;
+
+    /** Логотип */
+    #[Assert\Valid]
+    private Logo\CarsBrandLogoDTO $logo;
 
     #[Assert\Valid]
     private Info\CarsBrandInfoDTO $info;
-	
-	
-	public function __construct()
-	{
-		$this->translate = new ArrayCollection();
-		$this->logo = new Logo\CarsBrandLogoDTO();
+
+
+    public function __construct()
+    {
+        $this->translate = new ArrayCollection();
+        $this->logo = new Logo\CarsBrandLogoDTO();
 
         $this->info = new Info\CarsBrandInfoDTO();
-		
-	}
 
-	public function getEvent() : ?CarsBrandEventUid
-	{
-		return $this->id;
-	}
-	
-	/* TRANSLATE */
+    }
 
-	public function getTranslate() : ArrayCollection
-	{
-		/* Вычисляем расхождение и добавляем неопределенные локали */
-		foreach(Locale::diffLocale($this->translate) as $locale)
-		{
-			$TransFormDTO = new Trans\CarsBrandTransDTO();
-			$TransFormDTO->setLocal($locale);
-			$this->addTranslate($TransFormDTO);
-		}
-		
-		return $this->translate;
-	}
-	
-	
-	public function addTranslate(Trans\CarsBrandTransDTO $translate) : void
-	{
+    public function getEvent(): ?CarsBrandEventUid
+    {
+        return $this->id;
+    }
+
+    /* TRANSLATE */
+
+    public function getTranslate(): ArrayCollection
+    {
+        /* Вычисляем расхождение и добавляем неопределенные локали */
+        foreach(Locale::diffLocale($this->translate) as $locale)
+        {
+            $TransFormDTO = new Trans\CarsBrandTransDTO();
+            $TransFormDTO->setLocal($locale);
+            $this->addTranslate($TransFormDTO);
+        }
+
+        return $this->translate;
+    }
+
+
+    public function addTranslate(Trans\CarsBrandTransDTO $translate): void
+    {
         if(empty($translate->getLocal()->getLocalValue()))
         {
             return;
         }
 
-		$this->translate->add($translate);
-	}
-	
-	public function removeTranslate(Trans\CarsBrandTransDTO $translate) : void
-	{
-		$this->translate->removeElement($translate);
-	}
-	
+        $this->translate->add($translate);
+    }
 
-	
-	/* LOGO */
-	
-	public function getLogo() : Logo\CarsBrandLogoDTO
-	{
-		return $this->logo;
-	}
-	
-	public function setLogo(Logo\CarsBrandLogoDTO $logo) : void
-	{
-		$this->logo = $logo;
-	}
+    public function removeTranslate(Trans\CarsBrandTransDTO $translate): void
+    {
+        $this->translate->removeElement($translate);
+    }
+
+
+    /* LOGO */
+
+    public function getLogo(): Logo\CarsBrandLogoDTO
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(Logo\CarsBrandLogoDTO $logo): void
+    {
+        $this->logo = $logo;
+    }
 
     /**
      * Info

@@ -28,28 +28,28 @@ final class CarsModelClassType extends StringType
     {
         return (string) $value;
     }
-    
+
     public function convertToPHPValue($value, AbstractPlatform $platform): ?CarsModelClass
     {
         return !empty($value) ? new CarsModelClass($value) : null;
     }
-    
+
     public function getName(): string
     {
         return CarsModelClass::TYPE;
     }
-    
-    public function requiresSQLCommentHint(AbstractPlatform $platform) : bool
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
     }
-    
+
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         $column['length'] = 2;
-        
+
         return $platform->getStringTypeDeclarationSQL($column);
     }
 
-    
+
 }

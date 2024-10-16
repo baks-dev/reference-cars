@@ -32,11 +32,8 @@ use BaksDev\Reference\Cars\Repository\Modification\CarsModificationChoice\CarsMo
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use BaksDev\Reference\Cars\Type\Modification\Characteris\CarsModificationCharacteristicsUid;
-use BaksDev\Reference\Cars\Type\Modification\Id\CarsModificationUid;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -77,16 +74,16 @@ final class CarsFilterForm extends AbstractType
             'label' => false
         ]);
 
-//        $builder->get('brand')->addModelTransformer(
-//            new CallbackTransformer(
-//                function($brand) {
-//                    return $brand instanceof CarsBrandUid ? $brand : $brand;
-//                },
-//                function($brand) {
-//                    return $brand ? new CarsBrandUid((string) $brand) : null;
-//                }
-//            )
-//        );
+        //        $builder->get('brand')->addModelTransformer(
+        //            new CallbackTransformer(
+        //                function($brand) {
+        //                    return $brand instanceof CarsBrandUid ? $brand : $brand;
+        //                },
+        //                function($brand) {
+        //                    return $brand ? new CarsBrandUid((string) $brand) : null;
+        //                }
+        //            )
+        //        );
 
 
         //dd($this->carBrandsChoice->getCollection());
@@ -115,16 +112,16 @@ final class CarsFilterForm extends AbstractType
         ]);
 
 
-//        $builder->get('model')->addModelTransformer(
-//            new CallbackTransformer(
-//                function($model) {
-//                    return $model instanceof CarsModelUid ? $model->getValue() : $model;
-//                },
-//                function($model) {
-//                    return $model ? new CarsModelUid((string) $model) : null;
-//                }
-//            )
-//        );
+        //        $builder->get('model')->addModelTransformer(
+        //            new CallbackTransformer(
+        //                function($model) {
+        //                    return $model instanceof CarsModelUid ? $model->getValue() : $model;
+        //                },
+        //                function($model) {
+        //                    return $model ? new CarsModelUid((string) $model) : null;
+        //                }
+        //            )
+        //        );
 
         $formModifierModel = function(FormInterface $form, ?CarsBrandUid $CarsBrandUid = null): void {
             //$positions = null === $sport ? [] : $sport->getAvailablePositions();
@@ -204,19 +201,19 @@ final class CarsFilterForm extends AbstractType
 
                         $name = $mod->getAttr();
 
-//                        if($mod->getOption())
-//                        {
-//                            $name .= ' - '.$mod->getOption();
-//                        }
+                        //                        if($mod->getOption())
+                        //                        {
+                        //                            $name .= ' - '.$mod->getOption();
+                        //                        }
 
-//                        if($mod->getCharacteristic())
-//                        {
-//                            $name .= ' ('.$mod->getProperty().'-'.$mod->getCharacteristic().' г.в.)';
-//                        }
-//                        else if($mod->getProperty())
-//                        {
-//                            $name .= ' ('.$mod->getProperty().' г.в. и выше)';
-//                        }
+                        //                        if($mod->getCharacteristic())
+                        //                        {
+                        //                            $name .= ' ('.$mod->getProperty().'-'.$mod->getCharacteristic().' г.в.)';
+                        //                        }
+                        //                        else if($mod->getProperty())
+                        //                        {
+                        //                            $name .= ' ('.$mod->getProperty().' г.в. и выше)';
+                        //                        }
 
                         return $name;
                     },
@@ -248,14 +245,14 @@ final class CarsFilterForm extends AbstractType
         };
 
 
-//        $builder->addEventListener(
-//            FormEvents::PRE_SET_DATA,
-//            function(FormEvent $event) use ($formModifierModification): void {
-//                /** @var CarsFilterDTO $data */
-//                $data = $event->getData();
-//                $formModifierModification($event->getForm(), $data->getModel());
-//            }
-//        );
+        //        $builder->addEventListener(
+        //            FormEvents::PRE_SET_DATA,
+        //            function(FormEvent $event) use ($formModifierModification): void {
+        //                /** @var CarsFilterDTO $data */
+        //                $data = $event->getData();
+        //                $formModifierModification($event->getForm(), $data->getModel());
+        //            }
+        //        );
 
 
         $builder->get('model')->addEventListener(
@@ -267,20 +264,20 @@ final class CarsFilterForm extends AbstractType
         );
 
 
-//        $builder->add('season', ChoiceType::class, [
-//            'choices' => [
-//                'doesnt' => 'doesnt',
-//                'summer' => 'summer',
-//                'winter' => 'winter',
-//                'all' => 'all',
-//                'studs' => 'studs'
-//            ],
-//            'label' => false,
-//            'expanded' => true,
-//            'multiple' => false,
-//            'translation_domain' => 'field.tire.season'
-//
-//        ]);
+        //        $builder->add('season', ChoiceType::class, [
+        //            'choices' => [
+        //                'doesnt' => 'doesnt',
+        //                'summer' => 'summer',
+        //                'winter' => 'winter',
+        //                'all' => 'all',
+        //                'studs' => 'studs'
+        //            ],
+        //            'label' => false,
+        //            'expanded' => true,
+        //            'multiple' => false,
+        //            'translation_domain' => 'field.tire.season'
+        //
+        //        ]);
 
 
         /* Сохранить ******************************************************/

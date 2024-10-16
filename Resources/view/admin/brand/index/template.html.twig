@@ -1,4 +1,3 @@
-
 {# ---- ШАБЛОН ------------------------------------------------------------ #}
 {% extends Template('/admin/base.html.twig') %}
 
@@ -23,14 +22,16 @@
 {% block javascript %}
 
 
-<script nonce='{{ csp_nonce() }}' async  data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}' class='lazy'></script>
+<script nonce='{{ csp_nonce() }}' async data-src='/assets/plugins/nice-select2/nice-select2.min.js?v={{ version }}'
+            class='lazy'></script>
 
-<script nonce="{{ csp_nonce() }}">
-document.addEventListener("DOMContentLoaded", (event) => {
+    <script nonce="{{ csp_nonce() }}">
+        document.addEventListener("DOMContentLoaded", (event) =>
+        {
 
-	const form = document.forms.cars_filter_form;
-	form.addEventListener('change', () => { setTimeout(() => { form.submit(); }, 300); });
+            const form = document.forms.cars_filter_form;
+            form.addEventListener('change', () => { setTimeout(() => { form.submit(); }, 300); });
 
-});
-</script>
+        });
+    </script>
 {% endblock %}

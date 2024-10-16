@@ -20,5 +20,5 @@ namespace BaksDev\Reference\Cars\Entity\Brand\Trans;
 
 interface CarsBrandTransInterface
 {
-    
+
 }

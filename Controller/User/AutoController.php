@@ -106,7 +106,6 @@ final class AutoController extends AbstractController
         ProductAlternativeInterface $productAlternative,
     ): Response
     {
-
         // Фильтр по авто
         $filter = new CarsFilterDTO();
 
@@ -116,8 +115,7 @@ final class AutoController extends AbstractController
                 $filter,
                 ['action' => $this->generateUrl('reference-cars:user.filter')],
             )
-            ->handleRequest(
-                $request);
+            ->handleRequest($request);
 
         $brands = null;
         $card = null;
@@ -175,9 +173,6 @@ final class AutoController extends AbstractController
         {
             $brands = $carBrandsChoice->getDetailCollectionByTires();
         }
-
-
-        // dump($brands);
 
         return $this->render([
             'filter_cars' => $filterForm->createView(),

@@ -19,7 +19,6 @@ namespace BaksDev\Reference\Cars\EntityListeners\Model;
 
 use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
 use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
-
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -27,34 +26,34 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 final class CarsBrandListener
 {
- 
-	private EntityManagerInterface $entityManager;
-	
-	public function __construct(
-      EntityManagerInterface $entityManager
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(
+        EntityManagerInterface $entityManager
     )
     {
-		$this->entityManager = $entityManager;
-	}
-    
-    public function prePersist(CarsBrand $data, LifecycleEventArgs $event) : void
+        $this->entityManager = $entityManager;
+    }
+
+    public function prePersist(CarsBrand $data, LifecycleEventArgs $event): void
     {
-		
-		//dump($event);
+
+        //dump($event);
         //dd($data->getEvent());
     }
-	
-	
-	public function preUpdate(CarsBrand $data, LifecycleEventArgs $event) : void
-	{
-		//dump($event);
-		//dd($data->getEvent());
-	}
-	
-	
-	public function updateCarsBrandEvent(CarsBrandEventUid $id)
-	{
-		//$this->entityManager->getRepository()
-	}
-	
+
+
+    public function preUpdate(CarsBrand $data, LifecycleEventArgs $event): void
+    {
+        //dump($event);
+        //dd($data->getEvent());
+    }
+
+
+    public function updateCarsBrandEvent(CarsBrandEventUid $id)
+    {
+        //$this->entityManager->getRepository()
+    }
+
 }

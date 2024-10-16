@@ -50,10 +50,10 @@ class CarsModificationCharacteristics extends EntityEvent
     #[ORM\JoinColumn(name: 'event', referencedColumnName: "id")]
     private CarsModificationEvent $event;
 
-//    /** Семантическая ссылка */
-//    #[Assert\NotBlank]
-//    #[ORM\Column(type: Types::STRING, nullable: true)]
-//    private ?string $url = null;
+    //    /** Семантическая ссылка */
+    //    #[Assert\NotBlank]
+    //    #[ORM\Column(type: Types::STRING, nullable: true)]
+    //    private ?string $url = null;
 
     /** Модель двигателя */
     #[ORM\Column(type: Types::STRING, nullable: true)]

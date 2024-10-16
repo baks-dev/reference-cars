@@ -23,7 +23,6 @@ use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use BaksDev\Reference\Cars\Type\Modification\Event\CarsModificationEventUid;
 use BaksDev\Reference\Cars\Type\Modification\Id\CarsModificationUid;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -34,55 +33,55 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(columns: ['model'])]
 class CarsModification
 {
-	public const TABLE = 'cars_modification';
-	
-	/** ID */
+    public const TABLE = 'cars_modification';
+
+    /** ID */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\Id]
-	#[ORM\Column(type: CarsModificationUid::TYPE)]
-	private CarsModificationUid $id;
-	
-	/** ID События */
+    #[ORM\Id]
+    #[ORM\Column(type: CarsModificationUid::TYPE)]
+    private CarsModificationUid $id;
+
+    /** ID События */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\Column(type: CarsModificationEventUid::TYPE, unique: true)]
-	private CarsModificationEventUid $event;
-	
-	/** ID модели */
+    #[ORM\Column(type: CarsModificationEventUid::TYPE, unique: true)]
+    private CarsModificationEventUid $event;
+
+    /** ID модели */
     #[Assert\Uuid]
     #[Assert\NotBlank]
-	#[ORM\Column(type: CarsModelUid::TYPE)]
-	private CarsModelUid $model;
-	
-	
-	public function __construct(CarsModificationUid $id = null)
-	{
-		$this->id =  $id ?: new CarsModificationUid();
-	}
+    #[ORM\Column(type: CarsModelUid::TYPE)]
+    private CarsModelUid $model;
+
+
+    public function __construct(CarsModificationUid $id = null)
+    {
+        $this->id = $id ?: new CarsModificationUid();
+    }
 
     public function __toString(): string
     {
         return (string) $this->id;
     }
 
-	public function getId() : CarsModificationUid
-	{
-		return $this->id;
-	}
-	
-	public function getEvent() : CarsModificationEventUid
-	{
-		return $this->event;
-	}
-	
-	public function setEvent(CarsModificationEventUid|CarsModificationEvent $event) : void
-	{
-		$this->event = $event instanceof CarsModificationEvent ? $event->getId() : $event;
-	}
-	
-	public function setModel(CarsModelUid|CarsModel $model) : void
-	{
-		$this->model = $model instanceof CarsModel ? $model->getId() : $model;
-	}
+    public function getEvent(): CarsModificationEventUid
+    {
+        return $this->event;
+    }
+
+    public function setEvent(CarsModificationEventUid|CarsModificationEvent $event): void
+    {
+        $this->event = $event instanceof CarsModificationEvent ? $event->getId() : $event;
+    }
+
+    public function getId(): CarsModificationUid
+    {
+        return $this->id;
+    }
+
+    public function setModel(CarsModelUid|CarsModel $model): void
+    {
+        $this->model = $model instanceof CarsModel ? $model->getId() : $model;
+    }
 }

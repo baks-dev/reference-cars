@@ -19,9 +19,7 @@
 namespace BaksDev\Reference\Cars\UseCase\Brand\Admin\NewEdit\Logo;
 
 use BaksDev\Reference\Cars\Entity\Brand\Logo\CarsBrandLogoInterface;
-use BaksDev\Reference\Cars\Type\Brand\Event\CarsBrandEventUid;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /** @see CarsBrandLogo */
 final class CarsBrandLogoDTO implements CarsBrandLogoInterface

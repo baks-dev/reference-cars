@@ -17,8 +17,6 @@
 
 namespace BaksDev\Reference\Cars\Entity\Modification\Characteristics\Chassis;
 
-use BaksDev\Core\Type\Modify\ModifyAction;
-
 interface CarsModificationChassisInterface
 {
 }

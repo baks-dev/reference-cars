@@ -17,16 +17,14 @@
 
 namespace BaksDev\Reference\Cars\Entity\Model\Image;
 
-use BaksDev\Reference\Cars\Type\Model\Event\CarsModelEventUid;
-
 interface CarsModelImageInterface
 {
-	public function getName() : ?string;
-	
-	
-	public function getExt() : ?string;
-	
-	
-	public function getCdn() : bool;
-	
+    public function getName(): ?string;
+
+
+    public function getExt(): ?string;
+
+
+    public function getCdn(): bool;
+
 }

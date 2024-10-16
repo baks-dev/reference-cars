@@ -66,7 +66,7 @@ class CarsModelTrans extends EntityEvent
     {
         $dto = is_string($dto) && class_exists($dto) ? new $dto() : $dto;
 
-        if ($dto instanceof CarsModelTransInterface)
+        if($dto instanceof CarsModelTransInterface)
         {
             return parent::getDto($dto);
         }
@@ -76,7 +76,7 @@ class CarsModelTrans extends EntityEvent
 
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof CarsModelTransInterface || $dto instanceof self)
+        if($dto instanceof CarsModelTransInterface || $dto instanceof self)
         {
             return parent::setEntity($dto);
         }
@@ -86,15 +86,13 @@ class CarsModelTrans extends EntityEvent
 
     public function name(Locale $locale): ?string
     {
-        if ($this->local->getLocalValue() === $locale->getLocalValue())
+        if($this->local->getLocalValue() === $locale->getLocalValue())
         {
             return $this->name;
         }
 
         return null;
     }
-
-
 
 
     /**

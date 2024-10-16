@@ -1,124 +1,123 @@
 <nav class="small" style="--bs-breadcrumb-divider: '-';" aria-label="breadcrumb">
-	<ol class="breadcrumb text-secondary small opacity-75">
-		<li>
-			<svg xmlns="http://www.w3.org/2000/svg"
-					width="10"
-					height="10"
-					fill="currentColor"
-					class="bi bi-caret-right-fill text-muted me-1"
-					viewBox="0 0 16 16">
-				<path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
-			</svg>
-		</li>
-		
-		<li class="breadcrumb-item">
-			<a href="{{ path('core:user.homepage') }}"
-			   class="text-decoration-none"
-			   aria-label="{{ 'breadcrumb.homepage.user'|trans({}, 'core') }}"
-			   title="{{ 'breadcrumb.homepage.user'|trans({}, 'core') }}">
-				{{ 'breadcrumb.homepage.user'|trans({}, 'core') }}
-			</a>
-		</li>
+    <ol class="breadcrumb text-secondary small opacity-75">
+        <li>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="10"
+                 height="10"
+                 fill="currentColor"
+                 class="bi bi-caret-right-fill text-muted me-1"
+                 viewBox="0 0 16 16">
+                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg>
+        </li>
+
+        <li class="breadcrumb-item">
+            <a href="{{ path('core:user.homepage') }}"
+               class="text-decoration-none"
+               aria-label="{{ 'breadcrumb.homepage.user'|trans({}, 'core') }}"
+               title="{{ 'breadcrumb.homepage.user'|trans({}, 'core') }}">
+                {{ 'breadcrumb.homepage.user'|trans({}, 'core') }}
+            </a>
+        </li>
+
+
+        {% if card.brand_name is defined %}
+
+
+            <li class="breadcrumb-item">
+                <a href="{{ path('reference-cars:user.filter') }}" class="text-muted"
+                   aria-label="Подбор по автомобилю"
+                   title="Подбор по автомобилю">
+                    Подбор по автомобилю
+                </a>
+            </li>
+
+
+            <li class="breadcrumb-item">
+                <a href="{{ path('reference-cars:user.brand', { brand: card.brand_url }) }}"
+                   class="text-muted"
+                   aria-label="Подбор по автомобилю {{ card.brand_name }}"
+                   title="Подбор по автомобилю {{ card.brand_name }}">
+                    {{ card.brand_name }}
+                </a>
+            </li>
 
 
 
-		{% if card.brand_name is defined %}
+            {% if card.model_name is defined %}
+
+                <li class="breadcrumb-item">
+                    <a href="{{ path('reference-cars:user.model', { brand: card.brand_url, model: card.model_url }) }}"
+                       class="text-muted"
+                       aria-label="Подбор по автомобилю {{ card.model_name }}"
+                       title="Подбор по автомобилю {{ card.model_name }}">
+                        {{ card.model_name }}
+                    </a>
+                </li>
 
 
-			<li class="breadcrumb-item">
-				<a href="{{ path('reference-cars:user.filter') }}" class="text-muted"
-				   aria-label="Подбор по автомобилю"
-				   title="Подбор по автомобилю">
-					Подбор по автомобилю
-				</a>
-			</li>
+                {% if card.modification_name is defined %}
+                    <li class="breadcrumb-item active text-primary"
+                        aria-current="page"
+                        aria-label="{{ card.modification_name }}"
+                        title="{{ card.modification_name }}">
+
+                        {# Значение торгового предложения #}
+                        {{ card.brand_name }} {{ card.model_name }} {{ card.modification_name }}
+                    </li>
+                {% endif %}
 
 
-		<li class="breadcrumb-item">
-			<a href="{{ path('reference-cars:user.brand', { brand: card.brand_url }) }}"
-			   class="text-muted"
-			   aria-label="Подбор по автомобилю {{ card.brand_name }}"
-			   title="Подбор по автомобилю {{ card.brand_name }}">
-				{{ card.brand_name }}
-			</a>
-		</li>
+            {% endif %}
 
 
+        {% else %}
 
-			{% if card.model_name is defined %}
+            <li class="breadcrumb-item active text-primary"
+                aria-current="page"
+                aria-label="Подбор по автомобилю"
+                title="Подбор по автомобилю">
 
-				<li class="breadcrumb-item">
-					<a href="{{ path('reference-cars:user.model', { brand: card.brand_url, model: card.model_url }) }}"
-					   class="text-muted"
-					   aria-label="Подбор по автомобилю {{ card.model_name }}"
-					   title="Подбор по автомобилю {{ card.model_name }}">
-						{{ card.model_name }}
-					</a>
-				</li>
+                Подбор по автомобилю
+            </li>
 
-
-				{% if card.modification_name is defined %}
-					<li class="breadcrumb-item active text-primary"
-						aria-current="page"
-						aria-label="{{ card.modification_name }}"
-						title="{{ card.modification_name }}">
-
-						{# Значение торгового предложения #}
-						{{ card.brand_name }} {{ card.model_name }} {{ card.modification_name }}
-					</li>
-				{% endif %}
-
-
-			{% endif %}
-
-
-		{% else %}
-
-			<li class="breadcrumb-item active text-primary"
-				aria-current="page"
-				aria-label="Подбор по автомобилю"
-				title="Подбор по автомобилю">
-
-				Подбор по автомобилю
-			</li>
-
-		{% endif %}
+        {% endif %}
 
 
 
 
 
-		{#<li class="breadcrumb-item">
-			<a href="#}{#{{ path('products-product:user.catalog.category', { url : card.category_url }) }}#}{#" class="text-muted"
+        {# <li class="breadcrumb-item">
+			<a href=" #}{# {{ path('products-product:user.catalog.category', { url : card.category_url }) }} #}{# " class="text-muted"
 			   aria-label="{{ card.brand_name }}"
 			   title="{{ card.brand_name }}">
 				Подбор по автомобилю
 			</a>
-		</li>#}
-		
-		{#<li class="breadcrumb-item">
-			<a href="#}{#{{ path('products-product:user.catalog.category', { url : card.category_url }) }}#}{#" class="text-muted"
+		</li> #}
+
+        {# <li class="breadcrumb-item">
+			<a href=" #}{# {{ path('products-product:user.catalog.category', { url : card.category_url }) }} #}{# " class="text-muted"
 					aria-label="{{ card.brand_name }}"
 					title="{{ card.brand_name }}">
 				{{ card.brand_name }}
 			</a>
-		</li>#}
+		</li> #}
 
-		{#<li class="breadcrumb-item">
-			<a href="#}{#{{ path('products-product:user.catalog.category', { url : card.category_url }) }}#}{#" class="text-muted"
+        {# <li class="breadcrumb-item">
+			<a href=" #}{# {{ path('products-product:user.catalog.category', { url : card.category_url }) }} #}{# " class="text-muted"
 			   aria-label="{{ card.model_name }}"
 			   title="{{ card.model_name }}">
 				{{ card.brand_name }} {{ card.model_name }}
 			</a>
-		</li>#}
-
-
-		
+		</li> #}
 
 
 
 
-		{# <li class="breadcrumb-item">
+
+
+
+        {# <li class="breadcrumb-item">
 					<a href="#" class="text-muted" aria-label="Продукция" title="Продукция">Шины</a>
 				</li>
 
@@ -127,5 +126,5 @@
 				</li>
 
 				<li class="breadcrumb-item active text-primary" aria-current="page" aria-label="Sports TH201" title="Sports TH201">Sports TH201</li> #}
-	</ol>
+    </ol>
 </nav>

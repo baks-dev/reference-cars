@@ -27,7 +27,6 @@ namespace BaksDev\Reference\Cars\Repository\Modification\CarsModificationDetail;
 
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
-use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Entity\Brand\Info\CarsBrandInfo;
 use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
 use BaksDev\Reference\Cars\Entity\Model\CarsModel;
@@ -45,7 +44,6 @@ use BaksDev\Reference\Cars\Entity\Modification\Info\CarsModificationInfo;
 use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use BaksDev\Reference\Cars\Type\Modification\Characteris\CarsModificationCharacteristicsUid;
-use BaksDev\Reference\Cars\Type\Modification\Id\CarsModificationUid;
 
 final class CarsModificationDetail implements CarsModificationDetailInterface
 {
@@ -401,7 +399,6 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             )
             ->setParameter('engine', $engine)
             ->setParameter('power', $power);
-
 
 
         $qb
