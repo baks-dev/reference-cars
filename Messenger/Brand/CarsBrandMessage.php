@@ -46,11 +46,7 @@ final class CarsBrandMessage
     private ?CarsBrandEventUid $last;
 
 
-    public function __construct(
-        CarsBrandUid $id,
-        CarsBrandEventUid $event,
-        ?CarsBrandEventUid $last = null,
-    )
+    public function __construct(CarsBrandUid $id, CarsBrandEventUid $event, ?CarsBrandEventUid $last = null)
     {
         $this->id = $id;
         $this->event = $event;

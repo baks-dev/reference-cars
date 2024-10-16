@@ -25,40 +25,30 @@ declare(strict_types=1);
 
 namespace BaksDev\Reference\Cars\Controller\User;
 
-
-use BaksDev\Core\Form\Search\SearchDTO;
-use BaksDev\Core\Form\Search\SearchForm;
+use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Products\Product\Repository\ProductAlternative\ProductAlternativeInterface;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterDTO;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterForm;
 use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoiceRepository;
 use BaksDev\Reference\Cars\Repository\Modification\CarsModificationDetail\CarsModificationDetailInterface;
-use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
-use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use BaksDev\Core\Controller\AbstractController;
-use Symfony\Component\Routing\Attribute\Route;
-use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 final class AutoController extends AbstractController
 {
     #[Route('/auto/{brand}/{model}/{modification}/{engine}/{power}', name: 'user.detail', methods: ['GET'])]
     public function detail(
-
         string $brand,
         string $model,
         string $modification,
-
         CarsModificationDetailInterface $carsModificationDetail,
         ProductAlternativeInterface $productAlternative,
-
         ?string $engine = null,
         ?string $power = null,
-
     ): Response
     {
         $card = $carsModificationDetail->findCarDetailByUrl(
@@ -66,7 +56,7 @@ final class AutoController extends AbstractController
             $model,
             $modification,
             $engine,
-            $power
+            $power,
         );
 
         if(!$card)
@@ -88,7 +78,7 @@ final class AutoController extends AbstractController
             $alt = $productAlternative->fetchAllAlternativeAssociative(
                 (string) $tire->radius,
                 (string) $tire->width,
-                (string) $tire->profile
+                (string) $tire->profile,
             );
 
             if(empty($alt))
@@ -102,10 +92,10 @@ final class AutoController extends AbstractController
         return $this->render([
             //            'filter_cars' => $filterForm->createView(),
             'card' => $card,
-            'tir' => $tires
+            'tir' => $tires,
         ]);
 
-        //return new Response('OK');
+        // return new Response('OK');
     }
 
     #[Route('/auto', name: 'user.filter', methods: ['GET', 'POST'])]
@@ -119,10 +109,17 @@ final class AutoController extends AbstractController
 
         // Фильтр по авто
         $filter = new CarsFilterDTO();
-        $filterForm = $this->createForm(CarsFilterForm::class, $filter,
-            ['action' => $this->generateUrl('reference-cars:user.filter')]);
-        $filterForm->handleRequest($request);
 
+        $filterForm = $this
+            ->createForm(
+                CarsFilterForm::class,
+                $filter,
+                ['action' => $this->generateUrl('reference-cars:user.filter')],
+            )
+            ->handleRequest(
+
+
+                $request);
 
         $brands = null;
         $card = null;
@@ -130,15 +127,18 @@ final class AutoController extends AbstractController
 
         if($filterForm->isSubmitted() && $filterForm->isValid() && $filterForm->has('cars_filter'))
         {
-
             $card = $carsModificationDetail->findCarDetail($filter->getBrand(), $filter->getModel(), $filter->getModification());
 
-            $tiresField = json_decode($card['tire_field']);
+            $tiresField = json_decode($card['tire_field'], false, 512, JSON_THROW_ON_ERROR);
 
             $returnSeason = null;
 
+            if
 
-            if($filter->getStuds() === 'true')
+
+            (
+                'true' === $filter->getStuds()
+            )
             {
                 $returnSeason[] = (object) ['field_uid' => '01876af0-ddfe-7a4b-a184-771635c4190d', 'field_value' => 'true'];
             }
@@ -149,11 +149,12 @@ final class AutoController extends AbstractController
                     $returnSeason[] = (object) match ($filter->getSeason())
                     {
                         'summer', 'winter', 'all' => ['field_uid' => '01876af0-ddfe-7a4b-a184-771635481a8b', 'field_value' => $filter->getSeason()],
-                        /*'studs' => ['field_uid' => '01876af0-ddfe-7a4b-a184-771635c4190d', 'field_value' => 'true'],*/
+                        /* 'studs' => ['field_uid' => '01876af0-ddfe-7a4b-a184-771635c4190d', 'field_value' => 'true'], */
                         default => ['field_uid' => null, 'field_value' => null],
                     };
                 }
             }
+
 
             foreach($tiresField as $tire)
             {
@@ -166,7 +167,7 @@ final class AutoController extends AbstractController
                     (string) $tire->radius,
                     (string) $tire->width,
                     (string) $tire->profile,
-                    $returnSeason
+                    $returnSeason,
                 );
 
                 if(empty($alt))
@@ -183,14 +184,13 @@ final class AutoController extends AbstractController
         }
 
 
-        //dump($brands);
+        // dump($brands);
 
         return $this->render([
             'filter_cars' => $filterForm->createView(),
             'card' => $card,
             'tir' => $tires,
-            'brands' => $brands
+            'brands' => $brands,
         ]);
     }
-
 }

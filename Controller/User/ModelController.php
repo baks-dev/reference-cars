@@ -25,7 +25,6 @@ declare(strict_types=1);
 
 namespace BaksDev\Reference\Cars\Controller\User;
 
-
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Form\Search\SearchForm;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterDTO;
@@ -56,10 +55,10 @@ final class ModelController extends AbstractController
         $carsModifications = $carsModificationChoice->getDetailCollectionByTires($CarModel->getModelId());
 
 
-//        // Поиск
-//        $search = new SearchDTO();
-//        $searchForm = $this->createForm(SearchForm::class, $search);
-//        $searchForm->handleRequest($request);
+        //        // Поиск
+        //        $search = new SearchDTO();
+        //        $searchForm = $this->createForm(SearchForm::class, $search);
+        //        $searchForm->handleRequest($request);
 
 
         // Фильтр
@@ -75,17 +74,20 @@ final class ModelController extends AbstractController
         $filter = new CarsFilterDTO();
         $filter->setBrand($CarModel->getBrandId());
         $filter->setModel($CarModel->getModelId());
-        $filterForm = $this->createForm(CarsFilterForm::class, $filter,
-            ['action' => $this->generateUrl('reference-cars:user.filter')]);
+        $filterForm = $this->createForm(
+            CarsFilterForm::class,
+            $filter,
+            ['action' => $this->generateUrl('reference-cars:user.filter')],
+        );
         //$filterForm->handleRequest($request);
 
         return $this->render(
             [
-                'card' =>  $CarModel,
-                'mods' =>  $carsModifications,
+                'card' => $CarModel,
+                'mods' => $carsModifications,
                 'filter_cars' => $filterForm->createView(),
                 //'search' => $searchForm->createView(),
-            ]
+            ],
         );
     }
 }

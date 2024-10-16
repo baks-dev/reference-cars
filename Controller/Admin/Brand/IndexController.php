@@ -46,7 +46,8 @@ final class IndexController extends AbstractController
         Request $request,
         AllCarsBrandInterface $allCarsBrand,
         int $page = 0,
-    ): Response {
+    ): Response
+    {
 
         // Поиск
         $search = new SearchDTO();

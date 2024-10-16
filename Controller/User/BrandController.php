@@ -25,7 +25,6 @@ declare(strict_types=1);
 
 namespace BaksDev\Reference\Cars\Controller\User;
 
-
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Form\Search\SearchForm;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterDTO;
@@ -58,14 +57,14 @@ final class BrandController extends AbstractController
         {
             $carModels = $carsModelsChoice->getDetailModelsExistTires($CarBrand->getId());
 
-           /* dump($carModels);*/
+            /* dump($carModels);*/
         }
 
 
         // Поиск
-//        $search = new SearchDTO();
-//        $searchForm = $this->createForm(SearchForm::class, $search);
-//        $searchForm->handleRequest($request);
+        //        $search = new SearchDTO();
+        //        $searchForm = $this->createForm(SearchForm::class, $search);
+        //        $searchForm->handleRequest($request);
 
 
         // Фильтр
@@ -77,12 +76,14 @@ final class BrandController extends AbstractController
         //$wqwqwqwq = $allwqwqwqwq->fetchAllwqwqwqwqAssociative($search);
 
 
-
         // Фильтр по авто
         $filter = new CarsFilterDTO();
         $filter->setBrand($CarBrand->getId());
-        $filterForm = $this->createForm(CarsFilterForm::class, $filter,
-            ['action' => $this->generateUrl('reference-cars:user.filter')]);
+        $filterForm = $this->createForm(
+            CarsFilterForm::class,
+            $filter,
+            ['action' => $this->generateUrl('reference-cars:user.filter')],
+        );
         //$filterForm->handleRequest($request);
 
         return $this->render(
@@ -91,7 +92,7 @@ final class BrandController extends AbstractController
                 'models' => $carModels,
                 'filter_cars' => $filterForm->createView(),
                 //'search' => $searchForm->createView(),
-            ]
+            ],
         );
     }
 }
