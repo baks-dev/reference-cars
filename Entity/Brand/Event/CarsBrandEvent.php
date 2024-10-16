@@ -147,5 +147,4 @@ class CarsBrandEvent extends EntityEvent
 
         return $name;
     }
-
 }
