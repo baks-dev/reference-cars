@@ -10,7 +10,7 @@
 # systemctl stop baks-reference-cars@1.service
 
 [Unit]
-Description=Symfony messenger reference-cars %i
+Description=reference-cars
 StartLimitBurst=5
 StartLimitIntervalSec=0
 
