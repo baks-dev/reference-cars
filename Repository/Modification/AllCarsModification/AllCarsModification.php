@@ -1,17 +1,17 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
- *
+ *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is furnished
  *  to do so, subject to the following conditions:
- *
+ *  
  *  The above copyright notice and this permission notice shall be included in all
  *  copies or substantial portions of the Software.
- *
+ *  
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
@@ -40,20 +40,16 @@ use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 
 final class AllCarsModification implements AllCarsModificationInterface
 {
-    private PaginatorInterface $paginator;
-    private DBALQueryBuilder $DBALQueryBuilder;
-
     private ?SearchDTO $search = null;
 
     private ?CarsModelUid $model = null;
 
     public function __construct(
-        DBALQueryBuilder $DBALQueryBuilder,
-        PaginatorInterface $paginator,
+        private readonly DBALQueryBuilder $DBALQueryBuilder,
+        private readonly PaginatorInterface $paginator,
     )
     {
-        $this->paginator = $paginator;
-        $this->DBALQueryBuilder = $DBALQueryBuilder;
+
     }
 
     public function search(SearchDTO $search): self
@@ -81,13 +77,13 @@ final class AllCarsModification implements AllCarsModificationInterface
         $qb
             ->addSelect('main.id')
             ->addSelect('main.event')
-            ->from(CarsModification::TABLE, 'main');
+            ->from(CarsModification::class, 'main');
 
         $qb
             ->addSelect('event.modification')
             ->leftJoin(
                 'main',
-                CarsModificationEvent::TABLE,
+                CarsModificationEvent::class,
                 'event',
                 'event.id = main.event'
             );
@@ -96,7 +92,7 @@ final class AllCarsModification implements AllCarsModificationInterface
         $qb
             ->leftJoin(
                 'main',
-                CarsModel::TABLE,
+                CarsModel::class,
                 'model',
                 'model.id = main.model'
             );
@@ -105,7 +101,7 @@ final class AllCarsModification implements AllCarsModificationInterface
             ->addSelect('model_event.code')
             ->leftJoin(
                 'model',
-                CarsModelEvent::TABLE,
+                CarsModelEvent::class,
                 'model_event',
                 'model_event.id = model.event'
             );
@@ -114,7 +110,7 @@ final class AllCarsModification implements AllCarsModificationInterface
             ->addSelect('model_trans.name AS model_name')
             ->leftJoin(
                 'model',
-                CarsModelTrans::TABLE,
+                CarsModelTrans::class,
                 'model_trans',
                 'model_trans.event = model.event AND model_trans.local = :local'
             );
@@ -123,7 +119,7 @@ final class AllCarsModification implements AllCarsModificationInterface
         $qb
             ->leftJoin(
                 'model',
-                CarsBrand::TABLE,
+                CarsBrand::class,
                 'brand',
                 'brand.id = model.brand'
             );
@@ -132,35 +128,10 @@ final class AllCarsModification implements AllCarsModificationInterface
             ->addSelect('brand_trans.name AS brand_name')
             ->leftJoin(
                 'brand',
-                CarsBrandTrans::TABLE,
+                CarsBrandTrans::class,
                 'brand_trans',
                 'brand_trans.event = brand.event AND brand_trans.local = :local'
             );
-
-        //        $qb
-        //            ->addSelect('char.model')
-        //            ->addSelect('char.year_from')
-        //            ->addSelect('char.year_to')
-        //            ->leftJoin(
-        //                'main',
-        //                CarsModificationCharacteristics::TABLE,
-        //                'char',
-        //                'char.event = main.event'
-        //            );
-
-
-        //        $qb
-        //            ->addSelect('motor.fuel')
-        //            ->addSelect('motor.engine')
-        //            ->addSelect('motor.power')
-        //            ->addSelect('motor.drive')
-        //            ->leftJoin(
-        //                'char',
-        //                CarsModificationMotor::TABLE,
-        //                'motor',
-        //                'motor.characteristic = char.id'
-        //            );
-
 
         if($this->model)
         {

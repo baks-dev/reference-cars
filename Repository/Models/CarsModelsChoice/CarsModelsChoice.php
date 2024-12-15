@@ -1,17 +1,17 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
- *
+ *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is furnished
  *  to do so, subject to the following conditions:
- *
+ *  
  *  The above copyright notice and this permission notice shall be included in all
  *  copies or substantial portions of the Software.
- *
+ *  
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,7 +26,6 @@ declare(strict_types=1);
 namespace BaksDev\Reference\Cars\Repository\Models\CarsModelsChoice;
 
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
-use BaksDev\Core\Doctrine\ORMQueryBuilder;
 use BaksDev\Reference\Cars\Entity\Model\CarsModel;
 use BaksDev\Reference\Cars\Entity\Model\Event\CarsModelEvent;
 use BaksDev\Reference\Cars\Entity\Model\Image\CarsModelImage;
@@ -40,47 +39,40 @@ use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 use BaksDev\Reference\Cars\Type\Model\Id\CarsModelUid;
 use Generator;
 
-final class CarsModelsChoice implements CarsModelsChoiceInterface
+final readonly class CarsModelsChoice implements CarsModelsChoiceInterface
 {
-    private DBALQueryBuilder $DBALQueryBuilder;
 
-    public function __construct(
-        DBALQueryBuilder $DBALQueryBuilder,
-    )
-    {
-        $this->DBALQueryBuilder = $DBALQueryBuilder;
-    }
+    public function __construct(private DBALQueryBuilder $DBALQueryBuilder) {}
 
     public function getCollectionByTires(mixed $brand): Generator
     {
 
-
-        $qb = $this->DBALQueryBuilder
+        $dbal = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
             ->bindLocal();
 
-        $qb
-            ->from(CarsModel::TABLE, 'main')
+        $dbal
+            ->from(CarsModel::class, 'main')
             ->andWhere('main.brand = :brand')
             ->setParameter('brand', new CarsBrandUid($brand), CarsBrandUid::TYPE);
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'main',
-            CarsModelTrans::TABLE,
+            CarsModelTrans::class,
             'trans',
             'trans.event = main.event AND trans.local = :local'
         );
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'main',
-            CarsModelEvent::TABLE,
+            CarsModelEvent::class,
             'event',
             'event.id = main.event'
         );
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'main',
-            CarsModelInfo::TABLE,
+            CarsModelInfo::class,
             'info',
             'info.event = main.event'
         );
@@ -90,31 +82,31 @@ final class CarsModelsChoice implements CarsModelsChoiceInterface
 
         $objQueryExistModel
             ->select('1')
-            ->from(CarsModification::TABLE, 'mod')
+            ->from(CarsModification::class, 'mod')
             ->where('mod.model = main.id');
 
         $objQueryExistModel->join(
             'mod',
-            CarsModificationCharacteristics::TABLE,
+            CarsModificationCharacteristics::class,
             'char',
             'char.event = mod.event');
 
         $objQueryExistModel->join(
             'char',
-            CarsModificationTires::TABLE,
+            CarsModificationTires::class,
             'tires',
             'tires.characteristic = char.id');
 
-        $qb->andWhere('EXISTS('.$objQueryExistModel->getSQL().')');
+        $dbal->andWhere('EXISTS('.$objQueryExistModel->getSQL().')');
 
-        $qb->orderBy('trans.name');
+        $dbal->orderBy('trans.name');
 
-        $qb
+        $dbal
             ->addSelect('main.id AS value')
             ->addSelect('trans.name AS attr')
             ->addSelect('event.code AS option');
 
-        return $qb
+        return $dbal
             ->enableCache('reference-cars', 86400)
             ->fetchAllHydrate(CarsModelUid::class);
     }
@@ -122,72 +114,72 @@ final class CarsModelsChoice implements CarsModelsChoiceInterface
 
     public function getDetailModelsExistTires(mixed $brand): ?array
     {
-        $qb = $this->DBALQueryBuilder
+        $dbal = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
             ->bindLocal();
 
-        $qb
+        $dbal
             ->addSelect('main.id')
-            ->from(CarsModel::TABLE, 'main')
+            ->from(CarsModel::class, 'main')
             ->andWhere('main.brand = :brand')
             ->setParameter('brand', new CarsBrandUid($brand), CarsBrandUid::TYPE);
 
 
-        $qb
+        $dbal
             ->addSelect('event.code')
             ->addSelect('event.year_from')
             ->addSelect('event.year_to')
             ->leftJoin(
                 'main',
-                CarsModelEvent::TABLE,
+                CarsModelEvent::class,
                 'event',
                 'event.id = main.event'
             );
 
-        $qb
+        $dbal
             ->addSelect('modify.mod_date AS last_modify')
             ->leftJoin(
                 'main',
-                CarsModelModify::TABLE,
+                CarsModelModify::class,
                 'modify',
                 'modify.event = main.event'
             );
 
-        $qb->addSelect(
+        $dbal->addSelect(
             "
 			CASE
 			   WHEN image.name IS NOT NULL THEN
-					CONCAT ( '/upload/".CarsModelImage::TABLE."' , '/', image.name)
+					CONCAT ( '/upload/".$dbal->table(CarsModelImage::class)."' , '/', image.name)
 			   ELSE NULL
 			END AS image_name
 		"
         );
-        $qb
+        $dbal
             ->addSelect('image.ext AS image_ext')
             ->addSelect('image.cdn AS image_cdn')
             ->leftJoin(
                 'main',
-                CarsModelImage::TABLE,
+                CarsModelImage::class,
                 'image',
                 'image.event = main.event'
             );
 
 
-        $qb
+        $dbal
             ->addSelect('trans.name')
             ->leftJoin(
                 'main',
-                CarsModelTrans::TABLE,
+                CarsModelTrans::class,
                 'trans',
                 'trans.event = main.event AND trans.local = :local'
             );
 
-        $qb
+        $dbal
             ->addSelect('info.url')
             ->addSelect('info.review')
             ->leftJoin(
                 'main',
-                CarsModelInfo::TABLE,
+                CarsModelInfo::class,
                 'info',
                 'info.event = main.event'
             );
@@ -197,27 +189,27 @@ final class CarsModelsChoice implements CarsModelsChoiceInterface
 
         $objQueryExistModel
             ->select('1')
-            ->from(CarsModification::TABLE, 'mod')
+            ->from(CarsModification::class, 'mod')
             ->where('mod.model = main.id');
 
         $objQueryExistModel->join(
             'mod',
-            CarsModificationCharacteristics::TABLE,
+            CarsModificationCharacteristics::class,
             'char',
             'char.event = mod.event');
 
         $objQueryExistModel->join(
             'char',
-            CarsModificationTires::TABLE,
+            CarsModificationTires::class,
             'tires',
             'tires.characteristic = char.id');
 
-        $qb->andWhere('EXISTS('.$objQueryExistModel->getSQL().')');
+        $dbal->andWhere('EXISTS('.$objQueryExistModel->getSQL().')');
 
-        $qb->orderBy('event.year_from', 'DESC');
-        $qb->addOrderBy('trans.name', 'ASC');
+        $dbal->orderBy('event.year_from', 'DESC');
+        $dbal->addOrderBy('trans.name', 'ASC');
 
-        return $qb
+        return $dbal
             ->enableCache('reference-cars', 86400)
             ->fetchAllAssociative();
 
@@ -226,44 +218,44 @@ final class CarsModelsChoice implements CarsModelsChoiceInterface
 
     public function getCollection(mixed $brand): Generator
     {
-        $qb = $this->DBALQueryBuilder
+        $dbal = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
             ->bindLocal();
 
-        $qb
-            ->from(CarsModel::TABLE, 'main')
+        $dbal
+            ->from(CarsModel::class, 'main')
             ->andWhere('main.brand = :brand')
             ->setParameter('brand', new CarsBrandUid($brand), CarsBrandUid::TYPE);
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'main',
-            CarsModelTrans::TABLE,
+            CarsModelTrans::class,
             'trans',
             'trans.event = main.event AND trans.local = :local'
         );
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'main',
-            CarsModelEvent::TABLE,
+            CarsModelEvent::class,
             'event',
             'event.id = main.event'
         );
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'main',
-            CarsModelInfo::TABLE,
+            CarsModelInfo::class,
             'info',
             'info.event = main.event'
         );
 
-        $qb->orderBy('trans.name');
+        $dbal->orderBy('trans.name');
 
-        $qb
+        $dbal
             ->addSelect('main.id AS value')
             ->addSelect('trans.name AS attr')
             ->addSelect('event.code AS option');
 
-        return $qb
+        return $dbal
             ->enableCache('reference-cars', 86400)
             ->fetchAllHydrate(CarsModelUid::class);
     }

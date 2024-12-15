@@ -1,17 +1,17 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
- *
+ *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is furnished
  *  to do so, subject to the following conditions:
- *
+ *  
  *  The above copyright notice and this permission notice shall be included in all
  *  copies or substantial portions of the Software.
- *
+ *  
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,7 +26,6 @@ declare(strict_types=1);
 namespace BaksDev\Reference\Cars\Repository\Modification\CarsModificationChoice;
 
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
-use BaksDev\Core\Doctrine\ORMQueryBuilder;
 use BaksDev\Reference\Cars\Entity\Modification\CarsModification;
 use BaksDev\Reference\Cars\Entity\Modification\Characteristics\CarsModificationCharacteristics;
 use BaksDev\Reference\Cars\Entity\Modification\Characteristics\Motor\CarsModificationMotor;
@@ -40,14 +39,8 @@ use Generator;
 
 final class CarsModificationChoice implements CarsModificationChoiceInterface
 {
-    private DBALQueryBuilder $DBALQueryBuilder;
 
-    public function __construct(
-        DBALQueryBuilder $DBALQueryBuilder,
-    )
-    {
-        $this->DBALQueryBuilder = $DBALQueryBuilder;
-    }
+    public function __construct(private readonly DBALQueryBuilder $DBALQueryBuilder) {}
 
     public function getCollectionByTires(CarsModelUid $model): Generator
     {
@@ -61,20 +54,20 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
         //$qb->addSelect('char');
 
         $qb
-            ->from(CarsModification::TABLE, 'main')
+            ->from(CarsModification::class, 'main')
             ->andWhere('main.model = :model')
             ->setParameter('model', $model, CarsModelUid::TYPE);
 
         $qb->leftJoin(
             'main',
-            CarsModificationEvent::TABLE,
+            CarsModificationEvent::class,
             'event',
             'event.id = main.event'
         );
 
         $qb->leftJoin(
             'main',
-            CarsModificationCharacteristics::TABLE,
+            CarsModificationCharacteristics::class,
             'char',
             'char.event = main.event'
         );
@@ -83,7 +76,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
 
         $objQueryExistModel
             ->select('1')
-            ->from(CarsModificationTires::TABLE, 'tires')
+            ->from(CarsModificationTires::class, 'tires')
             ->where('tires.characteristic = char.id');
 
 
@@ -118,20 +111,20 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
         //$qb->addSelect('char');
 
         $qb
-            ->from(CarsModification::TABLE, 'main')
+            ->from(CarsModification::class, 'main')
             ->andWhere('main.model = :model')
             ->setParameter('model', $model, CarsModelUid::TYPE);
 
         $qb->leftJoin(
             'main',
-            CarsModificationEvent::TABLE,
+            CarsModificationEvent::class,
             'event',
             'event.id = main.event'
         );
 
         $qb->leftJoin(
             'main',
-            CarsModificationCharacteristics::TABLE,
+            CarsModificationCharacteristics::class,
             'char',
             'char.event = main.event'
         );
@@ -169,7 +162,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
         $qb->addSelect('char.id');
 
         $qb
-            ->from(CarsModification::TABLE, 'main')
+            ->from(CarsModification::class, 'main')
             ->andWhere('main.model = :model')
             ->setParameter('model', $model, CarsModelUid::TYPE);
 
@@ -177,7 +170,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
             ->addSelect('event.modification AS modification')
             ->leftJoin(
                 'main',
-                CarsModificationEvent::TABLE,
+                CarsModificationEvent::class,
                 'event',
                 'event.id = main.event'
             );
@@ -186,7 +179,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
             ->addSelect('modify.mod_date AS last_modify')
             ->leftJoin(
                 'main',
-                CarsModificationModify::TABLE,
+                CarsModificationModify::class,
                 'modify',
                 'modify.event = main.event'
             );
@@ -195,7 +188,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
             ->addSelect('info.url')
             ->leftJoin(
                 'main',
-                CarsModificationInfo::TABLE,
+                CarsModificationInfo::class,
                 'info',
                 'info.modification = main.id'
             );
@@ -207,7 +200,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
             ->addSelect('char.year_to AS characteristic_to')
             ->leftJoin(
                 'main',
-                CarsModificationCharacteristics::TABLE,
+                CarsModificationCharacteristics::class,
                 'char',
                 'char.event = main.event'
             );
@@ -219,7 +212,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
             ->addSelect('motor.drive AS motor_drive')
             ->leftJoin(
                 'char',
-                CarsModificationMotor::TABLE,
+                CarsModificationMotor::class,
                 'motor',
                 'motor.characteristic = char.id'
             );
@@ -229,7 +222,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
 
         $objQueryExistModel
             ->select('1')
-            ->from(CarsModificationTires::TABLE, 'tires')
+            ->from(CarsModificationTires::class, 'tires')
             ->where('tires.characteristic = char.id');
 
         //$qb->andWhere($qb->expr()->exists($objQueryExistModel->getDQL()));

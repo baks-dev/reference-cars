@@ -8,7 +8,7 @@
 
     {% if form.image.vars.data.ext is defined and form.image.vars.data.ext is not null %}
         {% set img_host =  form.image.vars.data.cdn == true  ? CDN_HOST : '' %}
-        {% set img_table = '/upload/' ~ constant('BaksDev\\Reference\\Cars\\Entity\\Model\\Image\\CarsModelImage::TABLE')~'/' %}
+        {% set img_table = '/upload/cars_model_logo/' %}
         {% set img_dir = form.image.vars.data.name %}
         {% set img_file = (img_host is empty ? '/image.' : '/small.') ~ form.image.vars.data.ext %}
         {% set image_path = img_host ~ img_table ~ img_dir ~ img_file %}

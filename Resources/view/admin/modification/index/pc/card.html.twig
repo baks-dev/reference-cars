@@ -31,24 +31,6 @@
 
         <div class="d-flex align-items-center">
 
-            {# Обложка #}{#
-            {% set image_path = '/assets/img/blank.svg' %}
-
-            {% if item.image_ext is defined and item.image_ext is not null %}
-                {% set img_host =  item.image_cdn == true  ? CDN_HOST : '' %}
-            #}{# {% set img_table = '/upload/' ~ constant('BaksDev\\Payment\\Entity\\Cover\\PaymentCover::TABLE') %} #}{#
-            {% set img_dir = item.image_name %}
-            {% set img_file = (img_host is empty ? '/image.' : '/min.') ~ item.image_ext %}
-            {% set image_path = img_host ~ img_dir ~ img_file %}
-        {% endif %}
-
-
-        <a href=" #}{# {{ path('reference-cars:admin.brand.newedit.edit', { id: item.event }) }} #}{# " class="pe-3">
-                <div class="rounded-circle bg-contain lazy p-1" style="width: 50px; height: 50px;"
-                     data-bg="{{ image_path }}">
-                </div>
-            </a> #}
-
             <div class="ms-0">
 
 

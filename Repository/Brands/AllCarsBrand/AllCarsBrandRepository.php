@@ -1,17 +1,17 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
- *
+ *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is furnished
  *  to do so, subject to the following conditions:
- *
+ *  
  *  The above copyright notice and this permission notice shall be included in all
  *  copies or substantial portions of the Software.
- *
+ *  
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,6 +28,7 @@ namespace BaksDev\Reference\Cars\Repository\Brands\AllCarsBrand;
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Services\Paginator\Paginator;
+use BaksDev\Core\Services\Paginator\PaginatorInterface;
 use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
 use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Entity\Brand\Logo\CarsBrandLogo;
@@ -35,20 +36,12 @@ use BaksDev\Reference\Cars\Entity\Brand\Trans\CarsBrandTrans;
 
 final class AllCarsBrandRepository implements AllCarsBrandInterface
 {
-    private DBALQueryBuilder $DBALQueryBuilder;
-
     private ?SearchDTO $search = null;
 
-    private Paginator $paginator;
-
     public function __construct(
-        Paginator $paginator,
-        DBALQueryBuilder $DBALQueryBuilder,
-    )
-    {
-        $this->DBALQueryBuilder = $DBALQueryBuilder;
-        $this->paginator = $paginator;
-    }
+        private readonly PaginatorInterface $paginator,
+        private readonly DBALQueryBuilder $DBALQueryBuilder,
+    ) {}
 
     public function search(SearchDTO $search): self
     {
@@ -59,40 +52,40 @@ final class AllCarsBrandRepository implements AllCarsBrandInterface
 
     public function fetchAllAllCarsBrandAssociative(): Paginator
     {
-        $qb = $this->DBALQueryBuilder->createQueryBuilder(self::class)->bindLocal();
+        $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class)->bindLocal();
 
-        //$qb->select('*');
+        //$dbal->select('*');
 
-        $qb
+        $dbal
             ->addSelect('main.id')
             ->addSelect('main.event')
-            ->from(CarsBrand::TABLE, 'main');
+            ->from(CarsBrand::class, 'main');
 
-        $qb
+        $dbal
             ->leftJoin(
                 'main',
-                CarsBrandEvent::TABLE,
+                CarsBrandEvent::class,
                 'event',
                 'event.id = main.event'
             );
 
-        $qb
+        $dbal
             ->addSelect('trans.name AS brand_name')
             ->addSelect('trans.description AS brand_desc')
             ->leftJoin(
                 'main',
-                CarsBrandTrans::TABLE,
+                CarsBrandTrans::class,
                 'trans',
                 'trans.event = main.event AND trans.local = :local'
             );
 
-        $qb
-            ->addSelect("CONCAT('/upload/".CarsBrandLogo::TABLE."' , '/', logo.name) AS logo_name")
+        $dbal
+            ->addSelect("CONCAT('/upload/".$dbal->table(CarsBrandLogo::class)."' , '/', logo.name) AS logo_name")
             ->addSelect('logo.ext AS logo_ext')
             ->addSelect('logo.cdn AS logo_cdn')
             ->leftJoin(
                 'main',
-                CarsBrandLogo::TABLE,
+                CarsBrandLogo::class,
                 'logo',
                 'logo.event = main.event'
             );
@@ -100,20 +93,14 @@ final class AllCarsBrandRepository implements AllCarsBrandInterface
         /* Поиск */
         if($this->search?->getQuery())
         {
-            $qb
+            $dbal
                 ->createSearchQueryBuilder($this->search)
                 ->addSearchLike('trans.name')//->addSearchLike('personal.location')
             ;
         }
 
+        $dbal->addOrderBy('trans.name');
 
-        $qb->addOrderBy('trans.name');
-
-
-        return $this->paginator->fetchAllAssociative($qb);
-
-        //        return $qb
-        //            // ->enableCache('reference-cars', 3600)
-        //            ->fetchAllAssociative();
+        return $this->paginator->fetchAllAssociative($dbal);
     }
 }

@@ -1,17 +1,17 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
- *
+ *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is furnished
  *  to do so, subject to the following conditions:
- *
+ *  
  *  The above copyright notice and this permission notice shall be included in all
  *  copies or substantial portions of the Software.
- *
+ *  
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
@@ -47,18 +47,12 @@ use BaksDev\Reference\Cars\Type\Modification\Characteris\CarsModificationCharact
 
 final class CarsModificationDetail implements CarsModificationDetailInterface
 {
-    private DBALQueryBuilder $DBALQueryBuilder;
 
     private ?CarsBrandUid $brand = null;
 
     private ?CarsModelUid $model = null;
 
-    public function __construct(
-        DBALQueryBuilder $DBALQueryBuilder,
-    )
-    {
-        $this->DBALQueryBuilder = $DBALQueryBuilder;
-    }
+    public function __construct(private readonly DBALQueryBuilder $DBALQueryBuilder) {}
 
     public function findCarDetail(
         CarsBrandUid $brand,
@@ -72,79 +66,79 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
         register_shutdown_function([$this, 'statistic'], 'throw');
 
 
-        $qb = $this->DBALQueryBuilder
+        $dbal = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
             ->bindLocal();
 
 
-        $qb
-            ->from(CarsBrand::TABLE, 'brand')
+        $dbal
+            ->from(CarsBrand::class, 'brand')
             ->where('brand.id = :brand')
             ->setParameter('brand', $brand, CarsBrandUid::TYPE);
 
-        $qb
+        $dbal
             ->addSelect('brand_info.url AS brand_url')
             ->leftJoin(
                 'brand',
-                CarsBrandInfo::TABLE,
+                CarsBrandInfo::class,
                 'brand_info',
                 'brand_info.brand = brand.id'
             );
 
 
-        $qb
+        $dbal
             ->addSelect('brand_trans.name as brand_name')
             ->leftJoin(
                 'brand',
-                CarsBrandTrans::TABLE,
+                CarsBrandTrans::class,
                 'brand_trans',
                 'brand_trans.event = brand.event and brand_trans.local = :local'
             );
 
 
-        $qb->leftJoin(
+        $dbal->leftJoin(
             'brand',
-            CarsModel::TABLE,
+            CarsModel::class,
             'model',
             'model.id = :model'
         )
             ->setParameter('model', $model, CarsModelUid::TYPE);
 
 
-        $qb
+        $dbal
             ->addSelect('model_info.url AS model_url')
             ->leftJoin(
                 'model',
-                CarsModelInfo::TABLE,
+                CarsModelInfo::class,
                 'model_info',
                 'model_info.model = model.id'
             );
 
-        $qb
+        $dbal
             ->addSelect('model_event.code AS model_code')
             ->leftJoin(
                 'model',
-                CarsModelEvent::TABLE,
+                CarsModelEvent::class,
                 'model_event',
                 'model_event.id = model.event'
             );
 
 
-        $qb
+        $dbal
             ->addSelect('model_trans.name as model_name')
             ->leftJoin(
                 'model',
-                CarsModelTrans::TABLE,
+                CarsModelTrans::class,
                 'model_trans',
                 'model_trans.event = model.event and model_trans.local = :local'
             );
 
 
-        $qb
+        $dbal
             ->addSelect("
                 CASE
                    WHEN model_img.name IS NOT NULL THEN
-                        CONCAT ( '/upload/".CarsModelImage::TABLE."' , '/', model_img.name)
+                        CONCAT ( '/upload/".$dbal->table(CarsModelImage::class)."' , '/', model_img.name)
                    ELSE NULL
                 END AS model_image
 		    ")
@@ -152,36 +146,36 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             ->addSelect('model_img.cdn as model_image_cdn')
             ->leftJoin(
                 'model',
-                CarsModelImage::TABLE,
+                CarsModelImage::class,
                 'model_img',
                 'model_img.event = model.event'
             );
 
 
-        $qb
+        $dbal
             ->addSelect('char.model as modification_model')
             ->addSelect('char.year_from as modification_from')
             ->addSelect('char.year_to as modification_to')
             ->leftJoin(
                 'model',
-                CarsModificationCharacteristics::TABLE,
+                CarsModificationCharacteristics::class,
                 'char',
                 'char.id = :modification'
             )
             ->setParameter('modification', $modification, CarsModificationCharacteristicsUid::TYPE);
 
 
-        $qb
+        $dbal
             ->addSelect('mod_event.modification as modification_name')
             ->leftJoin(
                 'char',
-                CarsModificationEvent::TABLE,
+                CarsModificationEvent::class,
                 'mod_event',
                 'mod_event.id = char.event'
             );
 
 
-        $qb
+        $dbal
             ->addSelect('mod_motor.fuel as modification_fuel')
             ->addSelect('mod_motor.engine as modification_engine')
             ->addSelect('mod_motor.power as modification_power')
@@ -189,39 +183,39 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             ->addSelect('mod_motor.power as modification_power')
             ->leftJoin(
                 'char',
-                CarsModificationMotor::TABLE,
+                CarsModificationMotor::class,
                 'mod_motor',
                 'mod_motor.characteristic = char.id'
             );
 
 
-        $qb
+        $dbal
             ->addSelect('mod_chassis.dia as modification_dia')
             ->addSelect('mod_chassis.pcd as modification_pcd')
             ->addSelect('mod_chassis.number as modification_number')
             ->addSelect('mod_chassis.fastener as modification_fastener')
             ->leftJoin(
                 'char',
-                CarsModificationChassis::TABLE,
+                CarsModificationChassis::class,
                 'mod_chassis',
                 'mod_chassis.characteristic = char.id'
             );
 
 
-        $qb
+        $dbal
             //            ->addSelect('mod_chassis.dia as modification_dia')
             //            ->addSelect('mod_chassis.pcd as modification_pcd')
             //            ->addSelect('mod_chassis.number as modification_number')
             //            ->addSelect('mod_chassis.fastener as modification_fastener')
             ->leftJoin(
                 'char',
-                CarsModificationTires::TABLE,
+                CarsModificationTires::class,
                 'mod_tire',
                 'mod_tire.characteristic = char.id'
             );
 
 
-        $qb->addSelect(
+        $dbal->addSelect(
             "JSON_AGG
             ( DISTINCT
                 
@@ -237,19 +231,9 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
 			AS tire_field"
         );
 
+        $dbal->allGroupByExclude();
 
-        //        $qb->leftJoin(
-        //            'model',
-        //            CarsModification::TABLE,
-        //            'mod',
-        //            'mod.id = :modification'
-        //        )
-        //            ->setParameter('modification', $modification, CarsModificationUid::TYPE);
-
-
-        $qb->allGroupByExclude();
-
-        return $qb
+        return $dbal
             ->enableCache('reference-cars', 3600)
             ->fetchAssociative();
     }
@@ -264,80 +248,80 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
 
     ): ?array
     {
-        $qb = $this->DBALQueryBuilder
+        $dbal = $this->DBALQueryBuilder
             ->createQueryBuilder(self::class)
             ->bindLocal();
 
 
-        $qb
+        $dbal
             ->addSelect('brand_info.url AS brand_url')
-            ->from(CarsBrandInfo::TABLE, 'brand_info')
+            ->from(CarsBrandInfo::class, 'brand_info')
             ->where('brand_info.url = :brand')
             ->setParameter('brand', $brand);
 
 
-        $qb
+        $dbal
             ->join(
                 'brand_info',
-                CarsBrand::TABLE,
+                CarsBrand::class,
                 'brand',
                 'brand.id = brand_info.brand'
             );
 
-        $qb
+        $dbal
             ->addSelect('brand_trans.name as brand_name')
             ->leftJoin(
                 'brand',
-                CarsBrandTrans::TABLE,
+                CarsBrandTrans::class,
                 'brand_trans',
                 'brand_trans.event = brand.event and brand_trans.local = :local'
             );
 
 
-        $qb
+        $dbal
             ->addSelect('model_info.url AS model_url')
             ->join(
                 'brand_info',
-                CarsModelInfo::TABLE,
+                CarsModelInfo::class,
                 'model_info',
                 'model_info.url = :model'
             )
             ->setParameter('model', $model);
 
 
-        $qb->join(
+        $dbal->join(
             'model_info',
-            CarsModel::TABLE,
+            CarsModel::class,
             'model',
             'model.id = model_info.model AND model.brand = brand.id'
         )
             ->setParameter('model', $model);
 
 
-        $qb
+        $dbal
             ->addSelect('model_event.code AS model_code')
             ->leftJoin(
                 'model',
-                CarsModelEvent::TABLE,
+                CarsModelEvent::class,
                 'model_event',
                 'model_event.id = model.event'
             );
 
-        $qb
+        $dbal
             ->addSelect('model_trans.name as model_name')
             ->leftJoin(
                 'model',
-                CarsModelTrans::TABLE,
+                CarsModelTrans::class,
                 'model_trans',
                 'model_trans.event = model.event and model_trans.local = :local'
             );
 
 
-        $qb
+        $dbal
             ->addSelect("
                 CASE
                    WHEN model_img.name IS NOT NULL THEN
-                        CONCAT ( '/upload/".CarsModelImage::TABLE."' , '/', model_img.name)
+                        CONCAT ( '/upload/".$dbal->table(CarsModelImage::class)."' , '/', model_img.name)
                    ELSE NULL
                 END AS model_image
 		    ")
@@ -345,44 +329,44 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             ->addSelect('model_img.cdn as model_image_cdn')
             ->leftJoin(
                 'model',
-                CarsModelImage::TABLE,
+                CarsModelImage::class,
                 'model_img',
                 'model_img.event = model.event'
             );
 
 
-        $qb
+        $dbal
             ->addSelect('mod_info.url AS modification_url')
             ->join(
                 'model_info',
-                CarsModificationInfo::TABLE,
+                CarsModificationInfo::class,
                 'mod_info',
                 'mod_info.url = :modification'
             )
             ->setParameter('modification', $modification);
 
 
-        $qb->join(
+        $dbal->join(
             'mod_info',
-            CarsModification::TABLE,
+            CarsModification::class,
             'mod',
             'mod.id = mod_info.modification'
         );
 
 
-        $qb
+        $dbal
             ->addSelect('char.model as modification_model')
             ->addSelect('char.year_from as modification_from')
             ->addSelect('char.year_to as modification_to')
             ->leftJoin(
                 'mod',
-                CarsModificationCharacteristics::TABLE,
+                CarsModificationCharacteristics::class,
                 'char',
                 'char.event = mod.event'
             );
 
 
-        $qb
+        $dbal
             ->addSelect('mod_motor.fuel as modification_fuel')
             ->addSelect('mod_motor.engine as modification_engine')
             ->addSelect('mod_motor.power as modification_power')
@@ -390,7 +374,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             ->addSelect('mod_motor.power as modification_power')
             ->leftOneJoin(
                 'char',
-                CarsModificationMotor::TABLE,
+                CarsModificationMotor::class,
                 'mod_motor',
                 'mod_motor.characteristic = char.id'
                 .($engine ? ' AND mod_motor.engine = :engine' : '')
@@ -401,17 +385,17 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             ->setParameter('power', $power);
 
 
-        $qb
+        $dbal
             ->addSelect('mod_event.modification as modification_name')
             ->leftJoin(
                 'char',
-                CarsModificationEvent::TABLE,
+                CarsModificationEvent::class,
                 'mod_event',
                 'mod_event.id = char.event'
             );
 
 
-        //        $qb
+        //        $dbal
         //            ->addSelect('mod_motor.fuel as modification_fuel')
         //            ->addSelect('mod_motor.engine as modification_engine')
         //            ->addSelect('mod_motor.power as modification_power')
@@ -419,39 +403,39 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
         //            ->addSelect('mod_motor.power as modification_power')
         //            ->leftJoin(
         //                'char',
-        //                CarsModificationMotor::TABLE,
+        //                CarsModificationMotor::class,
         //                'mod_motor',
         //                'mod_motor.characteristic = char.id'
         //            );
 
 
-        $qb
+        $dbal
             ->addSelect('mod_chassis.dia as modification_dia')
             ->addSelect('mod_chassis.pcd as modification_pcd')
             ->addSelect('mod_chassis.number as modification_number')
             ->addSelect('mod_chassis.fastener as modification_fastener')
             ->leftJoin(
                 'char',
-                CarsModificationChassis::TABLE,
+                CarsModificationChassis::class,
                 'mod_chassis',
                 'mod_chassis.characteristic = char.id'
             );
 
 
-        $qb
+        $dbal
             //            ->addSelect('mod_chassis.dia as modification_dia')
             //            ->addSelect('mod_chassis.pcd as modification_pcd')
             //            ->addSelect('mod_chassis.number as modification_number')
             //            ->addSelect('mod_chassis.fastener as modification_fastener')
             ->leftJoin(
                 'char',
-                CarsModificationTires::TABLE,
+                CarsModificationTires::class,
                 'mod_tire',
                 'mod_tire.characteristic = char.id'
             );
 
 
-        $qb->addSelect(
+        $dbal->addSelect(
             "JSON_AGG
             ( DISTINCT
                 
@@ -468,18 +452,9 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
         );
 
 
-        //        $qb->leftJoin(
-        //            'model',
-        //            CarsModification::TABLE,
-        //            'mod',
-        //            'mod.id = :modification'
-        //        )
-        //            ->setParameter('modification', $modification, CarsModificationUid::TYPE);
+        $dbal->allGroupByExclude();
 
-
-        $qb->allGroupByExclude();
-
-        return $qb
+        return $dbal
             ->enableCache('reference-cars', 3600)
             ->fetchAssociative();
     }
@@ -488,10 +463,10 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
     {
         if($this->brand)
         {
-            $qb = $this->DBALQueryBuilder->createQueryBuilder(self::class);
+            $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class);
 
-            $qb
-                ->update(CarsBrandInfo::TABLE)
+            $dbal
+                ->update(CarsBrandInfo::class)
                 ->set('review', 'review + 1')
                 ->where('brand = :brand')
                 ->setParameter('brand', $this->brand, CarsBrandUid::TYPE)
@@ -500,10 +475,10 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
 
         if($this->model)
         {
-            $qb = $this->DBALQueryBuilder->createQueryBuilder(self::class);
+            $dbal = $this->DBALQueryBuilder->createQueryBuilder(self::class);
 
-            $qb
-                ->update(CarsModelInfo::TABLE)
+            $dbal
+                ->update(CarsModelInfo::class)
                 ->set('review', 'review + 1')
                 ->where('model = :model')
                 ->setParameter('model', $this->model, CarsModelUid::TYPE)

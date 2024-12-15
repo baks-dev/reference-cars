@@ -19,7 +19,7 @@ namespace BaksDev\Reference\Cars\Type\Model\Type;
 
 enum CarsModelClassEnum : string
 {
-	public const TYPE = 'cars_model_class';
+	public const string TYPE = 'cars_model_class';
 	
 	case C0 = 'A'; // 'Легковые';
 	case C1 = 'B'; // 'Грузовые';

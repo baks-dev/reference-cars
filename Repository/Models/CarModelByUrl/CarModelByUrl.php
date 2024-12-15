@@ -1,17 +1,17 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
- *
+ *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is furnished
  *  to do so, subject to the following conditions:
- *
+ *  
  *  The above copyright notice and this permission notice shall be included in all
  *  copies or substantial portions of the Software.
- *
+ *  
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
@@ -40,19 +40,13 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final class CarModelByUrl implements CarModelByUrlInterface
 {
-    private DBALQueryBuilder $DBALQueryBuilder;
 
     private ?array $model;
-    private string $CDN_HOST;
 
     public function __construct(
-        #[Autowire(env: 'CDN_HOST')] string $CDN_HOST,
-        DBALQueryBuilder $DBALQueryBuilder,
-    )
-    {
-        $this->DBALQueryBuilder = $DBALQueryBuilder;
-        $this->CDN_HOST = $CDN_HOST;
-    }
+        #[Autowire(env: 'CDN_HOST')] private readonly string $CDN_HOST,
+        private readonly DBALQueryBuilder $DBALQueryBuilder,
+    ) {}
 
     /** Метод возвращает модель по URL */
     public function getModel(string $brand, string $model): self
@@ -63,7 +57,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
 
         $qb->select('brand_info.url AS brand_url');
 
-        $qb->from(CarsBrandInfo::TABLE, 'brand_info')
+        $qb->from(CarsBrandInfo::class, 'brand_info')
             ->where('brand_info.url = :brand')
             ->setParameter('brand', $brand);
 
@@ -72,7 +66,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
             ->addSelect('model_info.url AS model_url')
             ->join(
                 'brand_info',
-                CarsModelInfo::TABLE,
+                CarsModelInfo::class,
                 'model_info',
                 'model_info.url = :model'
             )->setParameter('model', $model);
@@ -83,7 +77,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
             ->addSelect('brand_main.event AS brand_event')
             ->join(
                 'brand_info',
-                CarsBrand::TABLE,
+                CarsBrand::class,
                 'brand_main',
                 'brand_main.id = brand_info.brand'
             );
@@ -93,7 +87,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
             ->addSelect('brand_trans.name AS brand_name')
             ->leftJoin(
                 'brand_main',
-                CarsBrandTrans::TABLE,
+                CarsBrandTrans::class,
                 'brand_trans',
                 'brand_trans.event = brand_main.event AND brand_trans.local = :local'
             );
@@ -106,7 +100,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
             ->addSelect('model_main.event AS model_event')
             ->join(
                 'model_info',
-                CarsModel::TABLE,
+                CarsModel::class,
                 'model_main',
                 'model_main.id = model_info.model AND model_main.brand = brand_main.id'
             );
@@ -117,7 +111,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
             ->addSelect('model_event.year_to AS model_to')
             ->leftJoin(
                 'model_main',
-                CarsModelEvent::TABLE,
+                CarsModelEvent::class,
                 'model_event',
                 'model_event.id = model_main.event'
             );
@@ -127,21 +121,10 @@ final class CarModelByUrl implements CarModelByUrlInterface
             ->addSelect('model_trans.name AS model_name')
             ->leftJoin(
                 'model_main',
-                CarsModelTrans::TABLE,
+                CarsModelTrans::class,
                 'model_trans',
                 'model_trans.event = model_main.event AND model_trans.local = :local'
             );
-
-
-        //        $qb->addSelect(
-        //            "
-        //			CASE
-        //			   WHEN image.name IS NOT NULL THEN
-        //					CONCAT ( '/upload/".CarsModelImage::TABLE."' , '/', image.name)
-        //			   ELSE NULL
-        //			END AS image_name
-        //		"
-        //        );
 
         $qb
             ->addSelect('model_image.name AS image_name')
@@ -149,7 +132,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
             ->addSelect('model_image.cdn AS image_cdn')
             ->leftJoin(
                 'model_main',
-                CarsModelImage::TABLE,
+                CarsModelImage::class,
                 'model_image',
                 'model_image.event = model_main.event'
             );
@@ -204,11 +187,13 @@ final class CarModelByUrl implements CarModelByUrlInterface
 
     public function getModelImage(): ?string
     {
+        $TABLE = $this->DBALQueryBuilder->table(CarsModelImage::class);
+
         if($this->model['image_ext'])
         {
             return
                 ($this->model['image_cdn'] ? $this->CDN_HOST : '').
-                '/upload/'.CarsModelImage::TABLE.'/'.$this->model['image_name'].
+                '/upload/'.$TABLE.'/'.$this->model['image_name'].
                 ($this->model['image_cdn'] ? '/small.' : '/image.').$this->model['image_ext'];
         }
 

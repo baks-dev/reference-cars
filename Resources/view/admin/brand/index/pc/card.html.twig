@@ -36,7 +36,6 @@
 
             {% if item.logo_ext is defined and item.logo_ext is not null %}
                 {% set img_host =  item.logo_cdn == true  ? CDN_HOST : '' %}
-                {# {% set img_table = '/upload/' ~ constant('BaksDev\\Payment\\Entity\\Cover\\PaymentCover::TABLE') %} #}
                 {% set img_dir = item.logo_name %}
                 {% set img_file = (img_host is empty ? '/image.' : '/min.') ~ item.logo_ext %}
                 {% set image_path = img_host ~ img_dir ~ img_file %}

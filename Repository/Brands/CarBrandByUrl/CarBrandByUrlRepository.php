@@ -1,17 +1,17 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
- *
+ *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is furnished
  *  to do so, subject to the following conditions:
- *
+ *  
  *  The above copyright notice and this permission notice shall be included in all
  *  copies or substantial portions of the Software.
- *
+ *  
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
@@ -36,17 +36,10 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final class CarBrandByUrlRepository implements CarBrandByUrlInterface
 {
-    private DBALQueryBuilder $DBALQueryBuilder;
-    private string $CDN_HOST;
-
     public function __construct(
-        #[Autowire(env: 'CDN_HOST')] string $CDN_HOST,
-        DBALQueryBuilder $DBALQueryBuilder,
-    )
-    {
-        $this->DBALQueryBuilder = $DBALQueryBuilder;
-        $this->CDN_HOST = $CDN_HOST;
-    }
+        #[Autowire(env: 'CDN_HOST')] private readonly string $CDN_HOST,
+        private readonly DBALQueryBuilder $DBALQueryBuilder,
+    ) {}
 
 
     private ?array $brand = null;
@@ -63,7 +56,7 @@ final class CarBrandByUrlRepository implements CarBrandByUrlInterface
 
         $qb->select('info.url');
 
-        $qb->from(CarsBrandInfo::TABLE, 'info')
+        $qb->from(CarsBrandInfo::class, 'info')
             ->where('info.url = :url')
             ->setParameter('url', $url);
 
@@ -72,7 +65,7 @@ final class CarBrandByUrlRepository implements CarBrandByUrlInterface
             ->addSelect('main.event')
             ->join(
                 'info',
-                CarsBrand::TABLE,
+                CarsBrand::class,
                 'main',
                 'main.id = info.brand'
             );
@@ -81,7 +74,7 @@ final class CarBrandByUrlRepository implements CarBrandByUrlInterface
             ->addSelect('trans.name')
             ->leftJoin(
                 'main',
-                CarsBrandTrans::TABLE,
+                CarsBrandTrans::class,
                 'trans',
                 'trans.event = main.event AND trans.local = :local'
             );
@@ -92,7 +85,7 @@ final class CarBrandByUrlRepository implements CarBrandByUrlInterface
             ->addSelect('logo.cdn AS logo_cdn')
             ->leftJoin(
                 'main',
-                CarsBrandLogo::TABLE,
+                CarsBrandLogo::class,
                 'logo',
                 'logo.event = main.event'
             );
@@ -127,11 +120,13 @@ final class CarBrandByUrlRepository implements CarBrandByUrlInterface
 
     public function getLogo(): ?string
     {
+        $TABLE = $this->DBALQueryBuilder->table(CarsBrandLogo::class);
+
         if($this->brand['logo_ext'])
         {
             return
                 ($this->brand['logo_cdn'] ? $this->CDN_HOST : '').
-                '/upload/'.CarsBrandLogo::TABLE.'/'.$this->brand['logo_image'].
+                '/upload/'.$TABLE.'/'.$this->brand['logo_image'].
                 ($this->brand['logo_cdn'] ? '/small.' : '/image.').$this->brand['logo_ext'];
         }
 
