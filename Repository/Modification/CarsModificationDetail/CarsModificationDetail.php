@@ -1,6 +1,6 @@
 <?php
 /*
- *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  Copyright 2025.  Baks.dev <admin@baks.dev>
  *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -58,12 +58,12 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
         CarsBrandUid $brand,
         CarsModelUid $model,
         CarsModificationCharacteristicsUid $modification
-    ): ?array
+    ): array|false
     {
         /** Делаем обновление статистики запросов */
         $this->brand = $brand;
         $this->model = $model;
-        register_shutdown_function([$this, 'statistic'], 'throw');
+        //register_shutdown_function([$this, 'statistic'], 'throw');
 
 
         $dbal = $this->DBALQueryBuilder
@@ -156,7 +156,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             ->addSelect('char.model as modification_model')
             ->addSelect('char.year_from as modification_from')
             ->addSelect('char.year_to as modification_to')
-            ->leftJoin(
+            ->join(
                 'model',
                 CarsModificationCharacteristics::class,
                 'char',
@@ -246,12 +246,13 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
         ?string $engine = null,
         ?string $power = null
 
-    ): ?array
+    ): array|false
     {
         $dbal = $this->DBALQueryBuilder
-            ->createQueryBuilder(self::class)
-            ->bindLocal();
+            ->createQueryBuilder(self::class)->bindLocal();
 
+
+        /** Бренд */
 
         $dbal
             ->addSelect('brand_info.url AS brand_url')
@@ -261,12 +262,13 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
 
 
         $dbal
-            ->join(
+            ->leftJoin(
                 'brand_info',
                 CarsBrand::class,
                 'brand',
                 'brand.id = brand_info.brand'
             );
+
 
         $dbal
             ->addSelect('brand_trans.name as brand_name')
@@ -278,23 +280,27 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             );
 
 
+        /** Модель */
+
+
+        $dbal
+            ->addSelect('model.id AS model_id')
+            ->leftJoin(
+                'brand',
+                CarsModel::class,
+                'model',
+                'model.brand = brand.id'
+            );
+
+
         $dbal
             ->addSelect('model_info.url AS model_url')
             ->join(
-                'brand_info',
+                'model',
                 CarsModelInfo::class,
                 'model_info',
-                'model_info.url = :model'
+                'model_info.model = model.id AND model_info.url = :model'
             )
-            ->setParameter('model', $model);
-
-
-        $dbal->join(
-            'model_info',
-            CarsModel::class,
-            'model',
-            'model.id = model_info.model AND model.brand = brand.id'
-        )
             ->setParameter('model', $model);
 
 
@@ -304,7 +310,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelEvent::class,
                 'model_event',
-                'model_event.id = model.event'
+                'model_event.id = model_info.event'
             );
 
         $dbal
@@ -313,7 +319,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelTrans::class,
                 'model_trans',
-                'model_trans.event = model.event and model_trans.local = :local'
+                'model_trans.event = model_info.event and model_trans.local = :local'
             );
 
 
@@ -335,23 +341,36 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             );
 
 
+        /** Модификация */
+
+        $dbal
+            ->addSelect('mod.id AS modification_id')
+            ->leftJoin(
+                'model',
+                CarsModification::class,
+                'mod',
+                'mod.model = model.id'
+            );
+
+        $dbal
+            ->addSelect('mod_event.modification as modification_name')
+            ->leftJoin(
+                'mod',
+                CarsModificationEvent::class,
+                'mod_event',
+                'mod_event.id = mod.event'
+            );
+
+
         $dbal
             ->addSelect('mod_info.url AS modification_url')
             ->join(
-                'model_info',
+                'mod',
                 CarsModificationInfo::class,
                 'mod_info',
-                'mod_info.url = :modification'
+                'mod_info.modification = mod.id AND mod_info.url = :modification'
             )
             ->setParameter('modification', $modification);
-
-
-        $dbal->join(
-            'mod_info',
-            CarsModification::class,
-            'mod',
-            'mod.id = mod_info.modification'
-        );
 
 
         $dbal
@@ -386,30 +405,6 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
 
 
         $dbal
-            ->addSelect('mod_event.modification as modification_name')
-            ->leftJoin(
-                'char',
-                CarsModificationEvent::class,
-                'mod_event',
-                'mod_event.id = char.event'
-            );
-
-
-        //        $dbal
-        //            ->addSelect('mod_motor.fuel as modification_fuel')
-        //            ->addSelect('mod_motor.engine as modification_engine')
-        //            ->addSelect('mod_motor.power as modification_power')
-        //            ->addSelect('mod_motor.drive as modification_drive')
-        //            ->addSelect('mod_motor.power as modification_power')
-        //            ->leftJoin(
-        //                'char',
-        //                CarsModificationMotor::class,
-        //                'mod_motor',
-        //                'mod_motor.characteristic = char.id'
-        //            );
-
-
-        $dbal
             ->addSelect('mod_chassis.dia as modification_dia')
             ->addSelect('mod_chassis.pcd as modification_pcd')
             ->addSelect('mod_chassis.number as modification_number')
@@ -423,10 +418,6 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
 
 
         $dbal
-            //            ->addSelect('mod_chassis.dia as modification_dia')
-            //            ->addSelect('mod_chassis.pcd as modification_pcd')
-            //            ->addSelect('mod_chassis.number as modification_number')
-            //            ->addSelect('mod_chassis.fastener as modification_fastener')
             ->leftJoin(
                 'char',
                 CarsModificationTires::class,
@@ -454,12 +445,14 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
 
         $dbal->allGroupByExclude();
 
+
         return $dbal
-            ->enableCache('reference-cars', 3600)
+            ->enableCache('reference-cars')
             ->fetchAssociative();
     }
 
-    public function statistic()
+
+    public function statistic(): void
     {
         if($this->brand)
         {
