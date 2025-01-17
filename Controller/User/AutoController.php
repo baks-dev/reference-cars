@@ -63,7 +63,7 @@ final class AutoController extends AbstractController
             return new Response('Page Not Found', Response::HTTP_NOT_FOUND);
         }
 
-        $tiresField = json_decode($card['tire_field']);
+        $tiresField = isset($card['tire_field']) ? json_decode($card['tire_field']) : [];
 
         $tires = [];
 
@@ -88,14 +88,10 @@ final class AutoController extends AbstractController
             $tires[$tire->radius] = $alt;
         }
 
-
         return $this->render([
-            //            'filter_cars' => $filterForm->createView(),
             'card' => $card,
             'tir' => $tires,
         ]);
-
-        // return new Response('OK');
     }
 
     #[Route('/auto', name: 'user.filter', methods: ['GET', 'POST'])]
