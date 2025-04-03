@@ -121,7 +121,7 @@ final class AutoController extends AbstractController
         {
             $card = $carsModificationDetail->findCarDetail($filter->getBrand(), $filter->getModel(), $filter->getModification());
 
-            $tiresField = json_decode($card['tire_field'], false, 512, JSON_THROW_ON_ERROR);
+            $tiresField = json_decode($card['tire_field'] ?? '{}', false, 512, JSON_THROW_ON_ERROR);
 
             $returnSeason = null;
 
