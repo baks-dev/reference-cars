@@ -1,6 +1,6 @@
 <?php
 /*
- *  Copyright 2024.  Baks.dev <admin@baks.dev>
+ *  Copyright 2025.  Baks.dev <admin@baks.dev>
  *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -42,8 +42,6 @@ use InvalidArgumentException;
 #[ORM\Table(name: 'cars_brand_event')]
 class CarsBrandEvent extends EntityEvent
 {
-    public const TABLE = 'cars_brand_event';
-
     /** Идентификатор события */
     #[ORM\Id]
     #[ORM\Column(type: CarsBrandEventUid::TYPE)]
@@ -56,26 +54,26 @@ class CarsBrandEvent extends EntityEvent
     /**
      * Лого
      */
-    #[ORM\OneToOne(targetEntity: CarsBrandLogo::class, mappedBy: 'event', cascade: ['all'])]
+    #[ORM\OneToOne(targetEntity: CarsBrandLogo::class, mappedBy: 'event', cascade: ['all'], fetch: 'EAGER')]
     private ?CarsBrandLogo $logo = null;
 
     /**
      * Модификатор
      */
-    #[ORM\OneToOne(targetEntity: CarsBrandModify::class, mappedBy: 'event', cascade: ['all'])]
+    #[ORM\OneToOne(targetEntity: CarsBrandModify::class, mappedBy: 'event', cascade: ['all'], fetch: 'EAGER')]
     private CarsBrandModify $modify;
 
     /**
      * Перевод
      */
-    #[ORM\OneToMany(targetEntity: CarsBrandTrans::class, mappedBy: 'event', cascade: ['all'])]
+    #[ORM\OneToMany(targetEntity: CarsBrandTrans::class, mappedBy: 'event', cascade: ['all'], fetch: 'EAGER')]
     private Collection $translate;
 
 
     /**
      * Информация о бренде
      */
-    #[ORM\OneToOne(targetEntity: CarsBrandInfo::class, mappedBy: 'event', cascade: ['all'])]
+    #[ORM\OneToOne(targetEntity: CarsBrandInfo::class, mappedBy: 'event', cascade: ['all'], fetch: 'EAGER')]
     private ?CarsBrandInfo $info = null;
 
 

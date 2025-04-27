@@ -38,8 +38,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(columns: ['url'])]
 class CarsModelInfo extends EntityReadonly
 {
-    public const TABLE = 'cars_model_info';
-
     /** ID модели */
     #[Assert\NotBlank]
     #[Assert\Uuid]

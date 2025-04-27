@@ -1,6 +1,6 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
+ *  Copyright 2025.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -38,8 +38,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Index(columns: ['url'])]
 class CarsModificationInfo extends EntityReadonly
 {
-    public const TABLE = 'cars_modification_info';
-
     /** ID модификации */
     #[Assert\NotBlank]
     #[Assert\Uuid]
@@ -50,7 +48,7 @@ class CarsModificationInfo extends EntityReadonly
     /** ID события */
     #[Assert\NotBlank]
     #[Assert\Uuid]
-    #[ORM\OneToOne(inversedBy: 'info', targetEntity: CarsModificationEvent::class)]
+    #[ORM\OneToOne(targetEntity: CarsModificationEvent::class, inversedBy: 'info')]
     #[ORM\JoinColumn(name: 'event', referencedColumnName: 'id')]
     private CarsModificationEvent $event;
 
