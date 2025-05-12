@@ -21,7 +21,7 @@
                         <td>
                             <div>
 
-                                <a href="{{ path('products-product:user.detail', {
+                                <a href="{{ path('products-product:public.detail', {
                                     category: offers.category_url,
                                     url: offers.product_url,
                                     offer : offers.product_offer_value,
@@ -76,7 +76,7 @@
                         <td>
 
                             {% if offers.quantity and offers.price %}
-                                <a href="{{ path('orders-order:user.add', {
+                                <a href="{{ path('orders-order:public.add', {
                                     product: offers.event,
                                     offer : offers.product_offer_uid,
                                     variation : offers.product_variation_uid,
@@ -176,7 +176,7 @@
 
                                     <td>
                                         <div>
-                                            <a href="{{ path('products-product:user.detail', { url: offers.url,
+                                            <a href="{{ path('products-product:public.detail', { url: offers.url,
                                                 offer : offers.offer_value,
                                                 variation : offers.variation_value,
                                                 modification : offers.modification_value
@@ -233,7 +233,7 @@
 {% if offers.price %}
 
 
-<a href="{{ path('orders-order:user.add', {
+<a href="{{ path('orders-order:public.add', {
     product: card.event,
     offer : offers.offer_uid,
     variation : offers.variation_uid,
