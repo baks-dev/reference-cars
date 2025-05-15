@@ -26,7 +26,7 @@ declare(strict_types=1);
 namespace BaksDev\Reference\Cars\Controller\User;
 
 use BaksDev\Core\Controller\AbstractController;
-use BaksDev\Products\Product\Repository\ProductAlternative\ProductAlternativeInterface;
+use BaksDev\Products\Product\Repository\Cards\ProductAlternative\ProductAlternativeInterface;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterDTO;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterForm;
 use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoiceRepository;
