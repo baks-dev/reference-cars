@@ -26,7 +26,7 @@ declare(strict_types=1);
 namespace BaksDev\Reference\Cars\Controller\User;
 
 use BaksDev\Core\Controller\AbstractController;
-use BaksDev\Products\Product\Repository\Cards\ProductAlternative\ProductAlternativeInterface;
+use BaksDev\Products\Product\Repository\ProductAlternative\ProductAlternativeInterface;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterDTO;
 use BaksDev\Reference\Cars\Forms\Filter\CarsFilterForm;
 use BaksDev\Reference\Cars\Repository\Brands\CarBrandsChoice\CarBrandsChoiceRepository;
@@ -39,7 +39,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[AsController]
 final class AutoController extends AbstractController
 {
-    #[Route('/auto/{brand}/{model}/{modification}/{engine}/{power}', name: 'user.detail', methods: ['GET'])]
+    #[Route('/auto/{brand}/{model}/{modification}/{engine}/{power}/{radius}/{width}/{profile}', name: 'user.detail', methods: ['GET'])]
     public function detail(
         string $brand,
         string $model,
@@ -48,6 +48,11 @@ final class AutoController extends AbstractController
         ProductAlternativeInterface $productAlternative,
         ?string $engine = null,
         ?string $power = null,
+
+        ?int $radius = null,
+        ?int $width = null,
+        ?int $profile = null
+
     ): Response
     {
         $card = $carsModificationDetail->findCarDetailByUrl(
@@ -63,7 +68,58 @@ final class AutoController extends AbstractController
             return new Response('Page Not Found', Response::HTTP_NOT_FOUND);
         }
 
-        $tiresField = isset($card['tire_field']) ? json_decode($card['tire_field']) : [];
+
+        $carTires = isset($card['tire_field']) ? json_decode($card['tire_field']) : [];
+
+
+        /**
+         * Если радиус не определен - получаем из первого ключа
+         */
+
+        if(is_null($radius) && false === empty($carTires))
+        {
+            $radius = current($carTires)->radius;
+        }
+
+        $tiresField = [];
+
+        /**
+         * Если передан радиус - фильтруем по радиусу
+         */
+
+        if(false === is_null($radius) && false === empty($carTires))
+        {
+            $tiresField = array_filter($carTires, static function($tires) use ($radius) {
+                return $tires->radius === $radius;
+            });
+        }
+
+        /**
+         * Если передана ширина - фильтруем по ширина
+         */
+
+        if(false === is_null($width) && false === empty($tiresField))
+        {
+            $tiresField = array_filter($tiresField, static function($tires) use ($width) {
+                return $tires->width === $width;
+            });
+        }
+
+        /**
+         * Если передан профиль - фильтруем по профилю
+         */
+
+        if(false === is_null($profile) && false === empty($tiresField))
+        {
+            $tiresField = array_filter($tiresField, static function($tires) use ($profile) {
+                return $tires->profile === $profile;
+            });
+        }
+
+
+        /**
+         * Определяем список рекомендованных шин для авто
+         */
 
         $tires = [];
 
@@ -85,12 +141,13 @@ final class AutoController extends AbstractController
                 continue;
             }
 
-            $tires[$tire->radius] = $alt;
+            $tires[] = $alt;
         }
 
         return $this->render([
             'card' => $card,
             'tir' => $tires,
+            'radius' => array_unique(array_column($carTires, 'radius')) // список рекомендованных радиусов
         ]);
     }
 
@@ -121,7 +178,7 @@ final class AutoController extends AbstractController
         {
             $card = $carsModificationDetail->findCarDetail($filter->getBrand(), $filter->getModel(), $filter->getModification());
 
-            $tiresField = json_decode($card['tire_field'] ?? '{}', false, 512, JSON_THROW_ON_ERROR);
+            $tiresField = json_decode($card['tire_field'], false, 512, JSON_THROW_ON_ERROR);
 
             $returnSeason = null;
 
