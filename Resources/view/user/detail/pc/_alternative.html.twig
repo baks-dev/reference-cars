@@ -77,10 +77,10 @@
 
                         <td>
 
-                            {% if offers.price %}
-                                {% set discount_alt = user_profile_discount(offers.price) %}
+                            {% if offers.product_price %}
+                                {% set discount_alt = user_profile_discount(offers.product_price) %}
 
-                                {{ discount_alt ? money(discount_alt, offers.currency) : money(offers.price, offers.currency) }}
+                                {{ discount_alt ? money(discount_alt, offers.product_currency) : money(offers.product_price, offers.product_currency) }}
 
                                 {#  Пользовательская скидка #}
                                 {% if discount_alt %}
@@ -95,7 +95,7 @@
 
                         <td>
 
-                            {% if offers.quantity and offers.price %}
+                            {% if offers.quantity and offers.product_price %}
                                 <a href="{{ path('orders-order:public.add', {
                                     product: offers.event,
                                     offer : offers.product_offer_uid,
@@ -233,10 +233,10 @@
 <td>
 
 
-{% if offers.price %}
-    {% set discount_alt = user_profile_discount(offers.price) %}
+{% if offers.product_price %}
+    {% set discount_alt = user_profile_discount(offers.product_price) %}
 
-    {{ discount_alt ? money(discount_alt, offers.currency) : money(offers.price, offers.currency) }}
+    {{ discount_alt ? money(discount_alt, offers.product_currency) : money(offers.product_price, offers.product_currency) }}
 #}{#  Пользовательская скидка #}{#
 {% if discount_alt %}
     <span class="badge bg-danger rounded-2 ms-1"><span
@@ -250,7 +250,7 @@
 </td>
 
 <td>
-{% if offers.price %}
+{% if offers.product_price %}
 
 
 <a href="{{ path('orders-order:public.add', {

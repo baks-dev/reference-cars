@@ -163,9 +163,12 @@
 
                             {% else %}
 
+
                                 <li class="list-group-item bg-transparent border-0 text-truncate rounded-5">
                                     <a
                                             href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({
+                                                'power' : card.modification_power,
+                                                'engine' : card.modification_engine,
                                                 'radius': tire.radius,
                                                 'width': tire.width,
                                                 'profile': tire.profile
@@ -217,7 +220,13 @@
 
                 <li class="nav-item" role="presentation">
                     <a
-                            href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'radius': tire, 'width': null, 'profile': null })) }}"
+                            href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({
+                                'power' : card.modification_power,
+                                'engine' : card.modification_engine,
+                                'radius': tire,
+                                'width': null,
+                                'profile': null
+                            })) }}"
                             class="btn nav-link fw-bolder {{ current_radius == tire ? 'active' }}"
                             type="button"
                     >
