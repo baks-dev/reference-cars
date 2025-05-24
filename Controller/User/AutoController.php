@@ -144,10 +144,15 @@ final class AutoController extends AbstractController
             $tires[] = $alt;
         }
 
+        $engine ?: $engine = $card['modification_engine'] ?? null;
+        $power ?: $power = $card['modification_power'] ?? null;
+
         return $this->render([
             'card' => $card,
             'tir' => $tires,
-            'radius' => array_unique(array_column($carTires, 'radius')) // список рекомендованных радиусов
+            'radius' => array_unique(array_column($carTires, 'radius')), // список рекомендованных радиусов
+            'engine' => $engine,
+            'power' => $power,
         ]);
     }
 

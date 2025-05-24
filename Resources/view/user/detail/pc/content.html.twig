@@ -167,8 +167,8 @@
                                 <li class="list-group-item bg-transparent border-0 text-truncate rounded-5">
                                     <a
                                             href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({
-                                                'power' : card.modification_power,
-                                                'engine' : card.modification_engine,
+                                                'power' : power,
+                                                'engine' : engine,
                                                 'radius': tire.radius,
                                                 'width': tire.width,
                                                 'profile': tire.profile
@@ -221,8 +221,8 @@
                 <li class="nav-item" role="presentation">
                     <a
                             href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({
-                                'power' : card.modification_power,
-                                'engine' : card.modification_engine,
+                                'power' : power,
+                                'engine' : engine,
                                 'radius': tire,
                                 'width': null,
                                 'profile': null
