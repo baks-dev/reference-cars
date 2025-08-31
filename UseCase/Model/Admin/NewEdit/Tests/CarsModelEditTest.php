@@ -1,6 +1,6 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
+ *  Copyright 2025.  Baks.dev <admin@baks.dev>
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -35,21 +35,16 @@ use BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\CarsModelDTO;
 use BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\CarsModelHandler;
 use BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\Image\CarsModelImageDTO;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group reference-cars
- * @group reference-cars-model
- *
- * @depends BaksDev\Reference\Cars\UseCase\Model\Admin\NewEdit\Tests\CarsModelNewTest::class
- * @see     CarsModelNewTest
- */
 #[When(env: 'test')]
+#[Group('reference-cars')]
 final class CarsModelEditTest extends KernelTestCase
 {
-
-
+    #[DependsOnClass(CarsModelNewTest::class)]
     public function testUseCase()
     {
         self::bootKernel();
