@@ -2,8 +2,10 @@
 
 {{ include(_self|replace({ "content.html.twig": baks_settings.device~"/content.html.twig" })) }}
 
-<script nonce='{{ csp_nonce() }}' async data-src='/assets/js/image.input.min.js?v={{ version }}' class='lazy'></script>
-<script nonce='{{ csp_nonce() }}' async data-src="/assets/plugins/semantic/semantic.min.js?v={{ version }}"
+<script nonce='{{ csp_nonce() }}' async data-src='/assets/{{ version }}/js/image.input.min.js?v={{ version }}'
+        class='lazy'></script>
+<script nonce='{{ csp_nonce() }}' async
+        data-src="/assets/{{ version }}/plugins/semantic/semantic.min.js?v={{ version }}"
         class="lazy"></script>
-<script nonce='{{ csp_nonce() }}' async data-src='/assets/reference-cars/brand.min.js?v={{ version }}'
+<script nonce='{{ csp_nonce() }}' async data-src='/assets/{{ version }}/reference-cars/brand.min.js?v={{ version }}'
         class='lazy'></script>
