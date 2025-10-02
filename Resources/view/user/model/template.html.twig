@@ -12,12 +12,6 @@
 
 {# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
 {% block content %}
-
-
-    {#    {% set arr_property = card.category_section_field|json_decode %} #}
-    {#    {% set product_offers = card.product_offers|json_decode %} #}
-
-
     {{ include(_self|replace({ "template.html.twig":baks_settings.device~"/content.html.twig" })) }}
 {% endblock %}
 
