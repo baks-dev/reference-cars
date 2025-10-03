@@ -168,12 +168,11 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
         $dbal
             ->addSelect('mod_info.url AS modification_url')
             ->join(
-                'mod',
+                'char',
                 CarsModificationInfo::class,
                 'mod_info',
-                'mod_info.modification = :modification',
+                'mod_info.event = char.event',
             );
-
 
         $dbal
             ->addSelect('mod_event.modification as modification_name')

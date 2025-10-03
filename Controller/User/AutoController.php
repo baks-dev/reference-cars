@@ -187,6 +187,11 @@ final class AutoController extends AbstractController
             $card = $carsModificationDetail
                 ->findCarDetail($filter->getBrand(), $filter->getModel(), $filter->getModification());
 
+            if(false === $card)
+            {
+                return new Response('Page Not Found', Response::HTTP_NOT_FOUND);
+            }
+
             $carTires = isset($card['tire_field']) ? json_decode($card['tire_field'], false, 512, JSON_THROW_ON_ERROR) : [];
             $tire = current($carTires);
 
