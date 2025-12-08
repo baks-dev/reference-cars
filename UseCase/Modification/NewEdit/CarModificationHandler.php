@@ -1,6 +1,6 @@
 <?php
 /*
- *  Copyright 2023-2025.  Baks.dev <admin@baks.dev>
+ *  Copyright 2025.  Baks.dev <admin@baks.dev>
  *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -28,38 +28,16 @@ use BaksDev\Reference\Cars\Entity\Modification\CarsModification;
 use BaksDev\Reference\Cars\Entity\Modification\Event\CarsModificationEvent;
 use BaksDev\Reference\Cars\Type\Modification\Id\CarsModificationUid;
 use Doctrine\ORM\EntityManagerInterface;
-use DomainException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CarModificationHandler extends AbstractHandler
 {
-
     public function handle(CarModificationDTO $command, ?CarsModificationUid $uid = null): string|CarsModification
     {
-        /** Валидация DTO  */
-        $this->validatorCollection->add($command);
-
-        $this->main = new CarsModification($uid);
-        $this->event = new CarsModificationEvent();
-
-        try
-        {
-            $command->getEvent() ? $this->preUpdate($command, true) : $this->prePersist($command);
-        }
-        catch(DomainException $errorUniqid)
-        {
-            return $errorUniqid->getMessage();
-        }
-
-        //        /* Загружаем файл изображения */
-        //        /** @var Image\CarsModelImageDTO $Image */
-        //        $Image = $command->getImage();
-        //        if($Image->file !== null)
-        //        {
-        //            $CarsModelImage = $Event->getUploadClass();
-        //            $this->imageUpload->upload('cars_model_dir', $Image->file, $CarsModelImage);
-        //        }
+        $this
+            ->setCommand($command)
+            ->preEventPersistOrUpdate(new CarsModification($uid), CarsModificationEvent::class);
 
         if(!$command->getEvent())
         {
@@ -72,115 +50,8 @@ final class CarModificationHandler extends AbstractHandler
             return $this->validatorCollection->getErrorUniqid();
         }
 
-        $this->entityManager->flush();
-
-        //        /* Отправляем сообщение в шину */
-        //        $this->messageDispatch->dispatch(
-        //            message: new CarsModelMessage($this->main->getId(), $this->main->getEvent(), $command->getEvent()),
-        //            transport: 'reference-cars'
-        //        );
+        $this->flush();
 
         return $this->main;
     }
-
-    //    public function OLDhandle(CarModificationDTO $command): string|Entity\CarsModification
-    //    {
-    //        /* Валидация */
-    //        $errors = $this->validator->validate($command);
-    //
-    //        if(count($errors) > 0)
-    //        {
-    //            /** Ошибка валидации */
-    //            $uniqid = uniqid('', false);
-    //            $this->logger->error(sprintf('%s: %s', $uniqid, $errors), [self::class.':'.__LINE__]);
-    //
-    //            return $uniqid;
-    //        }
-    //
-    //
-    //        if($command->getEvent())
-    //        {
-    //            $EventRepo = $this->entityManager->getRepository(Entity\Event\CarsModificationEvent::class)->find(
-    //                $command->getEvent()
-    //            );
-    //
-    //            if($EventRepo === null)
-    //            {
-    //                $uniqid = uniqid('', false);
-    //                $errorsString = sprintf(
-    //                    'Not found %s by id: %s',
-    //                    Entity\Event\CarsModificationEvent::class,
-    //                    $command->getEvent()
-    //                );
-    //                $this->logger->error($uniqid.': '.$errorsString);
-    //
-    //                return $uniqid;
-    //            }
-    //
-    //            $EventRepo->setEntity($command);
-    //            $EventRepo->setEntityManager($this->entityManager);
-    //            $Event = $EventRepo->cloneEntity();
-    //        }
-    //        else
-    //        {
-    //            $Event = new Entity\Event\CarsModificationEvent();
-    //            $Event->setEntity($command);
-    //            $this->entityManager->persist($Event);
-    //        }
-    //
-    //        //        $this->entityManager->clear();
-    //        //        $this->entityManager->persist($Event);
-    //
-    //
-    //        /** @var Entity\CarsModification $CarsModification */
-    //        if($Event->getMain())
-    //        {
-    //            $CarsModification = $this->entityManager->getRepository(Entity\CarsModification::class)
-    //                ->findOneBy(['event' => $command->getEvent()]);
-    //
-    //            if(empty($CarsModification))
-    //            {
-    //                $uniqid = uniqid('', false);
-    //                $errorsString = sprintf(
-    //                    'Not found %s by event: %s',
-    //                    Entity\CarsModification::class,
-    //                    $command->getEvent()
-    //                );
-    //                $this->logger->error($uniqid.': '.$errorsString);
-    //
-    //                return $uniqid;
-    //            }
-    //
-    //        }
-    //        else
-    //        {
-    //
-    //            $CarsModification = new Entity\CarsModification();
-    //            $this->entityManager->persist($CarsModification);
-    //            $Event->setMain($CarsModification);
-    //        }
-    //
-    //        /* присваиваем событие корню */
-    //        $CarsModification->setEvent($Event);
-    //
-    //
-    //        /**
-    //         * Валидация Event
-    //         */
-    //
-    //        $errors = $this->validator->validate($Event);
-    //
-    //        if(count($errors) > 0)
-    //        {
-    //            /** Ошибка валидации */
-    //            $uniqid = uniqid('', false);
-    //            $this->logger->error(sprintf('%s: %s', $uniqid, $errors), [self::class.':'.__LINE__]);
-    //
-    //            return $uniqid;
-    //        }
-    //
-    //        $this->entityManager->flush();
-    //
-    //        return $CarsModification;
-    //    }
 }

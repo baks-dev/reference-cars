@@ -1,17 +1,17 @@
 <?php
 /*
- *  Copyright 2023.  Baks.dev <admin@baks.dev>
- *
+ *  Copyright 2025.  Baks.dev <admin@baks.dev>
+ *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is furnished
  *  to do so, subject to the following conditions:
- *
+ *  
  *  The above copyright notice and this permission notice shall be included in all
  *  copies or substantial portions of the Software.
- *
+ *  
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,29 +29,14 @@ use BaksDev\Core\Entity\AbstractHandler;
 use BaksDev\Reference\Cars\Entity\Brand\CarsBrand;
 use BaksDev\Reference\Cars\Entity\Brand\Event\CarsBrandEvent;
 use BaksDev\Reference\Cars\Messenger\Brand\CarsBrandMessage;
-use DomainException;
 
 final class CarsBrandDeleteHandler extends AbstractHandler
 {
-    public function handle(
-        CarsBrandDeleteDTO $command
-    ): string|CarsBrand
+    public function handle(CarsBrandDeleteDTO $command): string|CarsBrand
     {
-
-        /** Валидация DTO  */
-        $this->validatorCollection->add($command);
-
-        $this->main = new CarsBrand();
-        $this->event = new CarsBrandEvent();
-
-        try
-        {
-            $this->preRemove($command);
-        }
-        catch(DomainException $errorUniqid)
-        {
-            return $errorUniqid->getMessage();
-        }
+        $this
+            ->setCommand($command)
+            ->preEventPersistOrUpdate(CarsBrand::class, CarsBrandEvent::class);
 
         /** Валидация всех объектов */
         if($this->validatorCollection->isInvalid())
@@ -59,12 +44,12 @@ final class CarsBrandDeleteHandler extends AbstractHandler
             return $this->validatorCollection->getErrorUniqid();
         }
 
-        $this->entityManager->flush();
+        $this->flush();
 
         /* Отправляем сообщение в шину */
         $this->messageDispatch->dispatch(
             message: new CarsBrandMessage($this->main->getId(), $this->main->getEvent(), $command->getEvent()),
-            transport: 'reference-cars'
+            transport: 'reference-cars',
         );
 
         return $this->main;
