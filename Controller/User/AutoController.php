@@ -1,6 +1,6 @@
 <?php
 /*
- *  Copyright 2025.  Baks.dev <admin@baks.dev>
+ *  Copyright 2026.  Baks.dev <admin@baks.dev>
  *  
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -132,13 +132,13 @@ final class AutoController extends AbstractController
                 break;
             }
 
-            $alt = $productAlternative->fetchAllAlternativeAssociative(
-                (string) $tire->radius,
-                (string) $tire->width,
-                (string) $tire->profile,
-            );
+            $alt = $productAlternative
+                ->forOfferValue((string) $tire->radius)
+                ->forVariationValue((string) $tire->width)
+                ->forModificationValue((string) $tire->profile)
+                ->findAll();
 
-            if(empty($alt))
+            if(false === $alt || false === $alt->valid())
             {
                 continue;
             }
