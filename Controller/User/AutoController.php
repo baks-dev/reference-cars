@@ -143,7 +143,7 @@ final class AutoController extends AbstractController
                 continue;
             }
 
-            $tires[] = iterator_to_array($alt);
+            $tires[(string) $tire->radius] = iterator_to_array($alt);
         }
 
         $engine ?: $engine = $card['modification_engine'] ?? null;
