@@ -30,8 +30,7 @@ return static function(ContainerConfigurator $configurator): void {
     $services = $configurator->services()
         ->defaults()
         ->autowire()
-        ->autoconfigure()
-        ->public();
+        ->autoconfigure(); //->public();
 
     $NAMESPACE = BaksDevReferenceCarsBundle::NAMESPACE;
     $PATH = BaksDevReferenceCarsBundle::PATH;
