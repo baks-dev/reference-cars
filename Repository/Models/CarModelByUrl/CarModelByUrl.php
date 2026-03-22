@@ -68,7 +68,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
                 'brand_info',
                 CarsModelInfo::class,
                 'model_info',
-                'model_info.url = :model'
+                'model_info.url = :model',
             )->setParameter('model', $model);
 
 
@@ -79,7 +79,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
                 'brand_info',
                 CarsBrand::class,
                 'brand_main',
-                'brand_main.id = brand_info.brand'
+                'brand_main.id = brand_info.brand',
             );
 
 
@@ -89,7 +89,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
                 'brand_main',
                 CarsBrandTrans::class,
                 'brand_trans',
-                'brand_trans.event = brand_main.event AND brand_trans.local = :local'
+                'brand_trans.event = brand_main.event AND brand_trans.local = :local',
             );
 
 
@@ -102,7 +102,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
                 'model_info',
                 CarsModel::class,
                 'model_main',
-                'model_main.id = model_info.model AND model_main.brand = brand_main.id'
+                'model_main.id = model_info.model AND model_main.brand = brand_main.id',
             );
 
         $qb
@@ -113,7 +113,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
                 'model_main',
                 CarsModelEvent::class,
                 'model_event',
-                'model_event.id = model_main.event'
+                'model_event.id = model_main.event',
             );
 
 
@@ -123,7 +123,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
                 'model_main',
                 CarsModelTrans::class,
                 'model_trans',
-                'model_trans.event = model_main.event AND model_trans.local = :local'
+                'model_trans.event = model_main.event AND model_trans.local = :local',
             );
 
         $qb
@@ -134,7 +134,7 @@ final class CarModelByUrl implements CarModelByUrlInterface
                 'model_main',
                 CarsModelImage::class,
                 'model_image',
-                'model_image.event = model_main.event'
+                'model_image.event = model_main.event',
             );
 
         $this->model = $qb

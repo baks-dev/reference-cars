@@ -25,7 +25,6 @@ namespace BaksDev\Reference\Cars\Repository\Models\AllCarsModel;
 
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Services\Paginator\PaginatorInterface;
-use BaksDev\Reference\Cars\Type\Brand\Id\CarsBrandUid;
 
 interface AllCarsModelInterface
 {

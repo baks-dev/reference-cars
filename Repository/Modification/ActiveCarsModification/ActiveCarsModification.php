@@ -56,7 +56,7 @@ final class ActiveCarsModification implements ActiveCarsModificationInterface
             ->leftJoin(CarsModificationEvent::class,
                 'event',
                 'WITH',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         $qb->setMaxResults(1);
@@ -79,7 +79,7 @@ final class ActiveCarsModification implements ActiveCarsModificationInterface
             ->leftJoin(CarsModificationEvent::class,
                 'event',
                 'WITH',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         $qb->orderBy('main.event');

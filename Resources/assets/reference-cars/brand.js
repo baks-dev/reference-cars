@@ -20,7 +20,7 @@
  *  THE SOFTWARE.
  */
 
-$name = document.querySelector('[data-lang="cars_brand_form_translate_' + $locale + '"]');
+$name = document.querySelector("[data-lang=\"cars_brand_form_translate_" + $locale + "\"]");
 
 if($name)
 {
@@ -35,9 +35,9 @@ if($name)
             return;
         }
 
-        if(typeof semanticUrl.debounce === 'function')
+        if(typeof semanticUrl.debounce === "function")
         {
-            $name.addEventListener('input', semanticUrl.debounce(500));
+            $name.addEventListener("input", semanticUrl.debounce(500));
             return;
         }
 
@@ -52,6 +52,6 @@ if($name)
     {
         /* Заполняем транслитом URL */
         $semantic = translitRuEn(this.value).toLowerCase();
-        document.getElementById('cars_brand_form_info_url').value = $semantic;
+        document.getElementById("cars_brand_form_info_url").value = $semantic;
     }
 }

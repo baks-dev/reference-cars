@@ -34,8 +34,8 @@ use BaksDev\Reference\Cars\UseCase\Modification\NewEdit\CarModificationForm;
 use BaksDev\Reference\Cars\UseCase\Modification\NewEdit\CarModificationHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_CARS_MODIFICATION_NEW')]
@@ -66,7 +66,7 @@ final class NewController extends AbstractController
                 'admin.page.new',
                 $handle instanceof CarsModification ? 'admin.success.new' : 'admin.danger.new',
                 'admin.reference.cars.modification',
-                $handle
+                $handle,
             );
 
             return $this->redirectToReferer();

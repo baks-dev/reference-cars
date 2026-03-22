@@ -25,18 +25,18 @@ limit = 100;
 setTimeout(function initCarFilter()
 {
 
-    cars_filter_form_brand = document.getElementById('cars_filter_form_brand');
-    cars_filter_form_model = document.getElementById('cars_filter_form_model');
+    cars_filter_form_brand = document.getElementById("cars_filter_form_brand");
+    cars_filter_form_model = document.getElementById("cars_filter_form_model");
 
     if(cars_filter_form_brand)
     {
 
-        cars_filter_form_brand.addEventListener('change', changeObjectBrand, false);
+        cars_filter_form_brand.addEventListener("change", changeObjectBrand, false);
 
 
-        if(cars_filter_form_model.tagName === 'SELECT')
+        if(cars_filter_form_model.tagName === "SELECT")
         {
-            cars_filter_form_model.addEventListener('change', changeObjectModel, false);
+            cars_filter_form_model.addEventListener("change", changeObjectModel, false);
         }
 
         return;
@@ -56,7 +56,7 @@ setTimeout(function initCarFilter()
 function changeObjectBrand()
 {
 
-    let replaceId = 'cars_filter_form_model';
+    let replaceId = "cars_filter_form_model";
 
     /* Создаём объект класса XMLHttpRequest */
     const requestModalName = new XMLHttpRequest();
@@ -65,12 +65,12 @@ function changeObjectBrand()
     /* Имя формы */
     let carFilterForm = document.forms.cars_filter_form;
     let formData = new FormData();
-    formData.append(this.getAttribute('name'), this.value);
+    formData.append(this.getAttribute("name"), this.value);
 
-    requestModalName.open(carFilterForm.getAttribute('method'), carFilterForm.getAttribute('action'), true);
+    requestModalName.open(carFilterForm.getAttribute("method"), carFilterForm.getAttribute("action"), true);
 
     /* Указываем заголовки для сервера */
-    requestModalName.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    requestModalName.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     /* Получаем ответ от сервера на запрос*/
     requestModalName.addEventListener("readystatechange", function()
@@ -79,18 +79,16 @@ function changeObjectBrand()
         if(requestModalName.readyState === 4 && requestModalName.status === 200)
         {
 
-            (requestModalName.response
-                .getElementById('cars_filter_form_model'))?.classList.remove('is-invalid');
+            (requestModalName.response.getElementById("cars_filter_form_model"))?.classList.remove("is-invalid");
 
-            (requestModalName.response
-                .getElementById('cars_filter_form_modification'))?.classList.remove('is-invalid');
+            (requestModalName.response.getElementById("cars_filter_form_modification"))?.classList.remove("is-invalid");
 
             let result = requestModalName.response.getElementById(replaceId);
 
             document.getElementById(replaceId).replaceWith(result);
 
             /* Удаляем предыдущий Select2 */
-            let select2 = document.getElementById(replaceId + '_select2');
+            let select2 = document.getElementById(replaceId + "_select2");
 
 
             if(select2)
@@ -101,29 +99,30 @@ function changeObjectBrand()
 
             let replacer = document.getElementById(replaceId);
 
-            if(result.dataset.select === 'select2' && replacer.tagName === 'SELECT')
+            if(result.dataset.select === "select2" && replacer.tagName === "SELECT")
             {
-                new NiceSelect(replacer, {searchable: true, id: 'select2-' + replaceId});
+                new NiceSelect(replacer, {searchable : true, id : "select2-" + replaceId});
 
                 /** Событие на изменение торгового предложения */
                 let offerChange = document.getElementById(replaceId);
 
                 if(offerChange)
                 {
-                    offerChange.addEventListener('change', changeObjectModel, false);
+                    offerChange.addEventListener("change", changeObjectModel, false);
                 }
-            } else
+            }
+            else
             {
-                replacer.addEventListener('change', changeObjectModel, false);
+                replacer.addEventListener("change", changeObjectModel, false);
             }
 
 
-            let resetId = 'cars_filter_form_modification';
+            let resetId = "cars_filter_form_modification";
             let reset = requestModalName.response.getElementById(resetId);
             document.getElementById(resetId).replaceWith(reset);
 
             /* Удаляем предыдущий Select2 */
-            let reset2 = document.getElementById(resetId + '_select2');
+            let reset2 = document.getElementById(resetId + "_select2");
 
             if(reset2)
             {
@@ -140,7 +139,7 @@ function changeObjectBrand()
 function changeObjectModel()
 {
 
-    let replaceId = 'cars_filter_form_modification';
+    let replaceId = "cars_filter_form_modification";
 
     /* Создаём объект класса XMLHttpRequest */
     const requestModalName = new XMLHttpRequest();
@@ -149,12 +148,12 @@ function changeObjectModel()
     /* Имя формы */
     let carFilterForm = document.forms.cars_filter_form;
     let formData = new FormData();
-    formData.append(this.getAttribute('name'), this.value);
+    formData.append(this.getAttribute("name"), this.value);
 
-    requestModalName.open(carFilterForm.getAttribute('method'), carFilterForm.getAttribute('action'), true);
+    requestModalName.open(carFilterForm.getAttribute("method"), carFilterForm.getAttribute("action"), true);
 
     /* Указываем заголовки для сервера */
-    requestModalName.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    requestModalName.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
     /* Получаем ответ от сервера на запрос*/
     requestModalName.addEventListener("readystatechange", function()
@@ -163,15 +162,14 @@ function changeObjectModel()
         if(requestModalName.readyState === 4 && requestModalName.status === 200)
         {
 
-            (requestModalName.response
-                .getElementById('cars_filter_form_modification'))?.classList.remove('is-invalid');
+            (requestModalName.response.getElementById("cars_filter_form_modification"))?.classList.remove("is-invalid");
 
             let result = requestModalName.response.getElementById(replaceId);
 
             document.getElementById(replaceId).replaceWith(result);
 
             /* Удаляем предыдущий Select2 */
-            let select2 = document.getElementById(replaceId + '_select2');
+            let select2 = document.getElementById(replaceId + "_select2");
 
             if(select2)
             {
@@ -180,9 +178,9 @@ function changeObjectModel()
 
             let replacer = document.getElementById(replaceId);
 
-            if(result.dataset.select === 'select2' && replacer.tagName === 'SELECT')
+            if(result.dataset.select === "select2" && replacer.tagName === "SELECT")
             {
-                new NiceSelect(replacer, {searchable: true, id: 'select2-' + replaceId});
+                new NiceSelect(replacer, {searchable : true, id : "select2-" + replaceId});
 
                 /** Событие на изменение торгового предложения */
                 let offerChange = document.getElementById(replaceId);

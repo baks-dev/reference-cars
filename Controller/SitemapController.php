@@ -114,7 +114,7 @@ final class SitemapController extends AbstractController
             [
                 'brand' => $CarBrand,
                 'models' => $carModels,
-            ]
+            ],
         );
         $response->headers->set('Content-Type', 'text/xml');
 
@@ -145,7 +145,7 @@ final class SitemapController extends AbstractController
             [
                 'brand' => $CarBrand,
                 'models' => $carModels,
-            ]
+            ],
         );
         $response->headers->set('Content-Type', 'text/xml');
 
@@ -172,7 +172,7 @@ final class SitemapController extends AbstractController
             [
                 'card' => $CarModel,
                 'mods' => $carsModifications,
-            ]
+            ],
         );
         $response->headers->set('Content-Type', 'text/xml');
 

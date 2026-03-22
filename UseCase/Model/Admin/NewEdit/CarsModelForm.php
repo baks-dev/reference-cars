@@ -69,7 +69,7 @@ final class CarsModelForm extends AbstractType
                 return $class->getCarsModelClassValue();
             },
             'label' => false,
-            'translation_domain' => 'reference.cars.model'
+            'translation_domain' => 'reference.cars.model',
         ]);
 
 
@@ -88,7 +88,7 @@ final class CarsModelForm extends AbstractType
             'choice_label' => function(CarsBrandUid $brand) {
                 return $brand->getAttr();
             },
-            'label' => false
+            'label' => false,
         ]);
 
 
@@ -96,7 +96,7 @@ final class CarsModelForm extends AbstractType
         $builder->add(
             'cars_model',
             SubmitType::class,
-            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-primary']]
+            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-primary']],
         );
     }
 

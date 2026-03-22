@@ -62,14 +62,14 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
             'main',
             CarsModificationEvent::class,
             'event',
-            'event.id = main.event'
+            'event.id = main.event',
         );
 
         $qb->leftJoin(
             'main',
             CarsModificationCharacteristics::class,
             'char',
-            'char.event = main.event'
+            'char.event = main.event',
         );
 
         $objQueryExistModel = $this->DBALQueryBuilder->createQueryBuilder(self::class);
@@ -119,14 +119,14 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
             'main',
             CarsModificationEvent::class,
             'event',
-            'event.id = main.event'
+            'event.id = main.event',
         );
 
         $qb->leftJoin(
             'main',
             CarsModificationCharacteristics::class,
             'char',
-            'char.event = main.event'
+            'char.event = main.event',
         );
 
 
@@ -172,7 +172,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
                 'main',
                 CarsModificationEvent::class,
                 'event',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         $qb
@@ -181,7 +181,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
                 'main',
                 CarsModificationModify::class,
                 'modify',
-                'modify.event = main.event'
+                'modify.event = main.event',
             );
 
         $qb
@@ -190,7 +190,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
                 'main',
                 CarsModificationInfo::class,
                 'info',
-                'info.modification = main.id'
+                'info.modification = main.id',
             );
 
         $qb
@@ -202,7 +202,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
                 'main',
                 CarsModificationCharacteristics::class,
                 'char',
-                'char.event = main.event'
+                'char.event = main.event',
             );
 
         $qb
@@ -214,7 +214,7 @@ final class CarsModificationChoice implements CarsModificationChoiceInterface
                 'char',
                 CarsModificationMotor::class,
                 'motor',
-                'motor.characteristic = char.id'
+                'motor.characteristic = char.id',
             );
 
 

@@ -57,7 +57,7 @@ final class CarsBrandForm extends AbstractType
         $builder->add(
             'cars_brand',
             SubmitType::class,
-            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-primary']]
+            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-primary']],
         );
     }
 

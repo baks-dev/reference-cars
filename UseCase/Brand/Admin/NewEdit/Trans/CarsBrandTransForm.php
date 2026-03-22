@@ -48,8 +48,8 @@ final class CarsBrandTransForm extends AbstractType
                 },
                 function($price) {
                     return new Locale($price);
-                }
-            )
+                },
+            ),
         );
 
         $builder->add('name', TextType::class);

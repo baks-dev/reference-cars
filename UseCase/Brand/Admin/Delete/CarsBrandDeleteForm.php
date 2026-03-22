@@ -40,7 +40,7 @@ final class CarsBrandDeleteForm extends AbstractType
         $builder->add(
             'cars_brand_delete',
             SubmitType::class,
-            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-danger']]
+            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-danger']],
         );
     }
 

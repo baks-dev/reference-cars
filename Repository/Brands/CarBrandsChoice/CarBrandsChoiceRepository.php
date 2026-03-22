@@ -65,14 +65,14 @@ final class CarBrandsChoiceRepository implements CarBrandsChoiceInterface
             'main',
             CarsBrandInfo::class,
             'info',
-            'info.brand = main.id'
+            'info.brand = main.id',
         );
 
         $dbal->leftJoin(
             'main',
             CarsBrandTrans::class,
             'trans',
-            'trans.event = main.event AND trans.local = :local'
+            'trans.event = main.event AND trans.local = :local',
         );
 
 
@@ -135,7 +135,7 @@ final class CarBrandsChoiceRepository implements CarBrandsChoiceInterface
                 'main',
                 CarsBrandInfo::class,
                 'info',
-                'info.brand = main.id'
+                'info.brand = main.id',
             );
 
         $dbal
@@ -144,7 +144,7 @@ final class CarBrandsChoiceRepository implements CarBrandsChoiceInterface
                 'main',
                 CarsBrandTrans::class,
                 'trans',
-                'trans.event = main.event AND trans.local = :local'
+                'trans.event = main.event AND trans.local = :local',
             );
 
 
@@ -154,7 +154,7 @@ final class CarBrandsChoiceRepository implements CarBrandsChoiceInterface
                 'main',
                 CarsBrandModify::class,
                 'modify',
-                'modify.event = main.event'
+                'modify.event = main.event',
             );
 
 
@@ -166,7 +166,7 @@ final class CarBrandsChoiceRepository implements CarBrandsChoiceInterface
                 'main',
                 CarsBrandLogo::class,
                 'logo',
-                'logo.event = main.event'
+                'logo.event = main.event',
             );
 
         $dbal->addSelect("
@@ -175,7 +175,7 @@ final class CarBrandsChoiceRepository implements CarBrandsChoiceInterface
         					CONCAT ( '/upload/".$dbal->table(CarsBrandLogo::class)."' , '/', logo.name)
         			   ELSE logo.name
         			END AS image_name
-        		"
+        		",
         );
 
 
@@ -228,7 +228,7 @@ final class CarBrandsChoiceRepository implements CarBrandsChoiceInterface
             'main',
             CarsBrandTrans::class,
             'trans',
-            'trans.event = main.event AND trans.local = :local'
+            'trans.event = main.event AND trans.local = :local',
         );
 
         $dbal->orderBy('trans.name');

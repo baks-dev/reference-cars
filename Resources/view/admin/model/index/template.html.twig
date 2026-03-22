@@ -29,17 +29,17 @@
         {
 
 
-            let $cars_filter_form_brand = document.getElementById('cars_filter_form_brand');
+            let $cars_filter_form_brand = document.getElementById("cars_filter_form_brand");
 
-            $cars_filter_form_brand.addEventListener('change', () =>
+            $cars_filter_form_brand.addEventListener("change", () =>
             {
-                let cars_filter_form_model = document.getElementById('cars_filter_form_model');
+                let cars_filter_form_model = document.getElementById("cars_filter_form_model");
                 cars_filter_form_model.selectedIndex = 0;
             });
 
 
             const form = document.forms.cars_filter_form;
-            form.addEventListener('change', () => { setTimeout(() => { form.submit(); }, 300); });
+            form.addEventListener("change", () => { setTimeout(() => { form.submit(); }, 300); });
 
         });
     </script>

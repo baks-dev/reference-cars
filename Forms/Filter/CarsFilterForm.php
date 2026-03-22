@@ -75,7 +75,7 @@ final class CarsFilterForm extends AbstractType
             'choice_label' => function(CarsBrandUid $brand) {
                 return $brand->getAttr();
             },
-            'label' => false
+            'label' => false,
         ]);
 
         //        $builder->get('brand')->addModelTransformer(
@@ -113,7 +113,7 @@ final class CarsFilterForm extends AbstractType
         $builder->add('model', TextType::class, [
             //'choices' => [],
             'label' => false,
-            'attr' => ['readonly' => 'readonly']
+            'attr' => ['readonly' => 'readonly'],
         ]);
 
 
@@ -124,8 +124,8 @@ final class CarsFilterForm extends AbstractType
                 },
                 function($model) {
                     return $model ? new CarsModelUid((string) $model) : null;
-                }
-            )
+                },
+            ),
         );
 
         $formModifierModel = function(FormInterface $form, ?CarsBrandUid $CarsBrandUid = null): void {
@@ -144,7 +144,7 @@ final class CarsFilterForm extends AbstractType
                     'choice_attr' => function(?CarsModelUid $model) {
                         return $model?->getOption() ? ['data-filter' => $model?->getOption()] : [];
                     },
-                    'label' => false
+                    'label' => false,
                 ]);
 
             }
@@ -161,7 +161,7 @@ final class CarsFilterForm extends AbstractType
                 /** @var CarsFilterDTO $data */
                 $data = $event->getData();
                 $formModifierModel($event->getForm(), $data->getBrand());
-            }
+            },
         );
 
 
@@ -170,13 +170,13 @@ final class CarsFilterForm extends AbstractType
             function(FormEvent $event) use ($formModifierModel): void {
                 $brand = $event->getForm()->getData();
                 $formModifierModel($event->getForm()->getParent(), $brand);
-            }
+            },
         );
 
         $builder->add('modification', TextType::class, [
             //'choices' => [],
             'label' => false,
-            'attr' => ['readonly' => 'readonly']
+            'attr' => ['readonly' => 'readonly'],
         ]);
 
 
@@ -187,8 +187,8 @@ final class CarsFilterForm extends AbstractType
                 },
                 function($modification) {
                     return $modification ? new CarsModificationCharacteristicsUid($modification) : null;
-                }
-            )
+                },
+            ),
         );
 
         $formModifierModification = function(FormInterface $form, ?CarsModelUid $CarsModelUid = null): void {
@@ -245,7 +245,7 @@ final class CarsFilterForm extends AbstractType
                         return $name ? ['data-filter' => $name] : [];
                     },
 
-                    'label' => false
+                    'label' => false,
                 ]);
             }
         };
@@ -257,7 +257,7 @@ final class CarsFilterForm extends AbstractType
                 /** @var CarsFilterDTO $data */
                 $data = $event->getData();
                 $formModifierModification($event->getForm(), $data->getModel());
-            }
+            },
         );
 
 
@@ -266,7 +266,7 @@ final class CarsFilterForm extends AbstractType
             function(FormEvent $event) use ($formModifierModification): void {
                 $model = $event->getForm()->getData();
                 $formModifierModification($event->getForm()->getParent(), $model);
-            }
+            },
         );
 
 
@@ -284,7 +284,7 @@ final class CarsFilterForm extends AbstractType
         $builder->add(
             'cars_filter',
             SubmitType::class,
-            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-primary']]
+            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-primary']],
         );
     }
 

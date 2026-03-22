@@ -47,10 +47,7 @@ final class AllCarsModification implements AllCarsModificationInterface
     public function __construct(
         private readonly DBALQueryBuilder $DBALQueryBuilder,
         private readonly PaginatorInterface $paginator,
-    )
-    {
-
-    }
+    ) {}
 
     public function search(SearchDTO $search): self
     {
@@ -85,7 +82,7 @@ final class AllCarsModification implements AllCarsModificationInterface
                 'main',
                 CarsModificationEvent::class,
                 'event',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
 
@@ -94,7 +91,7 @@ final class AllCarsModification implements AllCarsModificationInterface
                 'main',
                 CarsModel::class,
                 'model',
-                'model.id = main.model'
+                'model.id = main.model',
             );
 
         $qb
@@ -103,7 +100,7 @@ final class AllCarsModification implements AllCarsModificationInterface
                 'model',
                 CarsModelEvent::class,
                 'model_event',
-                'model_event.id = model.event'
+                'model_event.id = model.event',
             );
 
         $qb
@@ -112,7 +109,7 @@ final class AllCarsModification implements AllCarsModificationInterface
                 'model',
                 CarsModelTrans::class,
                 'model_trans',
-                'model_trans.event = model.event AND model_trans.local = :local'
+                'model_trans.event = model.event AND model_trans.local = :local',
             );
 
 
@@ -121,7 +118,7 @@ final class AllCarsModification implements AllCarsModificationInterface
                 'model',
                 CarsBrand::class,
                 'brand',
-                'brand.id = model.brand'
+                'brand.id = model.brand',
             );
 
         $qb
@@ -130,7 +127,7 @@ final class AllCarsModification implements AllCarsModificationInterface
                 'brand',
                 CarsBrandTrans::class,
                 'brand_trans',
-                'brand_trans.event = brand.event AND brand_trans.local = :local'
+                'brand_trans.event = brand.event AND brand_trans.local = :local',
             );
 
         if($this->model)

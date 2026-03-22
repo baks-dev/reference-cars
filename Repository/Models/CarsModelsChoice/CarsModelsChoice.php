@@ -60,21 +60,21 @@ final readonly class CarsModelsChoice implements CarsModelsChoiceInterface
             'main',
             CarsModelTrans::class,
             'trans',
-            'trans.event = main.event AND trans.local = :local'
+            'trans.event = main.event AND trans.local = :local',
         );
 
         $dbal->leftJoin(
             'main',
             CarsModelEvent::class,
             'event',
-            'event.id = main.event'
+            'event.id = main.event',
         );
 
         $dbal->leftJoin(
             'main',
             CarsModelInfo::class,
             'info',
-            'info.event = main.event'
+            'info.event = main.event',
         );
 
 
@@ -133,7 +133,7 @@ final readonly class CarsModelsChoice implements CarsModelsChoiceInterface
                 'main',
                 CarsModelEvent::class,
                 'event',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         $dbal
@@ -142,7 +142,7 @@ final readonly class CarsModelsChoice implements CarsModelsChoiceInterface
                 'main',
                 CarsModelModify::class,
                 'modify',
-                'modify.event = main.event'
+                'modify.event = main.event',
             );
 
         $dbal->addSelect(
@@ -152,7 +152,7 @@ final readonly class CarsModelsChoice implements CarsModelsChoiceInterface
 					CONCAT ( '/upload/".$dbal->table(CarsModelImage::class)."' , '/', image.name)
 			   ELSE NULL
 			END AS image_name
-		"
+		",
         );
         $dbal
             ->addSelect('image.ext AS image_ext')
@@ -161,7 +161,7 @@ final readonly class CarsModelsChoice implements CarsModelsChoiceInterface
                 'main',
                 CarsModelImage::class,
                 'image',
-                'image.event = main.event'
+                'image.event = main.event',
             );
 
 
@@ -171,7 +171,7 @@ final readonly class CarsModelsChoice implements CarsModelsChoiceInterface
                 'main',
                 CarsModelTrans::class,
                 'trans',
-                'trans.event = main.event AND trans.local = :local'
+                'trans.event = main.event AND trans.local = :local',
             );
 
         $dbal
@@ -181,7 +181,7 @@ final readonly class CarsModelsChoice implements CarsModelsChoiceInterface
                 'main',
                 CarsModelInfo::class,
                 'info',
-                'info.event = main.event'
+                'info.event = main.event',
             );
 
 
@@ -231,21 +231,21 @@ final readonly class CarsModelsChoice implements CarsModelsChoiceInterface
             'main',
             CarsModelTrans::class,
             'trans',
-            'trans.event = main.event AND trans.local = :local'
+            'trans.event = main.event AND trans.local = :local',
         );
 
         $dbal->leftJoin(
             'main',
             CarsModelEvent::class,
             'event',
-            'event.id = main.event'
+            'event.id = main.event',
         );
 
         $dbal->leftJoin(
             'main',
             CarsModelInfo::class,
             'info',
-            'info.event = main.event'
+            'info.event = main.event',
         );
 
         $dbal->orderBy('trans.name');

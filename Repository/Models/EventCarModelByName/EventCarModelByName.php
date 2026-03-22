@@ -66,7 +66,7 @@ final class EventCarModelByName implements EventCarModelByNameInterface
             CarsModelEvent::class,
             'event',
             'WITH',
-            'event.id = trans.event'
+            'event.id = trans.event',
         );
 
 
@@ -74,7 +74,7 @@ final class EventCarModelByName implements EventCarModelByNameInterface
             CarsBrandTrans::class,
             'brand_trans',
             'WITH',
-            'brand_trans.name = :brand AND brand_trans.local = :local'
+            'brand_trans.name = :brand AND brand_trans.local = :local',
         );
 
 
@@ -82,14 +82,14 @@ final class EventCarModelByName implements EventCarModelByNameInterface
             CarsBrandEvent::class,
             'brand_event',
             'WITH',
-            'brand_event.id = brand_trans.event'
+            'brand_event.id = brand_trans.event',
         );
 
         $qb->join(
             CarsBrand::class,
             'brand',
             'WITH',
-            'brand.event = brand_event.id'
+            'brand.event = brand_event.id',
         );
 
 
@@ -97,7 +97,7 @@ final class EventCarModelByName implements EventCarModelByNameInterface
             CarsModel::class,
             'model',
             'WITH',
-            'model.event = event.id AND model.brand = brand.id'
+            'model.event = event.id AND model.brand = brand.id',
         );
 
         $qb->where('trans.name = :model');

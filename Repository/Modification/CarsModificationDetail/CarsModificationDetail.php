@@ -82,7 +82,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'brand',
                 CarsBrandInfo::class,
                 'brand_info',
-                'brand_info.brand = brand.id'
+                'brand_info.brand = brand.id',
             );
 
 
@@ -92,7 +92,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'brand',
                 CarsBrandTrans::class,
                 'brand_trans',
-                'brand_trans.event = brand.event and brand_trans.local = :local'
+                'brand_trans.event = brand.event and brand_trans.local = :local',
             );
 
 
@@ -100,7 +100,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
             'brand',
             CarsModel::class,
             'model',
-            'model.id = :model'
+            'model.id = :model',
         )
             ->setParameter('model', $model, CarsModelUid::TYPE);
 
@@ -111,7 +111,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelInfo::class,
                 'model_info',
-                'model_info.model = model.id'
+                'model_info.model = model.id',
             );
 
         $dbal
@@ -120,7 +120,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelEvent::class,
                 'model_event',
-                'model_event.id = model.event'
+                'model_event.id = model.event',
             );
 
 
@@ -130,7 +130,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelTrans::class,
                 'model_trans',
-                'model_trans.event = model.event and model_trans.local = :local'
+                'model_trans.event = model.event and model_trans.local = :local',
             );
 
 
@@ -148,7 +148,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelImage::class,
                 'model_img',
-                'model_img.event = model.event'
+                'model_img.event = model.event',
             );
 
 
@@ -160,7 +160,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModificationCharacteristics::class,
                 'char',
-                'char.id = :modification'
+                'char.id = :modification',
             )
             ->setParameter('modification', $modification, CarsModificationCharacteristicsUid::TYPE);
 
@@ -180,7 +180,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'char',
                 CarsModificationEvent::class,
                 'mod_event',
-                'mod_event.id = char.event'
+                'mod_event.id = char.event',
             );
 
 
@@ -194,7 +194,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'char',
                 CarsModificationMotor::class,
                 'mod_motor',
-                'mod_motor.characteristic = char.id'
+                'mod_motor.characteristic = char.id',
             );
 
 
@@ -207,7 +207,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'char',
                 CarsModificationChassis::class,
                 'mod_chassis',
-                'mod_chassis.characteristic = char.id'
+                'mod_chassis.characteristic = char.id',
             );
 
 
@@ -220,7 +220,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'char',
                 CarsModificationTires::class,
                 'mod_tire',
-                'mod_tire.characteristic = char.id'
+                'mod_tire.characteristic = char.id',
             );
 
 
@@ -237,7 +237,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                     )
                 
             )
-			AS tire_field"
+			AS tire_field",
         );
 
         $dbal->allGroupByExclude();
@@ -275,7 +275,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'brand_info',
                 CarsBrand::class,
                 'brand',
-                'brand.id = brand_info.brand'
+                'brand.id = brand_info.brand',
             );
 
 
@@ -285,7 +285,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'brand',
                 CarsBrandTrans::class,
                 'brand_trans',
-                'brand_trans.event = brand.event and brand_trans.local = :local'
+                'brand_trans.event = brand.event and brand_trans.local = :local',
             );
 
 
@@ -298,7 +298,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'brand',
                 CarsModel::class,
                 'model',
-                'model.brand = brand.id'
+                'model.brand = brand.id',
             );
 
 
@@ -308,7 +308,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelInfo::class,
                 'model_info',
-                'model_info.model = model.id AND model_info.url = :model'
+                'model_info.model = model.id AND model_info.url = :model',
             )
             ->setParameter('model', $model);
 
@@ -319,7 +319,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelEvent::class,
                 'model_event',
-                'model_event.id = model_info.event'
+                'model_event.id = model_info.event',
             );
 
         $dbal
@@ -328,7 +328,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelTrans::class,
                 'model_trans',
-                'model_trans.event = model_info.event and model_trans.local = :local'
+                'model_trans.event = model_info.event and model_trans.local = :local',
             );
 
 
@@ -346,7 +346,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModelImage::class,
                 'model_img',
-                'model_img.event = model.event'
+                'model_img.event = model.event',
             );
 
 
@@ -358,7 +358,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'model',
                 CarsModification::class,
                 'mod',
-                'mod.model = model.id'
+                'mod.model = model.id',
             );
 
         $dbal
@@ -367,7 +367,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'mod',
                 CarsModificationEvent::class,
                 'mod_event',
-                'mod_event.id = mod.event'
+                'mod_event.id = mod.event',
             );
 
 
@@ -377,7 +377,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'mod',
                 CarsModificationInfo::class,
                 'mod_info',
-                'mod_info.modification = mod.id AND mod_info.url = :modification'
+                'mod_info.modification = mod.id AND mod_info.url = :modification',
             )
             ->setParameter('modification', $modification);
 
@@ -390,7 +390,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'mod',
                 CarsModificationCharacteristics::class,
                 'char',
-                'char.event = mod.event'
+                'char.event = mod.event',
             );
 
 
@@ -407,7 +407,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'mod_motor.characteristic = char.id'
                 .($engine ? ' AND mod_motor.engine = :engine' : '')
                 .($power ? ' AND mod_motor.power = :power' : ''),
-                'characteristic'
+                'characteristic',
             )
             ->setParameter('engine', $engine)
             ->setParameter('power', $power);
@@ -422,7 +422,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'char',
                 CarsModificationChassis::class,
                 'mod_chassis',
-                'mod_chassis.characteristic = char.id'
+                'mod_chassis.characteristic = char.id',
             );
 
 
@@ -431,7 +431,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                 'char',
                 CarsModificationTires::class,
                 'mod_tire',
-                'mod_tire.characteristic = char.id'
+                'mod_tire.characteristic = char.id',
             );
 
 
@@ -448,7 +448,7 @@ final class CarsModificationDetail implements CarsModificationDetailInterface
                     )
                 
             )
-			AS tire_field"
+			AS tire_field",
         );
 
 

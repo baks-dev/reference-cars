@@ -56,7 +56,7 @@ final class ActiveCarsModel implements ActiveCarsModelInterface
             ->leftJoin(CarsModelEvent::class,
                 'event',
                 'WITH',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         $qb->setMaxResults(1);
@@ -80,7 +80,7 @@ final class ActiveCarsModel implements ActiveCarsModelInterface
             ->leftJoin(CarsModelEvent::class,
                 'event',
                 'WITH',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         return $qb->getQuery()->getResult();

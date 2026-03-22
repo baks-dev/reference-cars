@@ -84,7 +84,7 @@ final class CarsModelClass
             get_declared_classes(),
             static function($className) {
                 return in_array(CarsModelClassInterface::class, class_implements($className), true);
-            }
+            },
         );
     }
 

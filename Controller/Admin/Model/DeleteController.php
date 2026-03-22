@@ -36,8 +36,8 @@ use BaksDev\Reference\Cars\UseCase\Model\Admin\Delete\CarsModelDeleteHandler;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_CARS_MODEL_DELETE')]
@@ -70,7 +70,7 @@ final class DeleteController extends AbstractController
                 'admin.page.delete',
                 $handle instanceof CarsModel ? 'admin.success.delete' : 'admin.danger.delete',
                 'admin.reference.cars.model',
-                $handle
+                $handle,
             );
 
             return $this->redirectToReferer();

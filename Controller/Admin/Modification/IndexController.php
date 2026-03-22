@@ -61,7 +61,7 @@ final class IndexController extends AbstractController
             ->createForm(
                 type: SearchForm::class,
                 data: $search,
-                options: ['action' => $this->generateUrl('reference-cars:admin.modification.index')]
+                options: ['action' => $this->generateUrl('reference-cars:admin.modification.index')],
             )
             ->handleRequest($request);
 
@@ -100,7 +100,7 @@ final class IndexController extends AbstractController
                 'query' => $CarsModification,
                 'search' => $searchForm->createView(),
                 'filter' => $filterForm->createView(),
-            ]
+            ],
         );
     }
 }

@@ -66,7 +66,7 @@ final class AllCarsBrandRepository implements AllCarsBrandInterface
                 'main',
                 CarsBrandEvent::class,
                 'event',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         $dbal
@@ -76,7 +76,7 @@ final class AllCarsBrandRepository implements AllCarsBrandInterface
                 'main',
                 CarsBrandTrans::class,
                 'trans',
-                'trans.event = main.event AND trans.local = :local'
+                'trans.event = main.event AND trans.local = :local',
             );
 
         $dbal
@@ -87,7 +87,7 @@ final class AllCarsBrandRepository implements AllCarsBrandInterface
                 'main',
                 CarsBrandLogo::class,
                 'logo',
-                'logo.event = main.event'
+                'logo.event = main.event',
             );
 
         /* Поиск */

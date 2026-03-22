@@ -83,7 +83,7 @@ final class AllCarsModel implements AllCarsModelInterface
                 'main',
                 CarsModelEvent::class,
                 'event',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         $dbal
@@ -93,7 +93,7 @@ final class AllCarsModel implements AllCarsModelInterface
                 'main',
                 CarsModelTrans::class,
                 'trans',
-                'trans.event = main.event AND trans.local = :local'
+                'trans.event = main.event AND trans.local = :local',
             );
 
         $dbal
@@ -104,7 +104,7 @@ final class AllCarsModel implements AllCarsModelInterface
                 'main',
                 CarsModelImage::class,
                 'image',
-                'image.event = main.event'
+                'image.event = main.event',
             );
 
 
@@ -114,7 +114,7 @@ final class AllCarsModel implements AllCarsModelInterface
                 'main',
                 CarsBrand::class,
                 'brand',
-                'brand.id = main.brand'
+                'brand.id = main.brand',
             );
 
         $dbal
@@ -123,7 +123,7 @@ final class AllCarsModel implements AllCarsModelInterface
                 'brand',
                 CarsBrandTrans::class,
                 'brand_trans',
-                'brand_trans.event = brand.event AND brand_trans.local = :local'
+                'brand_trans.event = brand.event AND brand_trans.local = :local',
             );
 
 

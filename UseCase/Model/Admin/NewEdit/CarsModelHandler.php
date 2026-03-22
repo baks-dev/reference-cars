@@ -67,7 +67,7 @@ final class CarsModelHandler extends AbstractHandler
         /* Отправляем сообщение в шину */
         $this->messageDispatch->dispatch(
             message: new CarsModelMessage($this->main->getId(), $this->main->getEvent(), $command->getEvent()),
-            transport: 'reference-cars'
+            transport: 'reference-cars',
         );
 
         return $this->main;

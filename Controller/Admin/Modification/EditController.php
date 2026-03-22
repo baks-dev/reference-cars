@@ -41,8 +41,8 @@ use BaksDev\Reference\Cars\UseCase\Modification\NewEdit\CarModificationHandler;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_CARS_MODIFICATION_EDIT')]
@@ -75,7 +75,7 @@ final class EditController extends AbstractController
                 'admin.page.edit',
                 $handle instanceof CarsModification ? 'admin.success.edit' : 'admin.danger.edit',
                 'admin.reference.cars.modification',
-                $handle
+                $handle,
             );
 
             return $this->redirectToReferer();

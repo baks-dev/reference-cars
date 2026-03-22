@@ -36,14 +36,12 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final class CarBrandByUrlRepository implements CarBrandByUrlInterface
 {
+    private ?array $brand = null;
+
     public function __construct(
         #[Autowire(env: 'CDN_HOST')] private readonly string $CDN_HOST,
         private readonly DBALQueryBuilder $DBALQueryBuilder,
     ) {}
-
-
-    private ?array $brand = null;
-
 
     /**
      * Возвращает бренд по url
@@ -67,7 +65,7 @@ final class CarBrandByUrlRepository implements CarBrandByUrlInterface
                 'info',
                 CarsBrand::class,
                 'main',
-                'main.id = info.brand'
+                'main.id = info.brand',
             );
 
         $qb
@@ -76,7 +74,7 @@ final class CarBrandByUrlRepository implements CarBrandByUrlInterface
                 'main',
                 CarsBrandTrans::class,
                 'trans',
-                'trans.event = main.event AND trans.local = :local'
+                'trans.event = main.event AND trans.local = :local',
             );
 
         $qb
@@ -87,7 +85,7 @@ final class CarBrandByUrlRepository implements CarBrandByUrlInterface
                 'main',
                 CarsBrandLogo::class,
                 'logo',
-                'logo.event = main.event'
+                'logo.event = main.event',
             );
 
         $this->brand = $qb

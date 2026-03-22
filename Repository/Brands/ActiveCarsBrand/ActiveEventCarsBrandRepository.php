@@ -57,7 +57,7 @@ final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterf
             ->leftJoin(CarsBrandEvent::class,
                 'event',
                 'WITH',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         $qb->setMaxResults(1);
@@ -80,7 +80,7 @@ final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterf
             ->leftJoin(CarsBrandEvent::class,
                 'event',
                 'WITH',
-                'event.id = main.event'
+                'event.id = main.event',
             );
 
         return $qb->getQuery()->getResult();
@@ -103,7 +103,7 @@ final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterf
             CarsBrand::class,
             'main',
             'WITH',
-            'main.event = trans.event'
+            'main.event = trans.event',
         );
 
         $qb
@@ -111,7 +111,7 @@ final class ActiveEventCarsBrandRepository implements ActiveEventCarsBrandInterf
             ->leftJoin(CarsBrandEvent::class,
                 'event',
                 'WITH',
-                'event.id = trans.event'
+                'event.id = trans.event',
             );
 
         $qb->setMaxResults(1);
