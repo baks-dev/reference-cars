@@ -41,7 +41,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[AsController]
 final class AutoController extends AbstractController
 {
-    #[Route('/auto/{brand}/{model}/{modification}/{engine}/{power}/{radius}/{width}/{profile}', name: 'user.detail', methods: ['GET'])]
+    #[Route('/auto/{brand}/{model}/{modification}/{engine}/{power}/{radius<\d+>}/{width<\d+>}/{profile<\d+>}', name: 'user.detail', methods: ['GET'])]
     public function detail(
         string $brand,
         string $model,
