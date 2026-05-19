@@ -149,23 +149,9 @@ class CarsBrandLogo extends EntityEvent implements UploadEntityInterface
         return $this->ext;
     }
 
-
-
-
-    //    public function getUploadDir(): object
-    //    {
-    //        return $this->event->getId();
-    //    }
-    //
-    //
-    //    public static function getDirName(): string
-    //    {
-    //        return CarsBrandEventUid::class;
-    //    }
-    //
-    //    public function getDir(): CarsBrandEventUid
-    //    {
-    //        return $this->dir;
-    //    }
+    public function isCdn(): bool
+    {
+        return $this->cdn === true;
+    }
 
 }
